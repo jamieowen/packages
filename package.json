@@ -1,0 +1,15 @@
+{
+  "name": "packages",
+  "private": "true",
+  "repository": "git@github.com:jamieowen/packages.git",
+  "author": "Jamie Owen <hello@jamieowen.com>",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  }
+}
