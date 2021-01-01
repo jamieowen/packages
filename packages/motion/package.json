@@ -1,0 +1,12 @@
+{
+  "name": "@jamieowen/motion",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@thi.ng/rstream": "^5.0.11",
+    "@thi.ng/rstream-gestures": "^3.0.0",
+    "@thi.ng/transducers": "^7.5.3",
+    "@thi.ng/vectors": "^4.8.3"
+  }
+}

@@ -67,7 +67,7 @@ export function infiniteGrid<T = any>(
   }
 ) {
   const changeMap = new ChangeMap<number, T>();
-  let res = [];
+  let res: GridCell[] = [];
   return sync({
     src: {
       position,
