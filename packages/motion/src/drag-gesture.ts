@@ -1,12 +1,13 @@
 import { ISubscribable, reactive, Subscription, sync } from "@thi.ng/rstream";
+import { add3, set3, sub2, sub3, Vec, Vec3, Vec3Like } from "@thi.ng/vectors";
+import { comp, map, filter } from "@thi.ng/transducers";
 import {
+  GestureEvent3D,
+  GestureStream3D,
   GestureEvent,
   GestureStream,
   GestureType,
-} from "@thi.ng/rstream-gestures";
-import { add3, set3, sub2, sub3, Vec, Vec3, Vec3Like } from "@thi.ng/vectors";
-import { comp, map, filter } from "@thi.ng/transducers";
-import { GestureEvent3D, GestureStream3D } from "../streams";
+} from "@jamieowen/browser";
 import { forceFriction, forceStream, particleStream } from "./particle";
 
 type DragGesture2D = GestureEvent & {
