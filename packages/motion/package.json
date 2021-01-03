@@ -1,8 +1,16 @@
 {
   "name": "@jamieowen/motion",
   "version": "0.0.0",
-  "module": "src/index.ts",
+  "main": "./dist/index.main.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "license": "MIT",
+  "scripts": {
+    "build": "rollup -c",
+    "build:es6": "tsc",
+    "build:check": "tsc --noEmit",
+    "clean": "rimraf dist"
+  },
   "dependencies": {
     "@thi.ng/rstream": "^5.0.11",
     "@thi.ng/transducers": "^7.5.3",

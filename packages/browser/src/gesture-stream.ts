@@ -20,7 +20,7 @@ export const gestureStream2d = gestureStream;
 
 export type { GestureType, GestureEvent, GestureStreamOpts, GestureStream };
 
-export type GestureEvent3D = {
+export interface GestureEvent3D extends GestureEvent {
   raycaster: Raycaster;
   position: Vector3;
   isDown: boolean;
@@ -28,7 +28,11 @@ export type GestureEvent3D = {
   plane: Plane;
   ndc: Vector3;
   setPlaneNormal: (x: number, y: number, z: number) => void;
-} & GestureEvent;
+}
+
+export interface GestureStream3DOpts extends GestureStreamOpts {
+  normal: [number, number, number];
+}
 
 export type GestureStream3D = Subscription<GestureEvent, GestureEvent3D>;
 
@@ -36,20 +40,24 @@ export const gestureStream3d = (
   domElement: HTMLElement,
   camera: Camera,
   resize: ReturnType<typeof resizeObserverStream>,
-  opts?: GestureStreamOpts
+  opts: Partial<GestureStream3DOpts> = {}
 ): GestureStream3D => {
+  const { normal = [0, 1, 0], ..._opts } = opts;
+
   const raycaster = new Raycaster();
   const position = new Vector3(0, 0, 0);
-  const normal = new Vector3(0, 1, 0);
-  const plane = new Plane(normal);
+  const norm = new Vector3();
+  norm.fromArray(normal);
+  const plane = new Plane(norm);
   const ndc = new Vector3();
   const setPlaneNormal = (x: number, y: number, z: number) => {
-    normal.set(x, y, z);
-    plane.set(normal, 0);
+    norm.set(x, y, z);
+    plane.set(norm, 0);
   };
 
+  console.log("Gesture Stream 3D Normal :", normal);
   return gestureStream2d(domElement, {
-    ...opts,
+    ..._opts,
     eventOpts: {},
   }).transform(
     map((event) => {

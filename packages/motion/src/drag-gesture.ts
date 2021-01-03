@@ -6,7 +6,6 @@ import {
   GestureStream3D,
   GestureEvent,
   GestureStream,
-  GestureType,
 } from "@jamieowen/browser";
 import { forceFriction, forceStream, particleStream } from "./particle";
 
@@ -31,18 +30,16 @@ export const dragGesture2d = (
 
   return gesture$.transform(
     comp(
-      filter(
-        (ev) => ev.type !== GestureType.MOVE && ev.type !== GestureType.ZOOM
-      ),
+      filter((ev) => ev.type !== "move" && ev.type !== "zoom"),
       map((ev) => {
         switch (ev.type) {
-          case GestureType.START:
+          case "start":
             start = ev.pos;
             translate = [0, 0];
             delta = [0, 0];
             break;
-          case GestureType.END:
-          case GestureType.DRAG:
+          case "end":
+          case "drag":
             delta = sub2([], ev.pos, delta);
             translate = sub2([], ev.pos, start);
             break;
@@ -88,20 +85,21 @@ export const dragGesture3d = (
     xform: comp(
       // filter(
       //   ({ gesture }) =>
-      //     gesture.type !== GestureType.MOVE && gesture.type !== GestureType.ZOOM
+      //     gesture.type !== 'move' && gesture.type !== 'zoom'
       // ),
       map(({ gesture, particle }) => {
         switch (gesture.type) {
-          case GestureType.START:
+          case "start":
             start = gesture.pos as Vec3Like;
             previous = start;
             translate = [0, 0, 0]; // difference between start and end
             delta = [0, 0, 0]; // difference between frame
             isDragging = true;
+            console.log("Particle Start...");
             particleStart = [...particle.position];
             time = Date.now();
             break;
-          case GestureType.END:
+          case "end":
             // gesture will remain in stream buffer until removed.
             // so test event end
             if (isDragging) {
@@ -109,9 +107,8 @@ export const dragGesture3d = (
               setForces([frictionF], [() => delta as Vec3Like]);
             }
             break;
-          case GestureType.DRAG:
+          case "drag":
             translate = sub3([], gesture.pos, start);
-
             const now = Date.now();
             // calc delta with time offset since previous pos
             if (now - time > 25) {
