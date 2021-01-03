@@ -4,12 +4,16 @@
   "repository": "git@github.com:jamieowen/packages.git",
   "author": "Jamie Owen <hello@jamieowen.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "lerna"
+  },
   "workspaces": [
     "packages/*"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
   "devDependencies": {
-    "lerna": "^3.22.1"
+    "lerna": "^3.22.1",
+    "typescript": "^4.1.3"
   }
 }

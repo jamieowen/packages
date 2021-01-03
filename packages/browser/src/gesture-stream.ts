@@ -3,6 +3,8 @@ import {
   GestureEvent,
   gestureStream,
   GestureStreamOpts,
+  GestureType,
+  GestureStream,
 } from "@thi.ng/rstream-gestures";
 import { map } from "@thi.ng/transducers";
 import { Raycaster, Plane, Camera, Vector3 } from "three";
@@ -16,12 +18,7 @@ import { resizeObserverStream } from "./resize-observer-stream";
 
 export const gestureStream2d = gestureStream;
 
-export {
-  GestureType,
-  GestureEvent,
-  GestureStreamOpts,
-  GestureStream,
-} from "@thi.ng/rstream-gestures";
+export type { GestureType, GestureEvent, GestureStreamOpts, GestureStream };
 
 export type GestureEvent3D = {
   raycaster: Raycaster;

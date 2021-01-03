@@ -1,7 +1,7 @@
 {
   "name": "@jamieowen/motion",
   "version": "0.0.0",
-  "main": "index.js",
+  "module": "src/index.ts",
   "license": "MIT",
   "dependencies": {
     "@thi.ng/rstream": "^5.0.11",

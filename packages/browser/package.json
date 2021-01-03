@@ -1,8 +1,11 @@
 {
   "name": "@jamieowen/browser",
   "version": "0.0.0",
-  "main": "index.js",
+  "module": "src/index.ts",
   "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
   "dependencies": {
     "@thi.ng/random": "^2.1.3",
     "@thi.ng/rstream": "^5.0.11",
