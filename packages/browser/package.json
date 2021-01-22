@@ -22,5 +22,6 @@
   },
   "devDependencies": {
     "@types/resize-observer-browser": "^0.1.4"
-  }
+  },
+  "gitHead": "658a19507abebd438c4332a6563cea0c16a4f4fe"
 }

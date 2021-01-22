@@ -14,5 +14,6 @@
   "dependencies": {
     "@thi.ng/rstream": "^5.0.11",
     "@thi.ng/transducers": "^7.5.3"
-  }
+  },
+  "gitHead": "658a19507abebd438c4332a6563cea0c16a4f4fe"
 }

@@ -14,5 +14,6 @@
   "dependencies": {
     "@thi.ng/api": "^6.13.6",
     "@thi.ng/memoize": "^2.1.8"
-  }
+  },
+  "gitHead": "658a19507abebd438c4332a6563cea0c16a4f4fe"
 }
