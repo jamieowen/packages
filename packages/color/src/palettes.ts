@@ -6,29 +6,16 @@ import {
   asCSS,
   HSLA,
   hslaRgba,
-  ColorMode,
 } from "@thi.ng/color";
 import { smoothStep } from "@thi.ng/math";
 import { complement } from "./calc";
 import { Color2 } from "./types";
-import {
-  mul4,
-  mulN4,
-  add4,
-  sub4,
-  clampN4,
-  clamp4,
-  smoothStep4,
-  vec4,
-  div4,
-  div3,
-  add3,
-} from "@thi.ng/vectors";
+import { mul4, mulN4, add4, sub4, clamp4, div4 } from "@thi.ng/vectors";
 import { isBuffer } from "util";
 
 export { CSS_NAMES, parseCss };
 export const colorAsCSS = (color: Color) => {
-  return asCSS(color, ColorMode.RGBA);
+  return asCSS(color, "rgb");
 };
 
 /**

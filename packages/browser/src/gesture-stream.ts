@@ -54,8 +54,7 @@ export const gestureStream3d = (
     norm.set(x, y, z);
     plane.set(norm, 0);
   };
-
-  console.log("Gesture Stream 3D Normal :", normal);
+  
   return gestureStream2d(domElement, {
     ..._opts,
     eventOpts: {},
@@ -68,6 +67,7 @@ export const gestureStream3d = (
       ndc.y = -(y / height) * 2.0 + 1.0;
       raycaster.setFromCamera(ndc, camera);
       raycaster.ray.intersectPlane(plane, position);
+      
       return {
         ...event,
         ndc,

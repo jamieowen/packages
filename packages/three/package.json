@@ -11,5 +11,8 @@
     "build:check": "tsc --noEmit",
     "clean": "rimraf dist"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@thi.ng/api": "^6.13.6",
+    "@thi.ng/memoize": "^2.1.8"
+  }
 }

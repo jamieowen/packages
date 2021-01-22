@@ -95,7 +95,6 @@ export const dragGesture3d = (
             translate = [0, 0, 0]; // difference between start and end
             delta = [0, 0, 0]; // difference between frame
             isDragging = true;
-            console.log("Particle Start...");
             particleStart = [...particle.position];
             time = Date.now();
             break;
