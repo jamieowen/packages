@@ -20,6 +20,16 @@
     "@thi.ng/rstream" "^5.0.11"
     "@thi.ng/transducers" "^7.5.3"
 
+"@jamieowen/motion@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@jamieowen/motion/-/motion-0.0.1.tgz#f8416bdc1b43c75cc42d9820723f5c2874f68f47"
+  integrity sha512-z4GZ0rGtO3XL3b7nBm0i6nGkTC+TuGyVW2897N4OelCM++lIqMX5iOZn3+MjJ81qsTS1tuHW0uKAS/PW1BRJbA==
+  dependencies:
+    "@jamieowen/browser" "^0.0.1"
+    "@thi.ng/rstream" "^5.0.11"
+    "@thi.ng/transducers" "^7.5.3"
+    "@thi.ng/vectors" "^4.8.3"
+
 "@snowpack/plugin-typescript@^1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@snowpack/plugin-typescript/-/plugin-typescript-1.2.1.tgz#7170b039d16d41963cc61a714fe7c37f3fdd9d51"
@@ -135,6 +145,13 @@
   dependencies:
     "@thi.ng/api" "^6.13.6"
 
+"@thi.ng/memoize@^2.1.8":
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/@thi.ng/memoize/-/memoize-2.1.8.tgz#1775185613650876b69a88d71364c081a7d41b5d"
+  integrity sha512-rUzHLzTY0UpTxCKKD3hlCsY8MHQTsOrexCIhwQHvuvJX0ajlw5xQbEwvU3VL7jbd+AT091YrZzx5wt22BTVcOg==
+  dependencies:
+    "@thi.ng/api" "^6.13.6"
+
 "@thi.ng/paths@^4.1.13":
   version "4.1.13"
   resolved "https://registry.yarnpkg.com/@thi.ng/paths/-/paths-4.1.13.tgz#19a933a524fe46af4bdad1f8584bb73e07d6df67"
@@ -190,6 +207,21 @@
     "@thi.ng/errors" "^1.2.26"
     "@thi.ng/math" "^3.1.0"
     "@thi.ng/random" "^2.2.0"
+
+"@thi.ng/vectors@^4.8.3":
+  version "4.9.1"
+  resolved "https://registry.yarnpkg.com/@thi.ng/vectors/-/vectors-4.9.1.tgz#aad87e882856341a0a3aeed6b760a03bb2952d30"
+  integrity sha512-IN8XOZi6CIHw6dmrFFGgvF+D8B2HLZp4V+tTH59dfWDZyPNLPtBUT1E4jMT7qwgkg7v3oj/VfRdWzy3pRrLmog==
+  dependencies:
+    "@thi.ng/api" "^6.13.6"
+    "@thi.ng/binary" "^2.0.21"
+    "@thi.ng/checks" "^2.8.0"
+    "@thi.ng/equiv" "^1.0.35"
+    "@thi.ng/errors" "^1.2.26"
+    "@thi.ng/math" "^3.1.0"
+    "@thi.ng/memoize" "^2.1.8"
+    "@thi.ng/random" "^2.2.0"
+    "@thi.ng/transducers" "^7.5.8"
 
 cross-spawn@^7.0.3:
   version "7.0.3"

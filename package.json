@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "bootstrap": "lerna bootstrap",
+    "clean": "lerna run clean",
     "build": "lerna run clean && lerna run build:es6 --sort && lerna run build --sort",
     "build:es6": "lerna run clean && lerna run build:es6 --sort",
     "build:check": "lerna run build:check"

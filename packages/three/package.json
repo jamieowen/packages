@@ -12,8 +12,17 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
+    "@jamieowen/browser": "^0.0.1",
+    "@jamieowen/motion": "^0.0.1",
     "@thi.ng/api": "^6.13.6",
-    "@thi.ng/memoize": "^2.1.8"
+    "@thi.ng/memoize": "^2.1.8",
+    "@thi.ng/rstream": "^5.1.0",
+    "@thi.ng/rstream-gestures": "^3.0.5",
+    "@thi.ng/transducers": "^7.5.8",
+    "@thi.ng/vectors": "^4.9.1"
+  },
+  "peerDependencies": {
+    "three": "0.123.0"
   },
   "gitHead": "7385edd182190d3ee9de89519ebba9fc7500994c"
 }
