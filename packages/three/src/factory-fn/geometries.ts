@@ -4,7 +4,7 @@ import {
   PlaneBufferGeometry,
   CircleBufferGeometry,
 } from "three";
-import { GeometryFactory } from "./GeometryFactory";
+import { GeometryFactory } from "../geometry/GeometryFactory";
 
 export function createGeometryFactory() {
   const factory = new GeometryFactory();

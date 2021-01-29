@@ -1,5 +1,5 @@
 {
-  "name": "@jamieowen/infinite-grid",
+  "name": "@jamieowen/examples-infinite-grid",
   "private": "true",
   "version": "0.0.0",
   "license": "MIT",
@@ -15,6 +15,7 @@
   "dependencies": {
     "@jamieowen/browser": "^0.0.1",
     "@jamieowen/layout": "^0.0.1",
-    "@jamieowen/motion": "^0.0.1"
+    "@jamieowen/motion": "^0.0.1",
+    "@jamieowen/three": "^0.0.1"
   }
 }
