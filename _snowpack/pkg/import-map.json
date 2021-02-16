@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "@jamieowen/browser": "./@jamieowen/browser.js",
+    "@jamieowen/three": "./@jamieowen/three.js"
+  }
+}
