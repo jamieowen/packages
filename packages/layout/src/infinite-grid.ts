@@ -1,4 +1,4 @@
-import { ISubscribable, sync } from "@thi.ng/rstream";
+import { Stream, sync } from "@thi.ng/rstream";
 import { comp, iterator, map, range2d } from "@thi.ng/transducers";
 import { ChangeMap } from "./change-map";
 import { szudzikPairSigned } from "./pairing-functions";
@@ -20,8 +20,8 @@ export const infiniteGridIterator = (
   const [gw, gh] = opts.dimensions;
   const [vw, vh] = opts.viewport;
 
-  const px = position[0];
-  const py = position[1];
+  const px = -position[0];
+  const py = -position[1];
 
   // start cell x/y
   const fromX = Math.floor(px / gw);
@@ -58,15 +58,22 @@ export const infiniteGridIterator = (
  * @param opts
  */
 export function infiniteGrid<T = any>(
-  position: ISubscribable<[number, number]>,
-  opts: ISubscribable<GridOpts>,
-  handle: {
+  position: Stream<[number, number]>,
+  opts: Stream<GridOpts>,
+  handle?: {
     add: (cell: GridCell) => T;
     remove: (id: number, handler: T) => void;
     update: (cell: GridCell, handler: T) => void;
   }
 ) {
   const changeMap = new ChangeMap<number, T>();
+  if (!handle) {
+    handle = {
+      add: () => null,
+      remove: () => {},
+      update: () => {},
+    };
+  }
   let res: GridCell[] = [];
   return sync({
     src: {

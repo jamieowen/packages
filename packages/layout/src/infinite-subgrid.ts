@@ -20,8 +20,8 @@ export const infiniteSubGridIterator = (
   const [gw, gh] = opts.dimensions;
   const [vw, vh] = opts.viewport;
 
-  const px = position[0];
-  const py = position[1];
+  const px = -position[0];
+  const py = -position[1];
 
   // start cell x/y
   const fromX = Math.floor(px / gw);
@@ -53,10 +53,11 @@ export const infiniteSubGridIterator = (
         const wy = y * gh;
         return {
           id,
-          cell: [x, step],
+          cell: [x, y],
           world: [wx, wy],
           local: [wx - px, wy - py],
           depth,
+          step,
         } as SubGridCell;
       })
     ),
@@ -72,13 +73,20 @@ export const infiniteSubGridIterator = (
 export function infiniteSubGrid<T = any>(
   position: ISubscribable<[number, number]>,
   opts: ISubscribable<SubGridOpts>,
-  handle: {
+  handle?: {
     add: (cell: SubGridCell) => T;
     remove: (id: number, handler: T) => void;
     update: (cell: SubGridCell, handler: T) => void;
   }
 ) {
   const changeMap = new ChangeMap<number, T>();
+  if (!handle) {
+    handle = {
+      add: () => null,
+      remove: () => {},
+      update: () => {},
+    };
+  }
   let res = [];
   return sync({
     src: {

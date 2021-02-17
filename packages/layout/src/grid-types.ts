@@ -13,6 +13,7 @@ export type SubGridOpts = GridOpts & {
 
 export type GridIdGen = (x: number, y: number) => number;
 
+// Used when iterating & subdividing
 export type SubdivItem = [
   id: number,
   x: number,
@@ -29,5 +30,6 @@ export type GridCell = {
 };
 
 export type SubGridCell = GridCell & {
+  step: number;
   depth: number;
 };
