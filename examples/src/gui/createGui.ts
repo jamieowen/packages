@@ -17,9 +17,14 @@ export function createGui<T>(controls: T) {
     let control: GUIController;
     // Add item array
     if (value instanceof Array) {
-      // copy values over to new object
-      values[key] = value[0];
-      control = gui.add(values, key, value);
+      // number, min/max shorthand.
+      if (value.length === 4 && typeof value[0] === "number") {
+        values[key] = value[0];
+        control = gui.add(values, key, value[1], value[2], value[3]);
+      } else {
+        values[key] = value[0];
+        control = gui.add(values, key, value);
+      }
     } else if (typeof value === "function") {
       // add function ref directly
       control = gui.add(controls, key);
@@ -29,7 +34,7 @@ export function createGui<T>(controls: T) {
       control = gui.add(values, key);
     }
 
-    control.name(key.toUpperCase());
+    // control.name(key.toUpperCase());
   });
 
   const stream = new Stream<{

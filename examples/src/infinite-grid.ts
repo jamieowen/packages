@@ -23,16 +23,13 @@ import {
   Group,
   AmbientLight,
   PointLight,
-  BackSide,
   BoxBufferGeometry,
+  SphereBufferGeometry,
   Matrix4,
-  Plane,
-  Vector3,
 } from "three";
 import { createGui } from "./gui";
 import { sync, Stream } from "@thi.ng/rstream";
 import { Smush32 } from "@thi.ng/random";
-import {} from "@thi.ng/color";
 import { mulN2 } from "@thi.ng/vectors";
 
 const geometry = createGeometryFactory();
@@ -40,43 +37,25 @@ const geometry = createGeometryFactory();
 const boxGeometry = new BoxBufferGeometry(1, 1, 1);
 boxGeometry.applyMatrix4(new Matrix4().makeTranslation(0.5, 0.5, 0.5));
 
-const createInstancedMesh = (
-  parent: Object3D,
-  count: number,
-  clipPlanes: Plane[]
-) => {
+const createInstancedMesh = (parent: Object3D, count: number) => {
   const instanced = new InstancedMesh(
     boxGeometry,
     // geometry.create("box", GeometryAlignment.CENTER),
     new MeshStandardMaterial({
-      // vertexColors: true,
       color: "white",
-      clippingPlanes: clipPlanes,
-      clipIntersection: false,
     }),
     count
   );
   parent.add(instanced as Object3D);
+  // instanced.instanceColor.
   instanced.instanceMatrix.setUsage(DynamicDrawUsage);
-  // instanced.instanceColor.setUsage(DynamicDrawUsage);
-  console.log(instanced);
-  return instanced;
-};
 
-const createMesh = (parent: Object3D) => {
-  const mesh = new Mesh(
-    boxGeometry,
-    new MeshBasicMaterial({
-      color: "blue",
-    })
-  );
-  parent.add(mesh);
-  return mesh;
+  return instanced;
 };
 
 const createBoundsMesh = (parent: Object3D) => {
   const mesh = new Mesh(
-    geometry.create("box"),
+    geometry.create("box", GeometryAlignment.BOTTOM),
     new MeshBasicMaterial({
       color: "blue",
       wireframe: true,
@@ -89,21 +68,20 @@ const createBoundsMesh = (parent: Object3D) => {
 const createSphere = (parent: Object3D) => {
   const sphere = geometry.create("sphere");
   const mesh = new Mesh(
-    geometry.create("sphere"),
-    new MeshStandardMaterial({
-      side: BackSide,
+    new SphereBufferGeometry(1, 30, 1),
+    new MeshBasicMaterial({
+      color: "#212121",
     })
   );
-  mesh.scale.multiplyScalar(60);
   parent.add(mesh);
   return mesh;
 };
 
 const createLights = (parent: Object3D) => {
-  const amb = new AmbientLight(0xffffff, 0.4);
+  const amb = new AmbientLight(0xffffff, 0.5);
   parent.add(amb);
-  const point = new PointLight(0xffffff, 0.8, 100);
-  point.position.set(10, 10, 10);
+  const point = new PointLight(0xffffff, 1, 30);
+  point.position.set(0, 5, 5);
   parent.add(point);
   return {
     amb,
@@ -112,184 +90,223 @@ const createLights = (parent: Object3D) => {
 };
 
 const gui = createGui({
-  grid1: true,
-  grid2: true,
-  subgrid1: true,
-  width: 20,
-  height: 20,
-  viewport_x: 10,
-  viewport_y: 10,
+  grid: true,
+  subgrid: true,
+  width: [20, 10, 50, 1],
+  height: [20, 10, 50, 1],
+  viewportX: [10, 5, 20, 1],
+  viewportY: [10, 5, 20, 1],
+  subdivCond: [0.6, 0.2, 1, 0.01],
+  seed: [1, 1, 2, 0.001],
 });
 
+const colors1 = {
+  background: "#212121",
+  grid: "#5F7C5A",
+  subgrid: "#ADB08D",
+};
+
+const colors2 = {
+  background: "#44464E",
+  grid: "#A2665B",
+  subgrid: "#FEFEFC",
+};
+
+const colors = colors2;
 /**
  *
  * Create Infinite Grid Sketch.
  *
  */
-sketch(({ configure, scene, render, renderer, camera, resize, domElement }) => {
-  // Setup Size
-  configure({
-    width: "1024px",
-    height: "768px",
-  });
-  renderer.localClippingEnabled = true;
+sketch(
+  ({
+    configure,
+    scene,
+    render,
+    controls,
+    renderer,
+    camera,
+    resize,
+    domElement,
+  }) => {
+    // Setup Size
+    configure({
+      width: "1024px",
+      height: "768px",
+    });
 
-  camera.fov = 75;
-  camera.updateProjectionMatrix();
+    renderer.setClearColor(colors.background);
+    camera.fov = 60;
+    camera.updateProjectionMatrix();
 
-  // PRNG
-  const rand = new Smush32(0xff404);
-  const seedRandom = (id: number) => rand.seed(id).float();
+    controls.object.position.set(0, 7, 5);
+    controls.object.position.multiplyScalar(2);
+    controls.target.set(0, -3, 0);
+    controls.update();
 
-  // Scene
-  const group = new Group();
-  scene.add(group);
-  const sphereBox = createSphere(scene);
-  const lights = createLights(scene);
-  const bounds = createBoundsMesh(scene);
+    // PRNG
+    const rand = new Smush32(0xff404);
+    let seedOffset = 1;
+    const seedRandom = (id: number) => rand.seed(id * seedOffset).float();
+    // Scene
+    const group = new Group();
+    scene.add(group);
+    // const sphereBox = createSphere(scene);
+    const lights = createLights(scene);
+    const bounds = createBoundsMesh(scene);
 
-  // Global Grid Position
-  const position = reactive([0, 0] as [number, number]);
-  const viewport = [10, 6];
-  bounds.scale.set(viewport[0], 1, viewport[1]);
-  group.position.set(-viewport[0] / 2, 0, -viewport[1] / 2);
+    // Global Grid Position
+    const position = reactive([0, 0] as [number, number]);
+    const viewport = [10, 6];
+    const dimensions = [2, 2];
 
-  // Clipping Planes
-  const clipPlanes = [
-    new Plane(new Vector3(1, 0, 0), 2),
-    new Plane(new Vector3(0, -1, 0), 2),
-    new Plane(new Vector3(0, 0, -1), 2),
-  ];
+    // bounds.scale.set(viewport[0], 2, viewport[1]);
+    // group.position.set(-viewport[0] / 2, 0, -viewport[1] / 2);
 
-  // Create Instanced Mesh
-  const instanced = createInstancedMesh(group, 3000, clipPlanes);
+    // Create Instanced Mesh
+    const instanced = createInstancedMesh(group, 10000);
 
-  // Grid 1.
-  const opts1 = reactive<GridOpts>({
-    dimensions: [5, 5],
-    viewport,
-  });
-  const grid1 = infiniteGrid<number>(position, opts1);
+    // Grid 1.
+    const opts1 = reactive<GridOpts>({
+      dimensions,
+      viewport,
+    });
+    const grid1 = infiniteGrid<number>(position, opts1);
 
-  // Grid 2
-  const opts2 = reactive<GridOpts>({
-    dimensions: [2, 1.5],
-    viewport,
-  });
-  const grid2 = infiniteGrid<number>(position, opts2);
+    // Subgrid 1
+    const opts2 = reactive<SubGridOpts>({
+      dimensions,
+      viewport,
+      maxDepth: 3,
+      subdivide: (cell) => seedRandom(cell[0]) > 0.8,
+    });
+    const grid2 = infiniteSubGrid(position, opts2);
 
-  // Subgrid 1
-  const opts3 = reactive<SubGridOpts>({
-    dimensions: [2, 2],
-    viewport,
-    maxDepth: 3,
-    subdivide: (cell) => seedRandom(cell[0]) > 0.6,
-  });
-  const subgrid1 = infiniteSubGrid(position, opts3);
+    // GUI Subscribe & Update Opts.
+    // + Bounds & Center Offset
+    const updateViewport = (
+      viewport: number[],
+      dimensions: number[],
+      subdiv: number = 0.6,
+      seed: number = 1
+    ) => {
+      opts1.next({
+        dimensions,
+        viewport,
+      });
 
-  // Create Render Method & Helpers
-  const obj3d = new Object3D();
-  const color = new Color();
+      opts2.next({
+        ...opts2.deref(),
+        dimensions,
+        viewport,
+        subdivide: (cell) => seedRandom(cell[0]) > subdiv,
+      });
 
-  sync({
-    src: {
-      grid1,
-      grid2,
-      subgrid1,
-    },
-  }).subscribe({
-    next: ({ grid1, grid2, subgrid1 }) => {
-      // console.log("GRID UPDATE", items.length);
-      let idx = 0;
+      seedOffset = seed;
+      bounds.scale.set(viewport[0], 2, viewport[1]);
+      group.position.set(-viewport[0] / 2, 0, -viewport[1] / 2);
+    };
+    updateViewport(viewport, dimensions);
 
-      const guiopts = gui.deref();
-      const yscale = 0;
-      const d1 = mulN2([], opts1.deref().dimensions, 0.9);
-      const d2 = mulN2([], opts2.deref().dimensions, 0.9);
-      const d3 = mulN2([], opts3.deref().dimensions, 0.3);
+    gui.subscribe({
+      next: ({ values }) => {
+        let vp = [values.viewportX, values.viewportY];
+        let dims = [values.width * 0.1, values.height * 0.1];
 
-      // Grid 1
-      if (guiopts.values.grid1) {
-        for (let cell of grid1) {
-          obj3d.position.x = cell.local[0];
-          obj3d.position.y = seedRandom(cell.id) * yscale;
-          obj3d.position.z = cell.local[1];
+        updateViewport(vp, dims, values.subdivCond, values.seed);
+      },
+    });
 
-          obj3d.scale.set(d1[0], 0.1, d1[1]);
-          obj3d.updateMatrixWorld();
-          instanced.setMatrixAt(idx, obj3d.matrixWorld);
-          idx++;
-          // instanced.setColorAt(idx);
+    // Create Render Method & Helpers
+    const obj3d = new Object3D();
+    const color = new Color();
+
+    sync({
+      src: {
+        grid1,
+        grid2,
+      },
+    }).subscribe({
+      next: ({ grid1, grid2 }) => {
+        // console.log("GRID UPDATE", items.length);
+        let idx = 0;
+
+        const guiopts = gui.deref();
+        const yscale = 0;
+        const d1 = mulN2([], opts1.deref().dimensions, 0.9);
+        const d2 = mulN2([], opts2.deref().dimensions, 0.7);
+
+        // Grid 1
+        if (guiopts.values.grid) {
+          for (let cell of grid1) {
+            let r = seedRandom(cell.id);
+            obj3d.position.x = cell.local[0];
+            obj3d.position.y = r * yscale;
+            obj3d.position.z = cell.local[1];
+
+            obj3d.scale.set(d1[0], 0.1, d1[1]);
+            obj3d.updateMatrixWorld();
+            instanced.setMatrixAt(idx, obj3d.matrixWorld);
+
+            color.set(colors.grid);
+            color.offsetHSL(0, r * 0.05, r * -0.2);
+            instanced.setColorAt(idx, color);
+            idx++;
+          }
         }
-      }
 
-      // Grid 2
-      if (guiopts.values.grid2) {
-        for (let cell of grid2) {
-          obj3d.position.x = cell.local[0];
-          obj3d.position.y = seedRandom(cell.id) * yscale + 0.2;
-          obj3d.position.z = cell.local[1];
+        // Subgrid 1
+        if (guiopts.values.subgrid) {
+          for (let cell of grid2) {
+            let r = seedRandom(cell.id);
+            obj3d.position.x = cell.local[0];
+            obj3d.position.y = r * yscale + 0.4;
+            obj3d.position.z = cell.local[1];
+            let step = cell.step; // fract part of subdivision.
+            obj3d.scale.set(d2[0] * step, 2.5 * r, d2[1] * step);
+            obj3d.updateMatrixWorld();
+            instanced.setMatrixAt(idx, obj3d.matrixWorld);
 
-          // obj3d.scale.set(0.9, 0.1, 0.2);
-          obj3d.scale.set(d2[0], 0.1, d2[1]);
-          obj3d.updateMatrixWorld();
-          instanced.setMatrixAt(idx, obj3d.matrixWorld);
-          idx++;
-          // instanced.setColorAt(idx);
+            color.set(colors.subgrid);
+            color.offsetHSL(0, r * 0.1, r * -0.13);
+            instanced.setColorAt(idx, color);
+            idx++;
+          }
         }
-      }
+        instanced.count = idx;
+        instanced.instanceMatrix.needsUpdate = true;
+        instanced.instanceColor.needsUpdate = true;
+      },
+      error: (err) => {
+        throw err;
+      },
+    });
 
-      // Subgrid 1
-      if (guiopts.values.subgrid1) {
-        for (let cell of subgrid1) {
-          obj3d.position.x = cell.local[0];
-          obj3d.position.y = seedRandom(cell.id) * yscale + 0.4;
-          obj3d.position.z = cell.local[1];
-          // obj3d.scale.set(0.2, 0.1, 0.2);
-          // obj3d.scale.set(d3[0] * cell.step, 0.1, d3[1] * cell.step);
-          let step = cell.step;
-          // obj3d.scale.set(d3[0] * 0.5, 0.1, d3[1] * 0.5);
-          obj3d.scale.set(
-            d3[0] * step,
-            1.1 * seedRandom(cell.id),
-            d3[1] * step
-          );
+    grid2.subscribe({
+      next: (items) => {},
+    });
 
-          obj3d.updateMatrixWorld();
-          instanced.setMatrixAt(idx, obj3d.matrixWorld);
-          idx++;
-          // instanced.setColorAt(idx);
-        }
-      }
-      instanced.count = idx;
-      instanced.instanceMatrix.needsUpdate = true;
+    // Drag Gesture
+    const cursor = createSphere(scene);
+    cursor.scale.multiplyScalar(3);
+    cursor.scale.y = 0;
+    const gesture$ = gestureStream3d(domElement, camera, resize).subscribe({
+      next: (ev) => {
+        // console.log(ev.pos);
+        cursor.position.x = ev.pos[0];
+        cursor.position.z = ev.pos[2];
+      },
+    });
+    dragGesture3d(gesture$, {
+      friction: 0.05,
+      maxSpeed: 10,
+    }).subscribe({
+      next: ({ particle }) => {
+        position.next([particle.position[0], particle.position[2]]);
+        // position.next([particle.position[0], 0]);
+      },
+    });
 
-      // instanced.instanceColor.needsUpdate = true;
-    },
-    error: (err) => {
-      throw err;
-    },
-  });
-
-  grid2.subscribe({
-    next: (items) => {},
-  });
-
-  // Drag Gesture
-  const gesture$ = gestureStream3d(domElement, camera, resize).subscribe({
-    next: (ev) => {
-      // console.log(ev.pos);
-    },
-  });
-  dragGesture3d(gesture$, {
-    friction: 0.05,
-    maxSpeed: 10,
-  }).subscribe({
-    next: ({ particle }) => {
-      position.next([particle.position[0], particle.position[2]]);
-      // position.next([particle.position[0], 0]);
-    },
-  });
-
-  render(() => {});
-});
+    render(() => {});
+  }
+);
