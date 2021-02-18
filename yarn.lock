@@ -1020,6 +1020,17 @@
     "@thi.ng/api" "^6.13.6"
     "@thi.ng/errors" "^1.2.26"
 
+"@thi.ng/dgraph@^1.3.8":
+  version "1.3.8"
+  resolved "https://registry.yarnpkg.com/@thi.ng/dgraph/-/dgraph-1.3.8.tgz#dead15bb9a09582bdbbef7ca3438e3c4a4459403"
+  integrity sha512-DqcReU65UbWQD5NdaL5gGBxB3/MI3Rgqi8+HqEY4m7K98f6/T6SFFYHXBuTNGiEYJiXGBqEnXX+dAdi7278l8Q==
+  dependencies:
+    "@thi.ng/api" "^6.13.6"
+    "@thi.ng/associative" "^5.0.17"
+    "@thi.ng/equiv" "^1.0.35"
+    "@thi.ng/errors" "^1.2.26"
+    "@thi.ng/transducers" "^7.5.8"
+
 "@thi.ng/equiv@^1.0.35":
   version "1.0.35"
   resolved "https://registry.yarnpkg.com/@thi.ng/equiv/-/equiv-1.0.35.tgz#b76630458927947d62a7f3229db7e7d78555b2a0"
@@ -1090,6 +1101,27 @@
     "@thi.ng/checks" "^2.8.0"
     "@thi.ng/errors" "^1.2.26"
     "@thi.ng/transducers" "^7.5.8"
+
+"@thi.ng/shader-ast-glsl@^0.2.20":
+  version "0.2.20"
+  resolved "https://registry.yarnpkg.com/@thi.ng/shader-ast-glsl/-/shader-ast-glsl-0.2.20.tgz#3601a3dd81f9dfd525d3845e027c43cb3e3e1b56"
+  integrity sha512-I/jRO5srAqW40sqbO/brWdZIQjrYdrcFSDWolB6zEJOtH6JyueLigBvS/QHSS3A7bD/A1s78KrjcGCxbhvdV6w==
+  dependencies:
+    "@thi.ng/api" "^6.13.6"
+    "@thi.ng/checks" "^2.8.0"
+    "@thi.ng/errors" "^1.2.26"
+    "@thi.ng/shader-ast" "^0.7.12"
+
+"@thi.ng/shader-ast@^0.7.12":
+  version "0.7.12"
+  resolved "https://registry.yarnpkg.com/@thi.ng/shader-ast/-/shader-ast-0.7.12.tgz#b3b86be9a860440e12cbaabcaa192eb74bee9b61"
+  integrity sha512-D8ltLuNvMmss+JMy+CQoF67ihMI0h+iuEo2jnLtSrmlyXUXnW13CNsrct8K7XQR79hBwNKYZheKYB9oYWoTt/g==
+  dependencies:
+    "@thi.ng/api" "^6.13.6"
+    "@thi.ng/checks" "^2.8.0"
+    "@thi.ng/defmulti" "^1.3.4"
+    "@thi.ng/dgraph" "^1.3.8"
+    "@thi.ng/errors" "^1.2.26"
 
 "@thi.ng/strings@^1.14.0":
   version "1.14.0"

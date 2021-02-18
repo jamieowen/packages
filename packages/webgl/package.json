@@ -1,0 +1,21 @@
+{
+  "name": "@jamieowen/webgl",
+  "version": "0.0.0",
+  "main": "./dist/index.main.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c",
+    "build:es6": "tsc",
+    "build:es6:watch": "tsc -w",
+    "build:check": "tsc --noEmit",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@thi.ng/api": "^6.13.6",
+    "@thi.ng/shader-ast": "^0.7.12",
+    "@thi.ng/shader-ast-glsl": "^0.2.20"
+  },
+  "peerDependencies": {}
+}
