@@ -42,7 +42,6 @@ export function createGui<T>(controls: T) {
     values: typeof values;
   }>(($) => {
     guiListen(gui, () => {
-      console.log("CHANGE");
       $.next({
         values,
         gui,

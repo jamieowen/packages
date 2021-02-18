@@ -65,12 +65,12 @@ const createBoundsMesh = (parent: Object3D) => {
   return mesh;
 };
 
-const createSphere = (parent: Object3D) => {
+const createSphere = (parent: Object3D, color: string = "#212121") => {
   const sphere = geometry.create("sphere");
   const mesh = new Mesh(
     new SphereBufferGeometry(1, 30, 1),
     new MeshBasicMaterial({
-      color: "#212121",
+      color,
     })
   );
   parent.add(mesh);
@@ -78,9 +78,9 @@ const createSphere = (parent: Object3D) => {
 };
 
 const createLights = (parent: Object3D) => {
-  const amb = new AmbientLight(0xffffff, 0.5);
+  const amb = new AmbientLight(0xffffff, 0.7);
   parent.add(amb);
-  const point = new PointLight(0xffffff, 1, 30);
+  const point = new PointLight(0xffffff, 0.4, 30);
   point.position.set(0, 5, 5);
   parent.add(point);
   return {
@@ -101,15 +101,24 @@ const gui = createGui({
 });
 
 const colors1 = {
+  cursor: "#000000",
   background: "#212121",
   grid: "#5F7C5A",
   subgrid: "#ADB08D",
 };
 
 const colors2 = {
+  cursor: "#212121",
   background: "#44464E",
   grid: "#A2665B",
   subgrid: "#FEFEFC",
+};
+
+const colors3 = {
+  cursor: "#fb743e",
+  background: "#c5d7bd",
+  subgrid: "#9fb8ad",
+  grid: "#383e56",
 };
 
 const colors = colors2;
@@ -154,6 +163,11 @@ sketch(
     // const sphereBox = createSphere(scene);
     const lights = createLights(scene);
     const bounds = createBoundsMesh(scene);
+
+    // Cursor
+    const cursor = createSphere(scene, colors.cursor);
+    cursor.scale.multiplyScalar(3);
+    cursor.scale.y = 0;
 
     // Global Grid Position
     const position = reactive([0, 0] as [number, number]);
@@ -249,7 +263,7 @@ sketch(
             instanced.setMatrixAt(idx, obj3d.matrixWorld);
 
             color.set(colors.grid);
-            color.offsetHSL(0, r * 0.05, r * -0.2);
+            color.offsetHSL(0, r * 0.05, r * 0.2);
             instanced.setColorAt(idx, color);
             idx++;
           }
@@ -268,7 +282,7 @@ sketch(
             instanced.setMatrixAt(idx, obj3d.matrixWorld);
 
             color.set(colors.subgrid);
-            color.offsetHSL(0, r * 0.1, r * -0.13);
+            color.offsetHSL(0, r * 0.1, r * 0.13);
             instanced.setColorAt(idx, color);
             idx++;
           }
@@ -286,10 +300,6 @@ sketch(
       next: (items) => {},
     });
 
-    // Drag Gesture
-    const cursor = createSphere(scene);
-    cursor.scale.multiplyScalar(3);
-    cursor.scale.y = 0;
     const gesture$ = gestureStream3d(domElement, camera, resize).subscribe({
       next: (ev) => {
         // console.log(ev.pos);
