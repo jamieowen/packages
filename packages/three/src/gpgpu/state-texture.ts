@@ -7,16 +7,11 @@ import {
   WebGLRenderTarget,
   WebGLRenderer,
   OrthographicCamera,
-  Material,
-  Mapping,
   RGBAFormat,
   FloatType,
   ClampToEdgeWrapping,
   NearestFilter,
-  UVMapping,
   BufferAttribute,
-  BackSide,
-  FrontSide,
   DoubleSide,
 } from "three";
 import { GPGPUSetup, gpgpuSetup } from "@jamieowen/webgl";
@@ -141,7 +136,7 @@ export class GPGPUState {
     this.nextState();
   }
 
-  get current() {
+  get output() {
     return this.states[0];
   }
 
@@ -150,10 +145,6 @@ export class GPGPUState {
    */
   get preview() {
     return this.states[1];
-  }
-
-  get output() {
-    return this.states[0];
   }
 
   /**

@@ -9,7 +9,7 @@
     "clean": "lerna run clean",
     "build": "lerna run clean && lerna run build:es6 --sort && lerna run build --sort",
     "build:es6": "lerna run clean && lerna run build:es6 --sort",
-    "build:es6:watch": "lerna run clean && lerna run build:es6:watch --no-sort --stream --concurrency 6",
+    "build:es6:watch": "yarn build:es6 && lerna run build:es6:watch --no-sort --stream --concurrency 6",
     "build:check": "lerna run build:check"
   },
   "workspaces": [

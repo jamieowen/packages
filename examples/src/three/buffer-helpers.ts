@@ -1,0 +1,83 @@
+import {
+  DataTexture,
+  FloatType,
+  LuminanceAlphaFormat,
+  LuminanceFormat,
+  PixelFormat,
+  RGBAFormat,
+  RGBFormat,
+  UVMapping,
+  ClampToEdgeWrapping,
+  NearestFilter,
+  RedFormat,
+} from "three";
+import { IRandom, SYSTEM } from "@thi.ng/random";
+
+export const randomFloat32Array3 = (
+  count: number,
+  minmax: [number, number] = [0, 1],
+  rng: IRandom = SYSTEM
+) => {
+  const array = new Float32Array(count * 3);
+  let offset = 0;
+  for (let i = 0; i < array.length; i += 3) {
+    array[offset] = rng.minmax(minmax[0], minmax[1]);
+    array[offset + 1] = 0;
+    array[offset + 2] = 0;
+    offset += 3;
+  }
+  return array;
+};
+
+export const randomFloat32Array2 = (count: number) => {
+  const array = new Float32Array(count * 2);
+  let offset = 0;
+  for (let i = 0; i < array.length; i += 2) {
+    array[offset] = 0;
+    array[offset + 1] = 0;
+    offset += 2;
+  }
+  return array;
+};
+
+export const randomFloat32Array1 = (
+  count: number,
+  minmax: [number, number] = [0, 1],
+  rng: IRandom = SYSTEM
+) => {
+  const array = new Float32Array(count);
+  for (let i = 0; i < array.length; i++) {
+    array[i] = rng.minmax(minmax[0], minmax[1]);
+  }
+  return array;
+};
+
+export const dataTexture = (
+  data: Float32Array,
+  width: number,
+  height: number,
+  size: number = 3
+) => {
+  let format: PixelFormat;
+  if (size === 1) {
+    format = RedFormat;
+  } else if (size === 2) {
+    format = LuminanceAlphaFormat;
+  } else if (size === 3) {
+    format = RGBFormat;
+  } else if (size === 4) {
+    format = RGBAFormat;
+  }
+  return new DataTexture(
+    data,
+    width,
+    height,
+    format,
+    FloatType,
+    UVMapping,
+    ClampToEdgeWrapping,
+    ClampToEdgeWrapping,
+    NearestFilter,
+    NearestFilter
+  );
+};

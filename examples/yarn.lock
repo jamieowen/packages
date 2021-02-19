@@ -138,6 +138,25 @@
     "@thi.ng/random" "^2.2.0"
     "@thi.ng/transducers" "^7.5.8"
 
+"@thi.ng/defmulti@^1.3.4":
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/@thi.ng/defmulti/-/defmulti-1.3.4.tgz#19488d40fb05e273d302af744db4201f432f1bdc"
+  integrity sha512-CRHdywV69Wp5EQkX80znhGXvgz0ThcXRbRwO8FpEG/P6XEltzsxWFWmrXiRYOZNKQGTFQIqtMKdlCRHgndGuVw==
+  dependencies:
+    "@thi.ng/api" "^6.13.6"
+    "@thi.ng/errors" "^1.2.26"
+
+"@thi.ng/dgraph@^1.3.8":
+  version "1.3.8"
+  resolved "https://registry.yarnpkg.com/@thi.ng/dgraph/-/dgraph-1.3.8.tgz#dead15bb9a09582bdbbef7ca3438e3c4a4459403"
+  integrity sha512-DqcReU65UbWQD5NdaL5gGBxB3/MI3Rgqi8+HqEY4m7K98f6/T6SFFYHXBuTNGiEYJiXGBqEnXX+dAdi7278l8Q==
+  dependencies:
+    "@thi.ng/api" "^6.13.6"
+    "@thi.ng/associative" "^5.0.17"
+    "@thi.ng/equiv" "^1.0.35"
+    "@thi.ng/errors" "^1.2.26"
+    "@thi.ng/transducers" "^7.5.8"
+
 "@thi.ng/equiv@^1.0.35":
   version "1.0.35"
   resolved "https://registry.yarnpkg.com/@thi.ng/equiv/-/equiv-1.0.35.tgz"
@@ -176,9 +195,18 @@
     "@thi.ng/checks" "^2.8.0"
     "@thi.ng/errors" "^1.2.26"
 
-"@thi.ng/random@^2.1.3", "@thi.ng/random@^2.2.0":
+"@thi.ng/random@^2.1.3":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@thi.ng/random/-/random-2.2.0.tgz"
+  integrity sha512-Apw6gDVQ8lhXVQccfsufvZqVNfE2jjlKFCho87W0V6pW3LaZbYGHclTZThnrXvOdtlXuB/VB1+QnorVGPKtPIQ==
+  dependencies:
+    "@thi.ng/api" "^6.13.6"
+    "@thi.ng/checks" "^2.8.0"
+    "@thi.ng/hex" "^0.1.3"
+
+"@thi.ng/random@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@thi.ng/random/-/random-2.2.0.tgz#0e5436f77262424e1a40a92ff844db36bca23cad"
   integrity sha512-Apw6gDVQ8lhXVQccfsufvZqVNfE2jjlKFCho87W0V6pW3LaZbYGHclTZThnrXvOdtlXuB/VB1+QnorVGPKtPIQ==
   dependencies:
     "@thi.ng/api" "^6.13.6"
@@ -208,6 +236,25 @@
     "@thi.ng/checks" "^2.8.0"
     "@thi.ng/errors" "^1.2.26"
     "@thi.ng/transducers" "^7.5.8"
+
+"@thi.ng/shader-ast-stdlib@^0.5.12":
+  version "0.5.12"
+  resolved "https://registry.yarnpkg.com/@thi.ng/shader-ast-stdlib/-/shader-ast-stdlib-0.5.12.tgz#ee804e0ce91b8f08668145798c8a595fae4da53b"
+  integrity sha512-Xh0Ud37ejDnpiFmizRmF2evij0+khqh6h5ys6BqlDq1trwfyYx8XetCtrH1DFRbtOwjKApnd28XVr3DYTfKUFQ==
+  dependencies:
+    "@thi.ng/api" "^6.13.6"
+    "@thi.ng/shader-ast" "^0.7.12"
+
+"@thi.ng/shader-ast@^0.7.12":
+  version "0.7.12"
+  resolved "https://registry.yarnpkg.com/@thi.ng/shader-ast/-/shader-ast-0.7.12.tgz#b3b86be9a860440e12cbaabcaa192eb74bee9b61"
+  integrity sha512-D8ltLuNvMmss+JMy+CQoF67ihMI0h+iuEo2jnLtSrmlyXUXnW13CNsrct8K7XQR79hBwNKYZheKYB9oYWoTt/g==
+  dependencies:
+    "@thi.ng/api" "^6.13.6"
+    "@thi.ng/checks" "^2.8.0"
+    "@thi.ng/defmulti" "^1.3.4"
+    "@thi.ng/dgraph" "^1.3.8"
+    "@thi.ng/errors" "^1.2.26"
 
 "@thi.ng/transducers@^7.5.3", "@thi.ng/transducers@^7.5.8":
   version "7.5.8"

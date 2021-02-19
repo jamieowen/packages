@@ -6,7 +6,7 @@ import {
   gpgpuWriteOperation,
 } from "../shaders/full-screen-read";
 
-export interface IGPGPUSetupOpts {
+export interface GPGPUSetupOpts {
   geomType: "triangle" | "quad";
   width: number;
   height: number;
@@ -15,14 +15,14 @@ export interface IGPGPUSetupOpts {
 }
 
 export interface GPGPUSetup {
-  opts: IGPGPUSetupOpts;
+  opts: GPGPUSetupOpts;
   data: Float32Array;
   position: Float32Array;
   vertexShader: string;
   fragmentShader: String;
 }
 
-export const gpgpuSetup = (opts: IGPGPUSetupOpts) => {
+export const gpgpuSetup = (opts: GPGPUSetupOpts) => {
   const { width, height, count, geomType, updateProgram } = opts;
 
   const targetVS = targetGLSL({

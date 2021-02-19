@@ -1,19 +1,61 @@
-import { sketch } from "@jamieowen/three";
 import {
-  RawShaderMaterial,
   Points,
   PointsMaterial,
   BufferGeometry,
   BufferAttribute,
   Object3D,
   Group,
+  DataTexture,
+  RGBAFormat,
+  UVMapping,
+  FloatType,
+  ClampToEdgeWrapping,
+  NearestFilter,
+  RawShaderMaterial,
+  Vector2,
+  Mesh,
+  MeshBasicMaterial,
+  BoxBufferGeometry,
+  RGBFormat,
 } from "three";
+import { sketch, createStateTextureAst } from "@jamieowen/three";
+import {
+  program,
+  defMain,
+  sym,
+  texture,
+  input,
+  uniform,
+  assign,
+  vec4,
+  add,
+  $xyz,
+  $w,
+  $x,
+  $y,
+  $z,
+  float,
+  ifThen,
+  greaterThan,
+  gt,
+  mul,
+  vec3,
+} from "@thi.ng/shader-ast";
+import {
+  dataTexture,
+  randomFloat32Array1,
+  randomFloat32Array2,
+  randomFloat32Array3,
+} from "./three/buffer-helpers";
+import { curlNoise3, snoiseVec3 } from "@thi.ng/shader-ast-stdlib";
+import { renderViewportTexture } from "../../packages/three/src/render/render-viewports";
+import { createGui } from "./gui";
 
 const randomisePosition = (arr: Float32Array) => {
   for (let i = 0; i < arr.length; i += 3) {
-    arr[i] = Math.random();
-    arr[i + 1] = Math.random();
-    arr[i + 2] = Math.random();
+    arr[i] = Math.random() * 2.0 - 1.0;
+    arr[i + 1] = Math.random() * 2.0 - 1.0;
+    arr[i + 2] = Math.random() * 2.0 - 1.0;
   }
 };
 
@@ -30,19 +72,27 @@ const createPoints = (parent: Object3D, count: number) => {
   const geometry = new BufferGeometry();
   const position = new BufferAttribute(new Float32Array(count * 3), 3);
   const color = new BufferAttribute(new Float32Array(count * 4), 4);
-  const size = new BufferAttribute(new Float32Array(count * 3), 3);
+  // const size = new BufferAttribute(new Float32Array(count * 3), 3);
+  const offset = new BufferAttribute(
+    new Float32Array(new Array(count).fill(0).map((_v, i) => i)),
+    1
+  );
+
   randomisePosition(position.array as any);
   randomiseColor(color.array as any);
-  randomisePosition(size.array as any);
+  // randomisePosition(size.array as any);
+
   geometry.setAttribute("position", position);
   geometry.setAttribute("color", color);
-  geometry.setAttribute("size", size);
+  // geometry.setAttribute("size", size);
+  geometry.setAttribute("offset", offset);
+
   const points = new Points(
     geometry,
     new PointsMaterial({
-      vertexColors: true,
+      // vertexColors: true,
       color: "white",
-      size: 0.1,
+      size: 0.01,
       // sizeAttenuation: true,
     })
   );
@@ -50,17 +100,250 @@ const createPoints = (parent: Object3D, count: number) => {
   return points;
 };
 
-sketch(({ configure, render, scene, renderer }) => {
+const createBounds = (
+  parent: Object3D,
+  scale: number = 1,
+  color: string = "blue"
+) => {
+  const bounds = new Mesh(
+    new BoxBufferGeometry(1, 1, 1),
+    new MeshBasicMaterial({
+      wireframe: true,
+      color: color,
+    })
+  );
+  parent.add(bounds);
+  bounds.scale.multiplyScalar(scale);
+  return bounds;
+};
+/**
+ *
+ * Render the points with a custom update shader.
+ *
+ * @param parent
+ * @param target
+ * @param material
+ */
+const customPointsRenderer = (
+  parent: Object3D,
+  target: Points,
+  material: RawShaderMaterial
+) => {
+  const geometry = new BufferGeometry();
+  geometry.setAttribute("position", target.geometry.getAttribute("position"));
+  geometry.setAttribute("offset", target.geometry.getAttribute("offset"));
+
+  const points = new Points(geometry, material);
+  parent.add(points);
+  return points;
+};
+
+const gui = createGui({
+  forceX: 0,
+  forceY: 0,
+  forceZ: 0,
+  curlScale: [0.001, 0, 0.1, 0.0001],
+  curlInput: [0.01, 0, 0.1, 0.0001],
+});
+
+sketch(({ configure, render, renderer, scene, camera }) => {
   configure({
     width: "1024px",
     height: "768px",
   });
 
+  // Containers
   const group = new Group();
-  scene.add(group);
+  scene.add(group as any);
+  const bounds05 = createBounds(scene);
+  const bounds11 = createBounds(scene, 2, "red");
 
-  const points = createPoints(group, 10000);
-  points.scale.multiplyScalar(5);
-  points.position.set(-2.5, -2.5, -2.5);
-  render(() => {});
+  const size = 256;
+  const count = size * size;
+  // Create Debug Points
+  const points = createPoints(group, count);
+
+  // Create Data Texture for additional props
+  // within the state update shader
+  const maxAge = dataTexture(
+    randomFloat32Array1(count, [5, 30]),
+    size,
+    size,
+    1
+  );
+
+  console.log("MAX AGE", maxAge);
+
+  // State Shader Update
+  const state = createStateTextureAst(renderer, {
+    count: 2,
+    geomType: "triangle",
+    width: size,
+    height: size,
+    updateProgram: (target) => {
+      // Sampler Uniforms.
+      // The previous state ( managed by the state loop )
+      const previousState = uniform("sampler2D", "previousState");
+      // Max Age ( set at startup )
+      const maxAgeSampler = uniform("sampler2D", "maxAge");
+      const vUv = input("vec2", "vReadUV");
+      const curlScale = uniform("float", "curlScale");
+      const curlInput = uniform("float", "curlInput");
+
+      const time = uniform("float", "time");
+
+      const state = sym(texture(previousState, vUv));
+      const maxAge = sym(texture(maxAgeSampler, vUv));
+
+      const pos = $xyz(state);
+      const life = $w(state);
+      const gravity = sym(vec3(0.0, 0.015, 0.0));
+      const velocity = sym(vec3(0.0));
+      const curl = curlNoise3(pos, curlInput);
+      const force = sym(add(velocity, gravity));
+      const transformed = sym(
+        add(pos, add(gravity, mul(curl, vec3(curlScale))))
+      );
+
+      const newLife = sym(life);
+      const checkLife = ifThen(
+        gt(life, $x(maxAge)),
+        [
+          assign(newLife, float(0.0)),
+          // assign(transformed, snoiseVec3(mul(time, pos))), // simplex noise * time start point
+          assign(transformed, snoiseVec3(pos)),
+          // assign(transformed, vec3($x(pos), 0.0, $z(pos))),
+        ],
+        [assign(newLife, add(newLife, float(0.1)))]
+      );
+
+      return program([
+        maxAgeSampler,
+        previousState,
+        curlScale,
+        curlInput,
+        vUv,
+        time,
+        defMain(() => [
+          maxAge,
+          state,
+          gravity,
+          velocity,
+          force,
+          transformed,
+          newLife,
+          checkLife,
+          assign(target.gl_FragColor, vec4(transformed, newLife)),
+        ]),
+      ]);
+    },
+  });
+
+  console.log("STATE ", state.material.fragmentShader);
+
+  // Define custom uniforms for now.
+  // At some point do some magic and read the AST.
+  state.material.uniforms.time = { value: 0 };
+  state.material.uniforms.maxAge = { value: maxAge };
+  state.material.uniforms.curlScale = { value: gui.deref().values.curlScale };
+  state.material.uniforms.curlInput = { value: gui.deref().values.curlInput };
+
+  gui.subscribe({
+    next: ({ values }) => {
+      state.material.uniforms.curlScale.value = values.curlScale;
+      state.material.uniforms.curlInput.value = values.curlInput;
+    },
+  });
+  // Render Shader
+  const renderMaterial = new RawShaderMaterial({
+    vertexShader: `
+    precision highp float;
+    uniform mat4 projectionMatrix;
+    uniform mat4 modelViewMatrix;
+    
+    uniform sampler2D state;
+    uniform sampler2D maxAge;
+    
+    uniform vec2 resolution;
+
+    attribute vec3 position;
+    attribute float offset;
+    
+    void main(){
+      gl_PointSize = 1.0;
+
+      // calculate uv from offset attribute
+      vec2 uv = vec2( offset / resolution.x, mod( offset, resolution.y ) ) / resolution;
+      
+      // read position
+      vec4 tex = texture2D(state,uv);
+      vec4 max = texture2D(maxAge,uv);
+      vec3 pos = tex.rgb;
+      float life = tex.w;
+
+      vec3 transformed = pos;
+      // transformed.y = max.x;
+
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(transformed,1.0);
+    }
+    `,
+    fragmentShader: `    
+    void main(){
+      gl_FragColor = vec4(1.0,1.0,0.0,1.0);
+    }
+    `,
+    uniforms: {
+      state: { value: null },
+      maxAge: { value: maxAge },
+      resolution: { value: new Vector2(size, size) },
+    },
+  });
+
+  const points2 = customPointsRenderer(group, points, renderMaterial);
+  // points.visible = false;
+  console.log(points2);
+  // group.position.set(-0.5, -0.5, -0.5);
+  // points.scale.multiplyScalar(5);
+  // points.position.set(-2.5, -2.5, -2.5);
+
+  // points2.scale.multiplyScalar(5);
+  // points2.position.set(-2.5, -2.5, -2.5);
+
+  // Write Start Data.
+  const data = new DataTexture(
+    points.geometry.getAttribute("position").array as Float32Array,
+    size,
+    size,
+    RGBFormat,
+    FloatType,
+    UVMapping,
+    ClampToEdgeWrapping,
+    ClampToEdgeWrapping,
+    NearestFilter,
+    NearestFilter
+  );
+  state.write(data);
+  state.update();
+
+  render((clock) => {
+    // Update Sim
+    state.material.uniforms.time.value = clock.time;
+    state.update();
+
+    // Render
+    renderer.autoClear = false;
+    renderer.clear();
+    renderer.render(scene, camera);
+
+    // Render Texture
+    renderMaterial.uniforms.state.value = state.preview.texture;
+    renderViewportTexture(renderer, state.preview.texture, {
+      x: 0,
+      y: 0,
+      width: size,
+      height: size,
+    });
+
+    return false;
+  });
 });

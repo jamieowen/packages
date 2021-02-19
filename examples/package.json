@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "start": "snowpack dev",
+    "start": "snowpack dev --reload",
     "build": "snowpack build",
     "gh-pages": "node ./scripts/gh-pages.js"
   },
@@ -20,6 +20,9 @@
     "@jamieowen/layout": "^0.0.2",
     "@jamieowen/motion": "^0.0.2",
     "@jamieowen/three": "^0.0.2",
+    "@thi.ng/random": "^2.2.0",
+    "@thi.ng/shader-ast": "^0.7.12",
+    "@thi.ng/shader-ast-stdlib": "^0.5.12",
     "dat.gui": "^0.7.7",
     "three": "^0.125.2"
   }
