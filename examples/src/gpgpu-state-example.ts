@@ -5,18 +5,11 @@ import {
   BufferAttribute,
   Object3D,
   Group,
-  DataTexture,
-  RGBAFormat,
-  UVMapping,
-  FloatType,
-  ClampToEdgeWrapping,
-  NearestFilter,
   RawShaderMaterial,
   Vector2,
   Mesh,
   MeshBasicMaterial,
   BoxBufferGeometry,
-  RGBFormat,
 } from "three";
 import { sketch, createStateTextureAst } from "@jamieowen/three";
 import {
@@ -50,6 +43,14 @@ import {
 import { curlNoise3, snoiseVec3 } from "@thi.ng/shader-ast-stdlib";
 import { renderViewportTexture } from "../../packages/three/src/render/render-viewports";
 import { createGui } from "./gui";
+import { astParticleLib } from "./three/ast-particle-update";
+
+/**
+ *
+ *
+ * Create Points Debug Mesh
+ *
+ */
 
 const randomisePosition = (arr: Float32Array) => {
   for (let i = 0; i < arr.length; i += 3) {
@@ -100,6 +101,13 @@ const createPoints = (parent: Object3D, count: number) => {
   return points;
 };
 
+/**
+ *
+ *
+ * Create Bounds
+ *
+ */
+
 const createBounds = (
   parent: Object3D,
   scale: number = 1,
@@ -116,6 +124,7 @@ const createBounds = (
   bounds.scale.multiplyScalar(scale);
   return bounds;
 };
+
 /**
  *
  * Render the points with a custom update shader.
@@ -143,9 +152,16 @@ const gui = createGui({
   forceY: 0,
   forceZ: 0,
   curlScale: [0.001, 0, 0.1, 0.0001],
-  curlInput: [0.01, 0, 0.1, 0.0001],
+  curlInput: [0.01, 0.01, 10, 0.001],
 });
 
+/**
+ *
+ *
+ * Main Sketch
+ *
+ *
+ */
 sketch(({ configure, render, renderer, scene, camera }) => {
   configure({
     width: "1024px",
@@ -158,7 +174,7 @@ sketch(({ configure, render, renderer, scene, camera }) => {
   const bounds05 = createBounds(scene);
   const bounds11 = createBounds(scene, 2, "red");
 
-  const size = 256;
+  const size = 64;
   const count = size * size;
   // Create Debug Points
   const points = createPoints(group, count);
@@ -172,18 +188,27 @@ sketch(({ configure, render, renderer, scene, camera }) => {
     1
   );
 
-  console.log("MAX AGE", maxAge);
+  /**
+   *
+   *
+   * Update Shader
+   *
+   */
 
   // State Shader Update
   const state = createStateTextureAst(renderer, {
-    count: 2,
+    count: 3,
     geomType: "triangle",
     width: size,
     height: size,
     updateProgram: (target) => {
+      // Read State
+      const read = astParticleLib.readState2();
+      const [, , position, velocity, age] = read.main;
       // Sampler Uniforms.
       // The previous state ( managed by the state loop )
-      const previousState = uniform("sampler2D", "previousState");
+
+      const previousState = uniform("sampler2D", "state_1");
       // Max Age ( set at startup )
       const maxAgeSampler = uniform("sampler2D", "maxAge");
       const vUv = input("vec2", "vReadUV");
@@ -198,9 +223,8 @@ sketch(({ configure, render, renderer, scene, camera }) => {
       const pos = $xyz(state);
       const life = $w(state);
       const gravity = sym(vec3(0.0, 0.015, 0.0));
-      const velocity = sym(vec3(0.0));
       const curl = curlNoise3(pos, curlInput);
-      const force = sym(add(velocity, gravity));
+
       const transformed = sym(
         add(pos, add(gravity, mul(curl, vec3(curlScale))))
       );
@@ -228,8 +252,6 @@ sketch(({ configure, render, renderer, scene, camera }) => {
           maxAge,
           state,
           gravity,
-          velocity,
-          force,
           transformed,
           newLife,
           checkLife,
@@ -238,8 +260,6 @@ sketch(({ configure, render, renderer, scene, camera }) => {
       ]);
     },
   });
-
-  console.log("STATE ", state.material.fragmentShader);
 
   // Define custom uniforms for now.
   // At some point do some magic and read the AST.
@@ -254,6 +274,14 @@ sketch(({ configure, render, renderer, scene, camera }) => {
       state.material.uniforms.curlInput.value = values.curlInput;
     },
   });
+
+  /**
+   *
+   *
+   * Render Points Shader
+   *
+   */
+
   // Render Shader
   const renderMaterial = new RawShaderMaterial({
     vertexShader: `
@@ -268,7 +296,7 @@ sketch(({ configure, render, renderer, scene, camera }) => {
 
     attribute vec3 position;
     attribute float offset;
-    
+
     void main(){
       gl_PointSize = 1.0;
 
@@ -279,7 +307,6 @@ sketch(({ configure, render, renderer, scene, camera }) => {
       vec4 tex = texture2D(state,uv);
       vec4 max = texture2D(maxAge,uv);
       vec3 pos = tex.rgb;
-      float life = tex.w;
 
       vec3 transformed = pos;
       // transformed.y = max.x;
@@ -310,17 +337,12 @@ sketch(({ configure, render, renderer, scene, camera }) => {
   // points2.position.set(-2.5, -2.5, -2.5);
 
   // Write Start Data.
-  const data = new DataTexture(
+
+  const data = dataTexture(
     points.geometry.getAttribute("position").array as Float32Array,
     size,
     size,
-    RGBFormat,
-    FloatType,
-    UVMapping,
-    ClampToEdgeWrapping,
-    ClampToEdgeWrapping,
-    NearestFilter,
-    NearestFilter
+    3
   );
   state.write(data);
   state.update();
@@ -335,10 +357,19 @@ sketch(({ configure, render, renderer, scene, camera }) => {
     renderer.clear();
     renderer.render(scene, camera);
 
+    group.rotation.y += 0.01;
+
     // Render Texture
     renderMaterial.uniforms.state.value = state.preview.texture;
     renderViewportTexture(renderer, state.preview.texture, {
       x: 0,
+      y: 0,
+      width: size,
+      height: size,
+    });
+
+    renderViewportTexture(renderer, state.states[2].texture, {
+      x: size + 1,
       y: 0,
       width: size,
       height: size,

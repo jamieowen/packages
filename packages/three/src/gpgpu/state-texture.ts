@@ -78,7 +78,9 @@ export class GPGPUState {
       // side: setup.geomType === "triangle" ? BackSide : FrontSide,
       side: DoubleSide,
       uniforms: {
-        previousState: { value: null },
+        // TODO: need to make dynamic
+        state_1: { value: null },
+        state_2: { value: null },
       },
     });
     // Material to write a data texture to the output buffer.
@@ -108,8 +110,8 @@ export class GPGPUState {
   write(data: DataTexture) {
     this.writeMaterial.uniforms["inputSource"].value = data;
     this.mesh.material = this.writeMaterial;
+    // TODO : unnecessary to write all states.
     this.states.forEach((state) => {
-      console.log("write state.");
       this.renderer.setRenderTarget(state);
       this.renderer.render(this.scene, this.camera);
     });
@@ -129,7 +131,10 @@ export class GPGPUState {
     //   this.material.uniforms[`state_${i}`].value = state.texture;
     // });
     // Render
-    this.material.uniforms["previousState"].value = this.states[1].texture;
+    this.material.uniforms["state_1"].value = this.states[1].texture;
+    if (this.states.length >= 3) {
+      this.material.uniforms["state_2"].value = this.states[2].texture;
+    }
     this.renderer.setRenderTarget(this.states[0]);
     this.renderer.render(this.scene, this.camera);
     this.renderer.setRenderTarget(null);
