@@ -37,6 +37,8 @@ import {
 } from "@thi.ng/shader-ast";
 import {
   dataTexture,
+  encodeFillDataTexture3,
+  encodeFillFloat32Array3,
   randomFloat32Array1,
   randomFloat32Array2,
   randomFloat32Array3,
@@ -189,6 +191,13 @@ sketch(({ configure, render, renderer, scene, camera }) => {
     1
   );
 
+  // Create the standard constants texture. ( read by the constants AST chunk )
+  const constants = encodeFillDataTexture3(size, size, (arr, offset) => {
+    arr[offset] = Math.random(); // mass
+    arr[offset + 1] = Math.random() * 0.01 + 0.001; // decay
+    arr[offset + 2] = 0; // unused
+  });
+
   /**
    *
    *
@@ -203,61 +212,74 @@ sketch(({ configure, render, renderer, scene, camera }) => {
     width: size,
     height: size,
     updateProgram: (target) => {
-      // Read State
+      // Import Basic Particle Lib AST Chunks
+      // Read State.
       const read = astParticleLib.readState2();
-
       const [uni_state1, , input_vUv] = read.decl;
       const [, , position, velocity, age] = read.main;
+      // Read Constants
+      const constants = astParticleLib.readConstants(input_vUv);
+      const [, mass, decay] = constants.main;
 
-      // Move to constants
-      const maxAgeSampler = uniform("sampler2D", "maxAge");
-
-      // Custom
+      // Force Uniforms, manually created per configuration.
       const curlScale = uniform("float", "curlScale");
       const curlInput = uniform("float", "curlInput");
       const time = uniform("float", "time");
 
-      const state = sym(texture(uni_state1, input_vUv));
-      const maxAge = sym(texture(maxAgeSampler, input_vUv));
-
-      const pos = $xyz(state);
-      const life = $w(state);
-      const gravity = sym(vec3(0.0, 0.015, 0.0));
-      const curl = curlNoise3(pos, curlInput);
+      // Move to
+      const gravity = sym(vec3(0.0, 0.005, 0.0));
+      const curl = curlNoise3(position, curlInput);
+      // const curl = vec3(0.0);
 
       const transformed = sym(
-        add(pos, add(gravity, mul(curl, vec3(curlScale))))
+        add(position, add(gravity, mul(curl, vec3(curlScale))))
       );
 
-      const newLife = sym(life);
+      const accumulate = astParticleLib.accumulateForces(
+        position,
+        velocity,
+        age,
+        age,
+        []
+        // [astParticleLib.gravity(vec3(0.0, 1.0, 0.0))]
+      );
+
+      // Including velocity? - needs capping and resetting at emission point
+      // const transformed = sym(
+      //   add(position, add(velocity, add(gravity, mul(curl, vec3(curlScale)))))
+      // );
+
+      const newLife = sym(age);
+
+      // Age is capped at 1
+      // We could reset velocity by overrunning age multiple times before emitting.
       const checkLife = ifThen(
-        gt(life, $x(maxAge)),
+        gt(age, float(1.0)),
         [
           assign(newLife, float(0.0)),
           // assign(transformed, snoiseVec3(mul(time, pos))), // simplex noise * time start point
-          assign(transformed, snoiseVec3(pos)),
+          assign(transformed, snoiseVec3(position)),
           // assign(transformed, vec3($x(pos), 0.0, $z(pos))),
         ],
-        [assign(newLife, add(newLife, float(0.1)))]
+        [assign(newLife, add(newLife, float(decay)))]
       );
 
       return program([
         ...read.decl,
-        maxAgeSampler,
-        // previousState,
+        ...constants.decl,
+        // maxAgeSampler,
         curlScale,
         curlInput,
-        // vUv,
         time,
         defMain(() => [
           ...read.main,
-          maxAge,
-          state,
+          ...constants.main,
           gravity,
           transformed,
           newLife,
           checkLife,
           assign(target.gl_FragColor, vec4(transformed, newLife)),
+          ...accumulate,
         ]),
       ]);
     },
@@ -265,10 +287,14 @@ sketch(({ configure, render, renderer, scene, camera }) => {
 
   // Define custom uniforms for now.
   // At some point do some magic and read the AST.
+  state.material.uniforms.constants = { value: constants };
   state.material.uniforms.time = { value: 0 };
   state.material.uniforms.maxAge = { value: maxAge };
   state.material.uniforms.curlScale = { value: gui.deref().values.curlScale };
   state.material.uniforms.curlInput = { value: gui.deref().values.curlInput };
+
+  console.log("Update Shader");
+  console.log(state.material.fragmentShader);
 
   gui.subscribe({
     next: ({ values }) => {
@@ -318,7 +344,7 @@ sketch(({ configure, render, renderer, scene, camera }) => {
     `,
     fragmentShader: `    
     void main(){
-      gl_FragColor = vec4(1.0,1.0,0.0,1.0);
+      gl_FragColor = vec4(1.0,1.0,1.0,1.0);
     }
     `,
     uniforms: {
@@ -359,22 +385,23 @@ sketch(({ configure, render, renderer, scene, camera }) => {
     renderer.clear();
     renderer.render(scene, camera);
 
-    group.rotation.y += 0.01;
+    points.visible = false;
+    // group.rotation.y += 0.01;
 
     // Render Texture
     renderMaterial.uniforms.state.value = state.preview.texture;
     renderViewportTexture(renderer, state.preview.texture, {
       x: 0,
       y: 0,
-      width: size,
-      height: size,
+      width: Math.min(128, size),
+      height: Math.min(128, size),
     });
 
     renderViewportTexture(renderer, state.states[2].texture, {
-      x: size + 1,
+      x: Math.min(128, size) + 1,
       y: 0,
-      width: size,
-      height: size,
+      width: Math.min(128, size),
+      height: Math.min(128, size),
     });
 
     return false;

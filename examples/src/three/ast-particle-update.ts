@@ -1,3 +1,4 @@
+import { mapcat } from "@thi.ng/transducers";
 import {
   uniform,
   input,
@@ -15,8 +16,14 @@ import {
   ifThen,
   gt,
   float,
+  Vec3Sym,
+  FloatSym,
+  Vec3Term,
+  add,
+  FloatTerm,
+  defn,
 } from "@thi.ng/shader-ast";
-
+import { curlNoise3 } from "@thi.ng/shader-ast-stdlib";
 /**
  *
  * @description
@@ -45,7 +52,8 @@ const readState2 = () => {
   const s2 = sym(texture(uni_state2, input_vUv));
 
   const position = sym($xyz(s1));
-  const velocity = sym(sub($xyz(s2), $xyz(s1)));
+  // const velocity = sym(sub($xyz(s2), $xyz(s1)));
+  const velocity = sym(sub($xyz(s1), $xyz(s2)));
   const age = sym($w(s1));
 
   return {
@@ -84,8 +92,14 @@ const readConstants = (v_Uv: Sym<"vec2">) => {
   const opt2 = sym($w(con));
 
   return {
-    decl: [u_constants],
-    main: [con, mass, decay, opt1, opt2],
+    decl: ([u_constants] as [Sym<"sampler2D">]) as [input: Sym<"sampler2D">],
+    main: [con, mass, decay, opt1, opt2] as [
+      constants: Sym<"vec4">,
+      mass: Sym<"float">,
+      decay: Sym<"float">,
+      opt1: Sym<"float">,
+      opt2: Sym<"float">
+    ],
   };
 };
 
@@ -106,7 +120,92 @@ const ageCheck = (
 // discard vertex / fragment
 const ageDecayDiscard = () => {};
 
+/**
+ * Forces
+ */
+
+/**
+ *
+ * Standard interface for a force.
+ * Used by the accumulateForces
+ *
+ * Accepts some values and returns a force creation function.
+ *
+ */
+
+type Force = (
+  position: Vec3Sym,
+  velocity: Vec3Sym,
+  mass: FloatSym,
+  age: FloatSym
+) => Vec3Sym;
+
+type ForceFactory = (...any: any) => Force;
+
+/**
+ *
+ * Accumulates provided forces.
+ * This is an 'inline' approach without using glsl functions.
+ *
+ * @example
+ * // glsl output
+ * vec3 transformP = position;
+ * vec3 transformV = velocity;
+ * transformV = transformV + vec3(0.0,0.23,0.0);
+ * transformV = transformV + curlNoise(position,0.3);
+ * // etc ( per force )
+ *
+ * transformP = position + velocity;
+ * // cap velocity speed.
+ *
+ *
+ * @param position
+ * @param velocity
+ * @param mass
+ * @param age
+ * @param forces
+ */
+const accumulateForces = (
+  position: Vec3Sym,
+  velocity: Vec3Sym,
+  mass: FloatSym,
+  age: FloatSym,
+  forces: Force[]
+) => {
+  const transformP = sym(position);
+  const transformV = sym(velocity);
+  // let accum = [];
+  // for (let i = 0; i < forces.length; i++) {
+  //   const f = forces[i];
+  //   accum = [
+  //     ...accum,
+  //     ...[assign(transformV, f(position, velocity, mass, age))],
+  //   ];
+  // }
+  return [
+    transformP,
+    transformV,
+    // ...accum,
+    ...forces.map((f) => assign(transformV, f(position, velocity, mass, age))),
+    assign(transformP, add(position, transformV)),
+  ];
+};
+
+const gravity: ForceFactory = (constant: Vec3Term) => {
+  return (position) => {
+    return sym(add(position, constant));
+  };
+};
+
+// const curlPosition: ForceFactory = (input: FloatTerm, scale: FloatTerm) => {
+//   return (position) => {
+//     return sym(add());
+//   };
+// };
+
 export const astParticleLib = {
   readState2,
   readConstants,
+  accumulateForces,
+  gravity,
 };
