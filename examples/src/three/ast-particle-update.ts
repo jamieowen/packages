@@ -36,21 +36,33 @@ import {
  */
 const readState2 = () => {
   // Decl
-  const u_state1 = uniform("sampler2D", "state_1");
-  const u_state2 = uniform("sampler2D", "state_2");
-  const v_vUv = input("vec2", "vReadUV"); // TODO: Rename vReadUV - vUv
+  const uni_state1 = uniform("sampler2D", "state_1");
+  const uni_state2 = uniform("sampler2D", "state_2");
+  const input_vUv = input("vec2", "vReadUV"); // TODO: Rename vReadUV - vUv
 
   // Main
-  const s1 = sym(texture(u_state1, v_vUv));
-  const s2 = sym(texture(u_state2, v_vUv));
+  const s1 = sym(texture(uni_state1, input_vUv));
+  const s2 = sym(texture(uni_state2, input_vUv));
 
   const position = sym($xyz(s1));
   const velocity = sym(sub($xyz(s2), $xyz(s1)));
   const age = sym($w(s1));
 
   return {
-    decl: [u_state1, u_state2, v_vUv],
-    main: [s1, s2, position, velocity, age],
+    // Enforce types.
+    // Typescript seems to only apply a union / or type on array contents ( not order )
+    decl: [uni_state1, uni_state2, input_vUv] as [
+      Sym<"sampler2D">,
+      Sym<"sampler2D">,
+      Sym<"vec2">
+    ],
+    main: [s1, s2, position, velocity, age] as [
+      Sym<"vec4">,
+      Sym<"vec4">,
+      Sym<"vec3">,
+      Sym<"vec3">,
+      Sym<"float">
+    ],
   };
 };
 

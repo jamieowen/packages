@@ -33,6 +33,7 @@ import {
   gt,
   mul,
   vec3,
+  Sym,
 } from "@thi.ng/shader-ast";
 import {
   dataTexture,
@@ -204,21 +205,20 @@ sketch(({ configure, render, renderer, scene, camera }) => {
     updateProgram: (target) => {
       // Read State
       const read = astParticleLib.readState2();
-      const [, , position, velocity, age] = read.main;
-      // Sampler Uniforms.
-      // The previous state ( managed by the state loop )
 
-      const previousState = uniform("sampler2D", "state_1");
-      // Max Age ( set at startup )
+      const [uni_state1, , input_vUv] = read.decl;
+      const [, , position, velocity, age] = read.main;
+
+      // Move to constants
       const maxAgeSampler = uniform("sampler2D", "maxAge");
-      const vUv = input("vec2", "vReadUV");
+
+      // Custom
       const curlScale = uniform("float", "curlScale");
       const curlInput = uniform("float", "curlInput");
-
       const time = uniform("float", "time");
 
-      const state = sym(texture(previousState, vUv));
-      const maxAge = sym(texture(maxAgeSampler, vUv));
+      const state = sym(texture(uni_state1, input_vUv));
+      const maxAge = sym(texture(maxAgeSampler, input_vUv));
 
       const pos = $xyz(state);
       const life = $w(state);
@@ -242,13 +242,15 @@ sketch(({ configure, render, renderer, scene, camera }) => {
       );
 
       return program([
+        ...read.decl,
         maxAgeSampler,
-        previousState,
+        // previousState,
         curlScale,
         curlInput,
-        vUv,
+        // vUv,
         time,
         defMain(() => [
+          ...read.main,
           maxAge,
           state,
           gravity,
@@ -298,7 +300,7 @@ sketch(({ configure, render, renderer, scene, camera }) => {
     attribute float offset;
 
     void main(){
-      gl_PointSize = 1.0;
+      gl_PointSize = 3.0;
 
       // calculate uv from offset attribute
       vec2 uv = vec2( offset / resolution.x, mod( offset, resolution.y ) ) / resolution;
