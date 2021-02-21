@@ -103,3 +103,25 @@ export const encodeFillDataTexture3 = (
   const array = encodeFillFloat32Array3(width * height, fill);
   return dataTexture(array, width, height, 3);
 };
+
+export const encodeFillFloat32Array4 = (
+  count: number,
+  fill: (array: Float32Array, offset: number) => void
+) => {
+  const array = new Float32Array(count * 4);
+  let offset = 0;
+  for (let i = 0; i < array.length; i += 4) {
+    fill(array, offset);
+    offset += 4;
+  }
+  return array;
+};
+
+export const encodeFillDataTexture4 = (
+  width: number,
+  height: number,
+  fill: (array: Float32Array, offset: number) => void
+) => {
+  const array = encodeFillFloat32Array3(width * height, fill);
+  return dataTexture(array, width, height, 4);
+};

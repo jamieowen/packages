@@ -78,7 +78,7 @@ export const gpgpuFragmentBase = (target: GLSLTarget) => {
  *
  * Writes an input texture or data texture
  * directly to the output buffer.
- *
+ * TODO: inputSource needs renaming.
  * @param target
  *
  */

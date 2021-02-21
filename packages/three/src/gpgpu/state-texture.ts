@@ -49,6 +49,7 @@ const createGeometry = (buffer: Float32Array) => {
 };
 
 export class GPGPUState {
+  setup: ReturnType<typeof gpgpuSetup>;
   renderer: WebGLRenderer;
   states: WebGLRenderTarget[];
   material: RawShaderMaterial;
@@ -64,6 +65,7 @@ export class GPGPUState {
    * @param setup
    */
   constructor(renderer: WebGLRenderer, setup: ReturnType<typeof gpgpuSetup>) {
+    this.setup = setup;
     this.renderer = renderer;
     // Create state textures.
     this.states = new Array(setup.count)
