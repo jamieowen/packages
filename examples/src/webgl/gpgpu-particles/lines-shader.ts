@@ -22,6 +22,10 @@ import {
   int,
   vec3,
   output,
+  ifThen,
+  gt,
+  discard,
+  step,
 } from "@thi.ng/shader-ast";
 import { GLSLTarget } from "@thi.ng/shader-ast-glsl";
 import { ProgramAst } from "../ast-compile-helpers";
@@ -62,15 +66,19 @@ export const linesVertexShader = (target: GLSLTarget) => {
   const readState1 = sym(texture(state_1, uv));
   const readState2 = sym(texture(state_2, uv));
   const stateDiff = sym(sub(readState2, readState1));
-  const vel = mul($xyz(stateDiff), float(4.0)); //
-  // const vel = vec3(0.5);
+
+  // Line/Velocity length
+  // Ensure age2 < age1 always. Otherwise lines
+  // flicker when resetting age between states.
+  const age1 = $w(readState1);
+  const age2 = $w(readState2);
+  const velCap = step(float(0), sub(age1, age2)); // cap velocity
+  const lineLen = mul(float(5.0), velCap); // multiply by line length, unless age2 > age 1
+  const vel = mul($xyz(stateDiff), lineLen); // apply
+
   const pos = $xyz(readState1);
   const modOffset = mod(offset, float(2.0));
-  const pos2 = add(pos, float(2.0));
   const pos1 = add(pos, mul(vel, modOffset)); // mod the offset and add the velocity on alternating indices.
-
-  // const line
-  const age = $w(readState1);
 
   return program([
     // Uniforms

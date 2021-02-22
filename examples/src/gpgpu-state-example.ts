@@ -25,6 +25,7 @@ import {
   ifThen,
   gt,
   vec3,
+  discard,
 } from "@thi.ng/shader-ast";
 import {
   dataTexture,
@@ -78,7 +79,6 @@ const createStateUpdate = (renderer: WebGLRenderer, size: number) => {
     width: size,
     height: size,
     updateProgram: (target) => {
-      // Import Basic Particle Lib AST Chunks
       // Read State.
       const read = astParticleLib.readState2();
       const [, , input_vUv] = read.decl;
@@ -114,8 +114,9 @@ const createStateUpdate = (renderer: WebGLRenderer, size: number) => {
         gt(age, float(1.0)),
         [
           assign(newLife, float(0.0)),
-          // assign(transformed, snoiseVec3(mul(time, pos))), // simplex noise * time start point
           assign(transformP, snoiseVec3(position)),
+          // assign(transformed, snoiseVec3(mul(time, pos))), // simplex noise * time start point
+          //
           // assign(transformed, vec3($x(pos), 0.0, $z(pos))),
         ],
         [assign(newLife, add(newLife, float(decay)))]
@@ -153,7 +154,7 @@ sketch(({ configure, render, renderer, scene, camera }) => {
   const bounds05 = createBounds(scene);
   const bounds11 = createBounds(scene, 2, "red");
 
-  const size = 64;
+  const size = 128;
   const count = size * size;
 
   // Create the standard constants texture. ( read by the constants AST chunk )
@@ -172,6 +173,7 @@ sketch(({ configure, render, renderer, scene, camera }) => {
 
   // Update
   const state = createStateUpdate(renderer, size);
+  console.log(state.material.fragmentShader);
 
   // Define custom uniforms for now.
   // At some point do some magic and read the AST.
