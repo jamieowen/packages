@@ -19,7 +19,7 @@ const particleStatePointsMaterial = () => {
     fragmentShader: fragmentSource,
   });
   material.uniforms["state_1"] = { value: null };
-  material.uniforms["point_size"] = { value: 3.0 };
+  material.uniforms["point_size"] = { value: 5.0 };
   material.uniforms["resolution"] = { value: new Vector2() };
   return material;
 };

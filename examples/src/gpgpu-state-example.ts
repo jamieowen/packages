@@ -191,9 +191,11 @@ sketch(({ configure, render, renderer, scene, camera }) => {
   // Check renderer for required uniform updates.
   const renderPoints = createParticleStatePoints(count, state);
   scene.add(renderPoints);
+  // renderPoints.position.x = 2.0;
   console.log("Render Points :", renderPoints);
   const renderLines = createParticleStateLineSegments(count, state);
   scene.add(renderLines);
+  console.log("Render Lines:", renderLines);
 
   // Write Start Data.
 
@@ -203,7 +205,10 @@ sketch(({ configure, render, renderer, scene, camera }) => {
   render((clock) => {
     // Update Sim
     state.material.uniforms.time.value = clock.time;
+
+    // if (clock.time < 1) {
     state.update();
+    // }
 
     // Render
     renderer.autoClear = false;

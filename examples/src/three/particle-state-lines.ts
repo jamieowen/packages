@@ -1,7 +1,9 @@
 import {
   BufferAttribute,
   BufferGeometry,
+  Line,
   LineSegments,
+  Points,
   RawShaderMaterial,
   Vector2,
 } from "three";
@@ -17,6 +19,7 @@ const particleStateLinesMaterial = () => {
     vertexColors: false, // later
     vertexShader: vertexSource,
     fragmentShader: fragmentSource,
+    linewidth: 2,
   });
   material.uniforms["state_1"] = { value: null };
   material.uniforms["state_2"] = { value: null };
@@ -28,9 +31,6 @@ const particleStateLinesMaterial = () => {
  *
  * Particle State.
  * Lines Geometry.
- *
- * Double up the number of positions, and repeat the offset twice.
- *
  */
 const particleStateLinesGeometry = (count: number) => {
   const geometry = new BufferGeometry();
@@ -38,9 +38,14 @@ const particleStateLinesGeometry = (count: number) => {
     new Float32Array(count * 3 * 2).fill(0),
     3
   );
-
+  // Offsets span from 0 to count * 2.
+  // From this, the line segment start and end is determined by offset % 2
+  // And the offset for reading from the texture is offset / 2
   const offset = new BufferAttribute(
-    new Float32Array(new Array(count * 2).fill(0).map((_v, i) => i % count)),
+    new Float32Array(
+      // new Array(count * 2).fill(0).map((_v, i) => Math.floor(i / 2))
+      new Array(count * 2).fill(0).map((_v, i) => i)
+    ),
     1
   );
   geometry.setAttribute("position", position);
@@ -55,6 +60,8 @@ const particleStateLinesGeometry = (count: number) => {
  * Lines Rendering.
  *
  */
+// export class ParticleStateLineSegments extends Line {
+// export class ParticleStateLineSegments extends Points {
 export class ParticleStateLineSegments extends LineSegments {
   state: GPGPUState;
   constructor(count: number, state: GPGPUState) {

@@ -7,20 +7,23 @@ export interface ProgramAst {
 }
 
 export const compileProgramAst = (programAst: ProgramAst) => {
-  const compileFS = targetGLSL({
-    version: GLSLVersion.GLES_100,
-    type: "fs",
-  });
   const compileVS = targetGLSL({
     version: GLSLVersion.GLES_100,
     type: "vs",
+  });
+  const compileFS = targetGLSL({
+    version: GLSLVersion.GLES_100,
+    type: "fs",
   });
 
   console.log("AST COMPILE VERTEX: ", programAst.vertexShader(compileVS));
 
   const vertexSource = compileVS(programAst.vertexShader(compileVS));
-  const fragmentSource = compileVS(programAst.fragmentShader(compileFS));
+  const fragmentSource = compileFS(programAst.fragmentShader(compileFS));
 
+  console.log("AST SRC", vertexSource);
+
+  console.log("AST FS", fragmentSource);
   return {
     vertexSource,
     fragmentSource,
