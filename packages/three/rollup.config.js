@@ -1,4 +1,5 @@
 const pkg = require("./package.json");
+import typescript from "@rollup/plugin-typescript";
 
 export default {
   input: "./dist/index.js",
@@ -10,4 +11,5 @@ export default {
     ...Object.keys(pkg.dependencies || {}),
     ...Object.keys(pkg.peerDependencies || {}),
   ],
+  plugins: [typescript()],
 };
