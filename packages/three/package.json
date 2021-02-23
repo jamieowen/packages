@@ -1,6 +1,6 @@
 {
   "name": "@jamieowen/three",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "./dist/index.main.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -13,9 +13,9 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@jamieowen/browser": "^0.0.3",
-    "@jamieowen/motion": "^0.0.3",
-    "@jamieowen/webgl": "^0.0.1",
+    "@jamieowen/browser": "^0.0.4",
+    "@jamieowen/motion": "^0.0.4",
+    "@jamieowen/webgl": "^0.0.2",
     "@thi.ng/api": "^7.0.0",
     "@thi.ng/memoize": "^2.1.8",
     "@thi.ng/rstream": "^5.1.0",
