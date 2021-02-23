@@ -13,7 +13,7 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@thi.ng/api": "^6.13.6",
+    "@thi.ng/api": "^7.0.0",
     "@thi.ng/shader-ast": "^0.7.12",
     "@thi.ng/shader-ast-glsl": "^0.2.20"
   }

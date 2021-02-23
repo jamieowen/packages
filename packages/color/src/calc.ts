@@ -1,4 +1,4 @@
-import { Color, hsvaRgba, luminanceRGB, rgbaHsva } from "@thi.ng/color";
+import { Color, hsvRgb, luminanceRgb, rgbHsv } from "@thi.ng/color";
 
 /**
  * Calculate the complementary color using RGB space ( rather than RYB )
@@ -6,9 +6,9 @@ import { Color, hsvaRgba, luminanceRGB, rgbaHsva } from "@thi.ng/color";
  * @param rgba
  */
 export const complement = (rgba: Color) => {
-  const hsva = rgbaHsva([], rgba);
+  const hsva = rgbHsv([], rgba);
   hsva[0] = hsva[0] + (0.5 % 1);
-  return hsvaRgba([], hsva);
+  return hsvRgb([], hsva);
 };
 
 /**
@@ -19,8 +19,8 @@ export const complement = (rgba: Color) => {
  * @param colorMode
  */
 export const contrastRatio1 = (col1: Color, col2: Color) => {
-  const lum1 = luminanceRGB(col1);
-  const lum2 = luminanceRGB(col2);
+  const lum1 = luminanceRgb(col1);
+  const lum2 = luminanceRgb(col2);
   return (Math.max(lum1, lum2) + 0.05) / (Math.min(lum1, lum2) + 0.05);
 };
 
@@ -40,8 +40,8 @@ const RGB_LUMINANCE_2 = [0.2126, 0.7152, 0.0722];
  * @param colorMode
  */
 export const contrastRatio2 = (col1: Color, col2: Color) => {
-  const lum1 = luminanceRGB(col1, RGB_LUMINANCE_2);
-  const lum2 = luminanceRGB(col2, RGB_LUMINANCE_2);
+  const lum1 = luminanceRgb(col1, RGB_LUMINANCE_2);
+  const lum2 = luminanceRgb(col2, RGB_LUMINANCE_2);
   return (Math.max(lum1, lum2) + 0.05) / (Math.min(lum1, lum2) + 0.05);
 };
 

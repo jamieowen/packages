@@ -1,28 +1,18 @@
-import {
-  CSS_NAMES,
-  parseCss,
-  Color,
-  rgbaHsla,
-  asCSS,
-  HSLA,
-  hslaRgba,
-} from "@thi.ng/color";
-import { smoothStep } from "@thi.ng/math";
+import { CSS_NAMES, parseCss, Color, rgbHsl, css, hslRgb } from "@thi.ng/color";
 import { complement } from "./calc";
 import { Color2 } from "./types";
 import { mul4, mulN4, add4, sub4, clamp4, div4 } from "@thi.ng/vectors";
-import { isBuffer } from "util";
 
 export { CSS_NAMES, parseCss };
 export const colorAsCSS = (color: Color) => {
-  return asCSS(color, "rgb");
+  return css(color);
 };
 
 /**
  * Css named colors as rgba. Losing name info.
  */
 export const paletteCssNames = (): Color[] =>
-  Object.keys(CSS_NAMES).map((name) => parseCss(name));
+  Object.keys(CSS_NAMES).map((name) => parseCss(name).deref());
 
 /**
  * Generate the complementary colors for all colors
@@ -49,11 +39,11 @@ export const paletteForegroundBackground = (
   const { saturation = [1, 1], invert = false, clamp = [0.1, 0.9] } =
     opts || {};
 
-  const hsl = rgbaHsla([], color);
+  const hsl = rgbHsl([], color);
   const bg = [hsl[0], hsl[1] * saturation[0], clamp[0], hsl[3]];
   const fg = [hsl[0], hsl[1] * saturation[1], clamp[1], hsl[3]];
 
-  const res = [hslaRgba(null, bg), hslaRgba(null, fg)];
+  const res = [hslRgb(null, bg), hslRgb(null, fg)];
   if (invert) {
     return [res[1], res[0]];
   } else {
@@ -96,7 +86,7 @@ export const paletteColorRangeHSL = (
     saturation = 1,
     clamp = [0, 1],
   } = opts;
-  const hsl1 = rgbaHsla([], color);
+  const hsl1 = rgbHsl([], color);
   const mid = mul4([], hsl1, [1, saturation, scale, 1]);
   const min = clamp4(
     null,
@@ -116,7 +106,7 @@ export const paletteColorRangeHSL = (
   // Take only the lightness component and step.
   for (let i = 0; i < steps; i++) {
     const l = step * i;
-    res.push(hslaRgba([], [mid[0], mid[1], l + min[2], mid[3]]));
+    res.push(hslRgb([], [mid[0], mid[1], l + min[2], mid[3]]));
   }
 
   return res;
@@ -133,15 +123,15 @@ export const paletteGradientHSL = (
   color2: Color,
   steps: number
 ): Color[] => {
-  const hsl1 = rgbaHsla([], color1);
-  const hsl2 = rgbaHsla([], color2);
+  const hsl1 = rgbHsl([], color1);
+  const hsl2 = rgbHsl([], color2);
   const s1 = steps - 1;
   const step = div4([], sub4([], hsl2, hsl1), [s1, s1, s1, s1]);
 
   const res = [];
   for (let i = 0; i < steps; i++) {
     const out = add4([], hsl1, mulN4([], step, i));
-    res.push(hslaRgba(null, out));
+    res.push(hslRgb(null, out));
   }
   return res;
 };
