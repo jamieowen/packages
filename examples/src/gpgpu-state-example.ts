@@ -1,12 +1,6 @@
 import {
-  Points,
-  PointsMaterial,
-  BufferGeometry,
-  BufferAttribute,
   Object3D,
   Group,
-  RawShaderMaterial,
-  Vector2,
   Mesh,
   MeshBasicMaterial,
   BoxBufferGeometry,
@@ -16,32 +10,19 @@ import { sketch, createStateTextureAst } from "@jamieowen/three";
 import {
   program,
   defMain,
-  sym,
   uniform,
   assign,
   vec4,
-  add,
-  float,
-  ifThen,
-  gt,
   vec3,
-  discard,
 } from "@thi.ng/shader-ast";
-import {
-  dataTexture,
-  encodeFillDataTexture3,
-  encodeFillDataTexture4,
-} from "./webgl/buffer-helpers";
+import { encodeFillDataTexture3 } from "./webgl/buffer-helpers";
 import { snoiseVec3 } from "@thi.ng/shader-ast-stdlib";
 import { renderViewportTexture } from "../../packages/three/src/render/render-viewports";
 import { createGui } from "./gui";
 import * as astParticleLib from "./webgl/gpgpu-particles";
 
 import { createParticleStatePoints } from "./three/particle-state-points";
-import {
-  createParticleStateLineSegments,
-  particleStateLineSegments,
-} from "./three/particle-state-lines";
+import { createParticleStateLineSegments } from "./three/particle-state-lines";
 
 /**
  *
@@ -104,23 +85,11 @@ const createStateUpdate = (renderer: WebGLRenderer, size: number) => {
         ]
       );
 
+      // Possible to remove transformP and reuse position sym ( above )
       const [transformP] = accumulate;
-
-      const newLife = sym(age);
-
-      // Age is capped at 1
-      // We could reset velocity by overrunning age multiple times before emitting.
-      const checkLife = ifThen(
-        gt(age, float(1.0)),
-        [
-          assign(newLife, float(0.0)),
-          assign(transformP, snoiseVec3(position)),
-          // assign(transformed, snoiseVec3(mul(time, pos))), // simplex noise * time start point
-          //
-          // assign(transformed, vec3($x(pos), 0.0, $z(pos))),
-        ],
-        [assign(newLife, add(newLife, float(decay)))]
-      );
+      const advanceAge = astParticleLib.advanceAgeByDecay(age, decay, [
+        assign(transformP, snoiseVec3(position)),
+      ]);
 
       return program([
         ...read.decl,
@@ -132,9 +101,8 @@ const createStateUpdate = (renderer: WebGLRenderer, size: number) => {
           ...read.main,
           ...constants.main,
           ...accumulate,
-          newLife,
-          checkLife,
-          assign(target.gl_FragColor, vec4(transformP, newLife)),
+          advanceAge,
+          assign(target.gl_FragColor, vec4(transformP, age)),
         ]),
       ]);
     },
@@ -154,7 +122,7 @@ sketch(({ configure, render, renderer, scene, camera }) => {
   const bounds05 = createBounds(scene);
   const bounds11 = createBounds(scene, 2, "red");
 
-  const size = 128;
+  const size = 16;
   const count = size * size;
 
   // Create the standard constants texture. ( read by the constants AST chunk )

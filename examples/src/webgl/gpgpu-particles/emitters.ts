@@ -1,91 +1,42 @@
-import {
-  uniform,
-  input,
-  assign,
-  sym,
-  sub,
-  texture,
-  $xyz,
-  $x,
-  $y,
-  $z,
-  $w,
-  Sym,
-  Term,
-  ifThen,
-  gt,
-  float,
-  Vec3Sym,
-  FloatSym,
-  Vec3Term,
-  add,
-  FloatTerm,
-  defn,
-  Vec4Term,
-  vec3,
-  mul,
-  ret,
-  TaggedFn1,
-} from "@thi.ng/shader-ast";
-import { curlNoise3, snoiseVec3 } from "@thi.ng/shader-ast-stdlib";
+import { assign, Sym, Term, ifThen, gt, float, add } from "@thi.ng/shader-ast";
 
 /**
  *
- * WIP ON EMITTER DEFINITION.
+ * Advance age by decay amount, by assigning
+ * decay + age to age symbol.
  *
- * This has parallels with forces as well.
- * The key question is are emitters and forces defined as
- * REAL glsl functions ( using defn ) OR as ast/ts functions
- * that are inlined when composed.
+ * Once age > 1.0, reset age to 0.0 and apply
+ * dead terms.
  *
- * + Both are ok
- * + Forces are currently using the inlined method
- * + Using defn would give greater seperation
- * + Both situations, however would need predfined/standard method signatures?
- * + Or perhaps, the force function should be defined as required. No complecting.
- * + And any emitter definition wrapper can be applied.
- *
- * e.g.
- *
- * const emitRandom = ( min:vec3, max:vec3, etc:any )=> vec3
- *
- * // using known particle attributes as standardised emitter args?
- * const emitterSignatured = ( position, age, decay, mass )=>{}
- *
- * STOP trying to shoehorn things into an interface.
- * Things can be redefined if needed, or different stages ( age check, accumulate, etc ) can
- * be interchanged.
+ * @param age
+ * @param decay
+ * @param dead
  */
-
-const ageCheck = (
+export const advanceAgeByDecay = (
   age: Sym<"float">,
-  decay: Sym<"float">,
-  truthy: Term<any>[],
-  falsey: Term<any>[] = []
+  decay: Term<"float">,
+  dead: Term<any>[]
 ) => {
-  return {
-    decl: [],
-    main: [ifThen(gt(age, float(1.0)), truthy, falsey)],
-  };
-};
-
-const ageDecay = (age: Sym<"float">, decay: Sym<"float">, emitter: Emitter) => {
-  const check = ifThen(gt(age, float(1.0)), [], []);
+  return ifThen(
+    gt(age, float(1.0)),
+    [assign(age, float(0.0)), ...dead],
+    [assign(age, add(age, decay))]
+  );
 };
 
 /**
- * Emitter
+ *
+ * Same as @see advanceAgeByDecay(),
+ * but assign an emitter term to
+ * the position.
+ *
+ * @param age
+ * @param decay
+ * @param emitter
  */
-const emitRandom = defn("vec3", "emitRandom", ["vec3"], (position) => [
-  ret(snoiseVec3(position)),
-]);
-
-/**
- * Emitters - return a new position.
- */
-type Emitter = (position: Sym<"vec3">) => Vec3Term;
-
-// Emitter is any defn defined function that returns a vec4 ( to overwrite the position )
-type Emitter2 = TaggedFn1<any, "vec4">;
-
-type EmitterFactory = (...any: any) => Emitter;
+export const advanceAgeByDecayEmit = (
+  age: Sym<"float">,
+  decay: Term<"float">,
+  position: Sym<"vec3">,
+  emitter: Term<"vec3">
+) => advanceAgeByDecay(age, decay, [assign(position, emitter)]);
