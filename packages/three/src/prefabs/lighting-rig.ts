@@ -9,9 +9,9 @@ import {
   Light,
   Spherical,
 } from "three";
-import { reactiveOptsFactory } from "../core";
+import { reactiveOptsFactory } from "@jamieowen/core";
 
-const linear = (t) => t;
+const linear = (t: number) => t;
 type EasingFn = (t: number) => number;
 type EasingType = "linear";
 const EasingLookup: Record<EasingType, EasingFn> = {

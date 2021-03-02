@@ -9,8 +9,7 @@ import {
   CameraHelper,
   MeshLambertMaterial,
 } from "three";
-import { createLightHelpers } from "@jamieowen/three";
-import { createMeshFactory } from "../factory-fn";
+import { createMeshFactory, createLightHelpers } from "../factory-fn";
 import { reactiveOptsFactory } from "@jamieowen/core";
 
 const mf = createMeshFactory();

@@ -16,6 +16,7 @@
     "@jamieowen/browser": "^0.0.4",
     "@jamieowen/motion": "^0.0.4",
     "@jamieowen/webgl": "^0.0.2",
+    "@jamieowen/core": "^0.0.0",
     "@thi.ng/api": "^7.0.0",
     "@thi.ng/memoize": "^2.1.8",
     "@thi.ng/rstream": "^5.1.0",
