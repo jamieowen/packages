@@ -50,7 +50,7 @@ export const dragGesture3d = (
             translate = [0, 0, 0]; // difference between start and end
             delta = [0, 0, 0]; // difference between frame
             isDragging = true;
-            particleStart = [...particle.position];
+            particleStart = [...particle.data.position];
             time = Date.now();
             break;
           case "end":
@@ -70,7 +70,7 @@ export const dragGesture3d = (
               previous = gesture.pos;
               time = now;
             }
-            set3(particle.position, add3([], particleStart, translate));
+            set3(particle.data.position, add3([], particleStart, translate));
             break;
         }
         return {

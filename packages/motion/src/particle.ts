@@ -1,25 +1,24 @@
 import { ISubscribable, reactive, Stream } from "@thi.ng/rstream";
-import {
-  add3,
-  clampN3,
-  mulN3,
-  normalize,
-  set3,
-  Vec3,
-  Vec3Like,
-} from "@thi.ng/vectors";
-import { motionStream } from "./motion-stream";
-import { IForce, IParticle, ITransform, RafStream } from "./types";
+import { add3, clampN3, mulN3, set3, Vec, Vec3Like } from "@thi.ng/vectors";
+// import { motionStream } from "./motion-stream";
+// import { IParticle, ITransform, RafStream } from "./types";
+import { motionParticle } from "./base-streams";
+import { ITransform, IParticle } from "./api";
 
+export type IForce = (particle: IParticle) => Vec;
+
+// Move to factory functions
 export class Transform implements ITransform {
-  position: Vec3Like = [0, 0, 0];
-  scale: Vec3Like = [1, 1, 1];
-  rotation: Vec3Like = [0, 0, 0];
+  position: Vec = [0, 0, 0];
+  scale: Vec = [1, 1, 1];
+  rotation: Vec = [0, 0, 0];
 }
 
+// Move to factory functions
 export class Particle extends Transform implements IParticle {
-  acceleration: Vec3Like = [0, 0, 0];
-  velocity: Vec3Like = [0, 0, 0];
+  acceleration: Vec = [0, 0, 0];
+  velocity: Vec = [0, 0, 0];
+  previous: Vec = [0, 0, 0];
 }
 
 export const updateParticle = (particle: IParticle, forces: IForce[]) => {
@@ -77,8 +76,8 @@ export type ParticleMotionConfig = {
  */
 export const particleStream = (
   force$: ForceStream,
-  config?: ISubscribable<ParticleMotionConfig>,
-  raf?: RafStream
+  config?: ISubscribable<ParticleMotionConfig>
+  // raf?: RafStream
 ) => {
   config =
     config == undefined
@@ -86,7 +85,7 @@ export const particleStream = (
           maxSpeed: 10,
         })
       : config;
-  const particle = new Particle();
+  // const particle = new Particle();
 
   let { forces, pulses } = force$.deref();
   force$.subscribe({
@@ -95,14 +94,26 @@ export const particleStream = (
       pulses = f.pulses;
     },
   });
-  return motionStream<ParticleMotionConfig, IParticle>(
-    (_time, _cfg) => {
-      updateParticle(particle, [...forces, ...pulses]);
-      limitVelocityN(particle, _cfg.maxSpeed);
+
+  // return motionStream<ParticleMotionConfig, IParticle>(
+  //   (_time, _cfg) => {
+  //     updateParticle(particle, [...forces, ...pulses]);
+  //     limitVelocityN(particle, _cfg.maxSpeed);
+  //     pulses.splice(0);
+  //     return particle;
+  //   },
+  //   config,
+  //   raf
+  // );
+
+  return motionParticle().subscribe({
+    next: (ev) => {
+      updateParticle(ev.data, [...forces, ...pulses]);
+      limitVelocityN(ev.data, config.deref().maxSpeed);
       pulses.splice(0);
-      return particle;
     },
-    config,
-    raf
-  );
+    error: (err) => {
+      throw err;
+    },
+  });
 };

@@ -4,12 +4,6 @@ import { comp, map, filter } from "@thi.ng/transducers";
 import { GestureEvent, GestureStream } from "@thi.ng/rstream-gestures";
 import { forceFriction, forceStream, particleStream } from "./particle";
 
-interface DragGesture2D extends GestureEvent {
-  translate: Vec;
-  delta: Vec;
-  start: Vec;
-}
-
 export const dragGesture2d = (
   gesture$: GestureStream,
   opts: Partial<{
@@ -51,7 +45,7 @@ export const dragGesture2d = (
             translate = [0, 0, 0]; // difference between start and end
             delta = [0, 0, 0]; // difference between frame
             isDragging = true;
-            particleStart = [...particle.position]; // vec3 particle
+            particleStart = [...particle.data.position]; // vec3 particle
             time = Date.now();
             break;
           case "end":
@@ -72,7 +66,7 @@ export const dragGesture2d = (
               previous = pos;
               time = now;
             }
-            set3(particle.position, add3([], particleStart, translate));
+            set3(particle.data.position, add3([], particleStart, translate));
             break;
         }
         return {
