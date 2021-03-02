@@ -14,3 +14,5 @@ export function createGeometryFactory() {
   factory.register("circle", () => new CircleBufferGeometry(1, 30));
   return factory;
 }
+
+export const DEFAULT_GEOMETRY_FACTORY = createGeometryFactory();
