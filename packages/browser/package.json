@@ -18,8 +18,6 @@
     "@thi.ng/rstream-gestures": "^3.0.5",
     "@thi.ng/transducers": "^7.5.3"
   },
-  "devDependencies": {
-    "@types/resize-observer-browser": "^0.1.4"
-  },
+  "devDependencies": {},
   "gitHead": "7385edd182190d3ee9de89519ebba9fc7500994c"
 }

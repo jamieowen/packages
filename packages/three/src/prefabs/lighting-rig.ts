@@ -33,9 +33,7 @@ export interface LightingRigOpts {
   polarVariance: number;
 }
 
-export const createLightingRigOpts = reactiveOptsFactory<
-  Partial<LightingRigOpts>
->({
+export const createLightingRigOpts = reactiveOptsFactory<LightingRigOpts>({
   count: 3,
   types: "HPD",
   radius: 10,

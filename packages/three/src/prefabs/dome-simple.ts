@@ -10,7 +10,7 @@ import {
   MeshLambertMaterial,
 } from "three";
 import { createMeshFactory, createLightHelpers } from "../factory-fn";
-import { reactiveOptsFactory } from "@jamieowen/core";
+import { reactiveOptsFactory, ReactiveOpts } from "@jamieowen/core";
 
 const mf = createMeshFactory();
 
@@ -48,9 +48,7 @@ interface DomeSimpleLightOpts {
   showHelpers: boolean;
 }
 
-export const createDomeSimpleOpts = reactiveOptsFactory<
-  Partial<DomeSimpleLightOpts>
->({
+export const createDomeSimpleOpts = reactiveOptsFactory<DomeSimpleLightOpts>({
   color: "crimson",
   intensity: [0.2, 0.4, 0.3],
   showHelpers: true,
@@ -66,7 +64,7 @@ export const createDomeSimpleOpts = reactiveOptsFactory<
  */
 export const createDomeSimpleLight = (
   parent: Object3D,
-  opts: ReturnType<typeof createDomeSimpleOpts> = createDomeSimpleOpts({})
+  opts: ReactiveOpts<DomeSimpleLightOpts> = createDomeSimpleOpts({})
 ) => {
   mf.scale.set(1, 1, 1);
   const dome = createDome(parent);
@@ -121,6 +119,7 @@ export const createDomeSimpleLight = (
   opts.next({});
 
   return {
+    opts,
     dome,
     lights,
     floor,
