@@ -27,7 +27,7 @@ export const invalidate = <T>(
 
 export const invalidatePosition = () => {
   let prev: Vec = [];
-  return filter<IMotionEvent>((x) => {
+  return filter<IMotionEvent<"particle" | "transform">>((x) => {
     const changed =
       x.data.position[0] !== prev[0] ||
       x.data.position[1] !== prev[1] ||

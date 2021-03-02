@@ -2,7 +2,7 @@ import { Vec } from "@thi.ng/vectors";
 import { map } from "@thi.ng/transducers";
 import { IMotionEvent, MotionDataType } from "./api";
 
-export const mapPosition = <T extends MotionDataType = "transform">(
+export const mapPosition = <T extends "transform" | "particle">(
   fn: (time: number, position: Vec) => void
 ) =>
   map<IMotionEvent<T>, IMotionEvent<T>>(

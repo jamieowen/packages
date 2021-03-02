@@ -7,3 +7,5 @@ export * from "./trails";
 export * from "./easing";
 export * from "./ease-types";
 export * from "./array-iterator";
+export * from "./particle";
+export * from "./drag-gesture";
