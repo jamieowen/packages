@@ -3,15 +3,24 @@ import { add3, set3, sub2, sub3, Vec, Vec3, Vec3Like } from "@thi.ng/vectors";
 import { comp, map, filter } from "@thi.ng/transducers";
 import { GestureEvent, GestureStream } from "@thi.ng/rstream-gestures";
 import { forceFriction, forceStream, particleStream } from "./particle";
+import { IMotionEvent } from "./api";
+
+export interface DragGesture2DEvent {
+  gesture: GestureStream;
+  particle: IMotionEvent<"particle">;
+}
+
+export interface DragGesture2DOpts {
+  maxSpeed: number;
+  friction: number;
+  initialPosition?: Vec;
+}
 
 export const dragGesture2d = (
   gesture$: GestureStream,
-  opts: Partial<{
-    maxSpeed: number;
-    friction: number;
-  }> = {}
+  opts: Partial<DragGesture2DOpts> = {}
 ) => {
-  const { maxSpeed = 100, friction = 0.09 } = opts;
+  const { maxSpeed = 100, friction = 0.09, initialPosition = [0, 0, 0] } = opts;
 
   // gesture position
   let translate: Vec;
@@ -22,21 +31,26 @@ export const dragGesture2d = (
   let particleStart: Vec;
   let isDragging: boolean = false;
   let time: number = 0;
+  let threshold: number = 0.005;
 
   const [force$, setForces] = forceStream([], []);
-  const particle$ = particleStream(force$, reactive({ maxSpeed }));
+  const particle$ = particleStream(force$, reactive({ maxSpeed, threshold }));
   const frictionF = forceFriction(friction);
 
+  set3(particle$.deref().data.position, initialPosition);
+
+  let lastp = null;
   return sync({
     src: {
       particle: particle$,
       gesture: gesture$,
     },
     xform: comp(
-      // filter(
-      //   ({ gesture }) =>
-      //     gesture.type !== 'move' && gesture.type !== 'zoom'
-      // ),
+      filter(({ gesture, particle }) => {
+        const pchanged = particle !== lastp;
+        lastp = particle;
+        return (gesture.type !== "move" && gesture.type !== "zoom") || pchanged;
+      }),
       map(({ gesture, particle }) => {
         switch (gesture.type) {
           case "start":
