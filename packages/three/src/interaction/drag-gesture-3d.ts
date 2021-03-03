@@ -1,8 +1,15 @@
 import { GestureStream3D } from "./gesture-stream-3d";
-import { forceFriction, forceStream, particleStream } from "@jamieowen/motion";
+import {
+  forceFriction,
+  forceStream,
+  particleStream,
+  invalidatePositionThreshold,
+  invalidate,
+  IMotionEvent,
+} from "@jamieowen/motion";
 import { add3, set3, sub2, sub3, Vec, Vec3, Vec3Like } from "@thi.ng/vectors";
-import { reactive, sync } from "@thi.ng/rstream";
-import { map, comp } from "@thi.ng/transducers";
+import { reactive, StreamSync, sync } from "@thi.ng/rstream";
+import { map, comp, sideEffect, filter, step } from "@thi.ng/transducers";
 
 // type DragGesture3D = GestureEvent3D & {
 //   translate: Vec;
@@ -10,14 +17,22 @@ import { map, comp } from "@thi.ng/transducers";
 //   start: Vec;
 // };
 
+export interface DragGesture3DEvent {
+  gesture: GestureStream3D;
+  particle: IMotionEvent<"particle">;
+}
+
+export interface DragGesture3DOpts {
+  maxSpeed: number;
+  friction: number;
+  initialPosition?: Vec;
+}
+
 export const dragGesture3d = (
   gesture$: GestureStream3D,
-  opts: Partial<{
-    maxSpeed: number;
-    friction: number;
-  }> = {}
+  opts: Partial<DragGesture3DOpts> = {}
 ) => {
-  const { maxSpeed = 0.8, friction = 0.12 } = opts;
+  const { maxSpeed = 0.8, friction = 0.12, initialPosition = [0, 0, 0] } = opts;
   // gesture position
   let translate: Vec;
   let delta: Vec;
@@ -28,20 +43,25 @@ export const dragGesture3d = (
   let isDragging: boolean = false;
   let time: number = 0;
 
+  const threshold = 0.005;
   const [force$, setForces] = forceStream([], []);
-  const particle$ = particleStream(force$, reactive({ maxSpeed }));
+  const particle$ = particleStream(force$, reactive({ maxSpeed, threshold }));
   const frictionF = forceFriction(friction);
 
+  set3(particle$.deref().data.position, initialPosition);
+
+  let lastp = null;
   return sync({
     src: {
       particle: particle$,
       gesture: gesture$,
     },
     xform: comp(
-      // filter(
-      //   ({ gesture }) =>
-      //     gesture.type !== 'move' && gesture.type !== 'zoom'
-      // ),
+      filter(({ gesture, particle }) => {
+        const pchanged = particle !== lastp;
+        lastp = particle;
+        return (gesture.type !== "move" && gesture.type !== "zoom") || pchanged;
+      }),
       map(({ gesture, particle }) => {
         switch (gesture.type) {
           case "start":

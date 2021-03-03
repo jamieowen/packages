@@ -39,3 +39,19 @@ export const invalidatePosition = () => {
     return changed;
   });
 };
+
+export const invalidatePositionThreshold = (threshold: number = 0.01) => {
+  let prev: Vec = [];
+  return filter<IMotionEvent<"particle" | "transform">>((x) => {
+    const curr = x.data.position;
+    const changed =
+      (curr[0] > prev[0] + threshold && curr[0] < prev[0] - threshold) ||
+      (curr[1] > prev[1] + threshold && curr[1] < prev[1] - threshold) ||
+      (curr[2] > prev[2] + threshold && curr[2] < prev[2] - threshold);
+
+    if (changed) {
+      set3(prev, x.data.position);
+    }
+    return changed;
+  });
+};

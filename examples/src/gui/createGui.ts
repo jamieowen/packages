@@ -9,8 +9,10 @@ const guiListen = (gui: GUI, callback: () => void) => {
 export function createGui<T>(controls: T) {
   // Create dat.gui
   const gui = new GUI({
-    width: 250,
+    width: 350,
   });
+
+  gui.domElement.parentElement.style.zIndex = "100";
   // Convert controls object to gui compatible
   const values: Partial<Record<keyof T, any>> = {};
   Object.entries(controls).forEach(([key, value]) => {
@@ -19,10 +21,10 @@ export function createGui<T>(controls: T) {
     if (value instanceof Array) {
       // number, min/max shorthand.
       if (value.length === 4 && typeof value[0] === "number") {
-        values[key] = value[0];
+        values[key as keyof T] = value[0];
         control = gui.add(values, key, value[1], value[2], value[3]);
       } else {
-        values[key] = value[0];
+        values[key as keyof T] = value[0];
         control = gui.add(values, key, value);
       }
     } else if (typeof value === "function") {
@@ -30,7 +32,7 @@ export function createGui<T>(controls: T) {
       control = gui.add(controls, key);
     } else {
       // copy values to new object
-      values[key] = value;
+      values[key as keyof T] = value;
       control = gui.add(values, key);
     }
 

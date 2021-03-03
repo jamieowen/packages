@@ -11,6 +11,7 @@ import {
 } from "three";
 import { createMeshFactory, createLightHelpers } from "../factory-fn";
 import { reactiveOptsFactory, ReactiveOpts } from "@jamieowen/core";
+import { forceStream } from "@jamieowen/motion";
 
 const mf = createMeshFactory();
 
@@ -45,12 +46,23 @@ const createFloor = (parent: Object3D, color: string = "crimson") => {
 interface DomeSimpleLightOpts {
   color: string | number;
   intensity: [number, number, number]; // amb/dir/hem
+  emissive?: {
+    intensity: [number, number]; // dome / floor
+    offset: [[number, number, number], [number, number, number]]; // dome / floor hsl
+  };
   showHelpers: boolean;
 }
 
 export const createDomeSimpleOpts = reactiveOptsFactory<DomeSimpleLightOpts>({
   color: "crimson",
   intensity: [0.2, 0.4, 0.3],
+  emissive: {
+    intensity: [0.1, 0.2], // dome / floor
+    offset: [
+      [0, 0, 0], // dome
+      [0, 0, 0], // floor
+    ],
+  },
   showHelpers: true,
 });
 
@@ -97,19 +109,27 @@ export const createDomeSimpleLight = (
   parent.add(helpers);
 
   opts.subscribe({
-    next: ({ color, intensity, showHelpers }) => {
+    next: ({ color, intensity, emissive, showHelpers }) => {
       // Apply color
       amb.intensity = intensity[0];
       dir.intensity = intensity[1];
       hem.intensity = intensity[2];
 
-      const fm = floor.material as MeshLambertMaterial;
       const dm = dome.material as MeshLambertMaterial;
-      // console.log("Apply Color");
-      // fm.color.set(color);
-      // fm.emissive.set(color).offsetHSL(0, 0, 0.1);
-      // dm.color.set(color).offsetHSL(0, 0.1, 0.1);
-      // dm.emissive.set(color).offsetHSL(0, 0, 0.1);
+      const fm = floor.material as MeshLambertMaterial;
+
+      // Set color to the same
+      dm.color.set(color);
+      fm.color.set(color);
+
+      dm.emissive.set(color);
+      fm.emissive.set(color);
+
+      dm.emissiveIntensity = emissive.intensity[0];
+      fm.emissiveIntensity = emissive.intensity[1];
+
+      dm.emissive.offsetHSL.apply(dm.emissive, emissive.offset[0]);
+      fm.emissive.offsetHSL.apply(fm.emissive, emissive.offset[1]);
 
       helpers.visible = showHelpers;
       shadowHelper.visible = showHelpers;

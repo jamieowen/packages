@@ -1,9 +1,20 @@
 import { ISubscribable, reactive, Stream } from "@thi.ng/rstream";
-import { add3, clampN3, mulN3, set3, Vec, Vec3Like } from "@thi.ng/vectors";
+import {
+  add3,
+  clampN3,
+  mulN3,
+  set3,
+  Vec,
+  Vec3Like,
+  abs3,
+  dist3,
+} from "@thi.ng/vectors";
+
 // import { motionStream } from "./motion-stream";
 // import { IParticle, ITransform, RafStream } from "./types";
 import { motionParticle } from "./base-streams";
 import { ITransform, IParticle } from "./api";
+import { filter } from "@thi.ng/transducers";
 
 export type IForce = (particle: IParticle) => Vec;
 
@@ -23,6 +34,7 @@ export class Particle extends Transform implements IParticle {
 
 export const updateParticle = (particle: IParticle, forces: IForce[]) => {
   const { acceleration, velocity, position } = particle;
+  set3(particle.previous, position);
   forces.forEach((f) => add3(null, acceleration, f(particle)));
   add3(null, velocity, acceleration);
   mulN3(null, acceleration, 0);
@@ -67,12 +79,15 @@ export const forceStream = (
 
 export type ParticleMotionConfig = {
   maxSpeed?: number;
+  threshold?: number; // prevent emitting if change is below
 };
 
 /**
  * A singular particle Stream class for use in simple
  * particle style effects.  Think gestures ( throw, drag, etc ) and
  * simple primary motion elements like mouse follow effects.
+ *
+ * IS Very WIP.
  */
 export const particleStream = (
   force$: ForceStream,
@@ -83,9 +98,9 @@ export const particleStream = (
     config == undefined
       ? reactive({
           maxSpeed: 10,
+          threshold: 0.05,
         })
       : config;
-  // const particle = new Particle();
 
   let { forces, pulses } = force$.deref();
   force$.subscribe({
@@ -95,25 +110,24 @@ export const particleStream = (
     },
   });
 
-  // return motionStream<ParticleMotionConfig, IParticle>(
-  //   (_time, _cfg) => {
-  //     updateParticle(particle, [...forces, ...pulses]);
-  //     limitVelocityN(particle, _cfg.maxSpeed);
-  //     pulses.splice(0);
-  //     return particle;
-  //   },
-  //   config,
-  //   raf
-  // );
-
-  return motionParticle().subscribe({
-    next: (ev) => {
-      updateParticle(ev.data, [...forces, ...pulses]);
-      limitVelocityN(ev.data, config.deref().maxSpeed);
-      pulses.splice(0);
-    },
-    error: (err) => {
-      throw err;
-    },
-  });
+  let first = true;
+  return motionParticle()
+    .subscribe({
+      next: (ev) => {
+        updateParticle(ev.data, [...forces, ...pulses]);
+        limitVelocityN(ev.data, config.deref().maxSpeed);
+        pulses.splice(0);
+      },
+      error: (err) => {
+        throw err;
+      },
+    })
+    .transform(
+      filter((ev) => {
+        const dis = Math.abs(dist3(ev.data.position, ev.data.previous));
+        const changed = dis > config.deref().threshold || first;
+        first = false;
+        return changed;
+      })
+    );
 };

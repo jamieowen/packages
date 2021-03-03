@@ -6,6 +6,8 @@ import {
   createDomeSimpleOpts,
   createInstancedMesh,
   instancedMeshIterator,
+  trailConeGeometry,
+  trailBoxGeometry,
 } from "@jamieowen/three";
 import { createGui } from "./gui";
 import {
@@ -15,9 +17,7 @@ import {
   motionParticle,
   particleTrails,
   particleIterator,
-} from "./lib/motion-streams";
-
-import { trailConeGeometry, trailBoxGeometry } from "./lib/three";
+} from "@jamieowen/motion";
 
 import {
   BufferAttribute,
@@ -197,14 +197,16 @@ const renderLines = (count: number, parent: Object3D) => {
 };
 
 sketch(({ render, scene, controls, renderer }) => {
-  createDomeSimpleLight(
+  const dome = createDomeSimpleLight(
     scene,
     createDomeSimpleOpts({
       color: "darkblue",
+      showHelpers: false,
     })
   );
   renderer.shadowMap.enabled = true;
-
+  dome.floor.position.y = -5;
+  controls.object.position.multiplyScalar(3);
   // Trail Types.
 
   // Parent container to apply center offset;
