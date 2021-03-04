@@ -10,7 +10,8 @@
     "build:es6": "tsc",
     "build:es6:watch": "tsc -w",
     "build:check": "tsc --noEmit",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "link:sys": "yarn link"
   },
   "dependencies": {
     "@jamieowen/browser": "^0.0.5",
