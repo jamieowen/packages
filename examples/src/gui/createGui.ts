@@ -10,6 +10,7 @@ export function createGui<T>(controls: T) {
   // Create dat.gui
   const gui = new GUI({
     width: 350,
+    closed: true,
   });
 
   gui.domElement.parentElement.style.zIndex = "100";
