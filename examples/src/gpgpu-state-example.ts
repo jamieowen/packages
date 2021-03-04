@@ -5,8 +5,15 @@ import {
   MeshBasicMaterial,
   BoxBufferGeometry,
   WebGLRenderer,
+  Color,
+  BufferAttribute,
 } from "three";
-import { sketch, createStateTextureAst } from "@jamieowen/three";
+import {
+  sketch,
+  createStateTextureAst,
+  createDomeSimpleLight,
+  createDomeSimpleOpts,
+} from "@jamieowen/three";
 import {
   program,
   defMain,
@@ -25,7 +32,6 @@ import { createParticleStatePoints } from "./three/particle-state-points";
 import { createParticleStateLineSegments } from "./three/particle-state-lines";
 
 /**
- *
  *
  * Create Bounds
  *
@@ -110,19 +116,19 @@ const createStateUpdate = (renderer: WebGLRenderer, size: number) => {
 };
 
 sketch(({ configure, render, renderer, scene, camera }) => {
-  configure({
-    width: "1024px",
-    height: "768px",
-  });
-
+  // Dome
+  createDomeSimpleLight(
+    scene,
+    createDomeSimpleOpts({ showHelpers: false, color: "crimson" })
+  );
   // Containers
   const group = new Group();
   scene.add(group as any);
 
-  const bounds05 = createBounds(scene);
-  const bounds11 = createBounds(scene, 2, "red");
+  // const bounds05 = createBounds(scene);
+  // const bounds11 = createBounds(scene, 2, "red");
 
-  const size = 16;
+  const size = 64;
   const count = size * size;
 
   // Create the standard constants texture. ( read by the constants AST chunk )
@@ -158,12 +164,30 @@ sketch(({ configure, render, renderer, scene, camera }) => {
   });
 
   // Render Points
+
+  // Colors
+  const color = new Color();
+  const colors = new BufferAttribute(new Float32Array(size * size * 3), 3);
+  const colors2 = new BufferAttribute(new Float32Array(size * size * 3 * 2), 3);
+
+  for (let i = 0; i < colors.count; i++) {
+    color.setHSL(
+      Math.random() * 0.2 + (0.3 % 1),
+      0.6,
+      0.2 + Math.random() * 0.7
+    );
+    colors.setXYZ(i, color.r, color.g, color.b);
+    colors2.setXYZ(i * 2, color.r, color.g, color.b);
+    colors2.setXYZ(i * 2 + 1, color.r, color.g, color.b);
+  }
+  colors.needsUpdate = true;
+
   // Check renderer for required uniform updates.
-  const renderPoints = createParticleStatePoints(count, state);
+  const renderPoints = createParticleStatePoints(count, state, colors);
   scene.add(renderPoints);
   // renderPoints.position.x = 2.0;
   console.log("Render Points :", renderPoints);
-  const renderLines = createParticleStateLineSegments(count, state);
+  const renderLines = createParticleStateLineSegments(count, state, colors2);
   scene.add(renderLines);
   console.log("Render Lines:", renderLines);
 

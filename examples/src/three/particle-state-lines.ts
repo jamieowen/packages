@@ -16,7 +16,7 @@ const particleStateLinesMaterial = () => {
     particleLinesProgram()
   );
   const material = new RawShaderMaterial({
-    vertexColors: false, // later
+    // vertexColors: addColor,
     vertexShader: vertexSource,
     fragmentShader: fragmentSource,
     linewidth: 2,
@@ -32,7 +32,7 @@ const particleStateLinesMaterial = () => {
  * Particle State.
  * Lines Geometry.
  */
-const particleStateLinesGeometry = (count: number) => {
+const particleStateLinesGeometry = (count: number, color?: BufferAttribute) => {
   const geometry = new BufferGeometry();
   const position = new BufferAttribute(
     new Float32Array(count * 3 * 2).fill(0),
@@ -51,6 +51,10 @@ const particleStateLinesGeometry = (count: number) => {
   geometry.setAttribute("position", position);
   geometry.setAttribute("offset", offset);
 
+  if (color) {
+    geometry.setAttribute("color", color);
+  }
+
   return geometry;
 };
 
@@ -60,12 +64,13 @@ const particleStateLinesGeometry = (count: number) => {
  * Lines Rendering.
  *
  */
-// export class ParticleStateLineSegments extends Line {
-// export class ParticleStateLineSegments extends Points {
 export class ParticleStateLineSegments extends LineSegments {
   state: GPGPUState;
-  constructor(count: number, state: GPGPUState) {
-    super(particleStateLinesGeometry(count), particleStateLinesMaterial());
+  constructor(count: number, state: GPGPUState, color?: BufferAttribute) {
+    super(
+      particleStateLinesGeometry(count, color),
+      particleStateLinesMaterial()
+    );
     this.state = state;
     if (this.state.states.length < 3) {
       throw new Error(
@@ -84,7 +89,8 @@ export class ParticleStateLineSegments extends LineSegments {
 
 export const createParticleStateLineSegments = (
   count: number,
-  state: GPGPUState
+  state: GPGPUState,
+  color?: BufferAttribute
 ) => {
-  return new ParticleStateLineSegments(count, state);
+  return new ParticleStateLineSegments(count, state, color);
 };

@@ -16,6 +16,7 @@ import {
   $xyz,
   $w,
   float,
+  output,
 } from "@thi.ng/shader-ast";
 import { GLSLTarget } from "@thi.ng/shader-ast-glsl";
 import { ProgramAst } from "../ast-compile-helpers";
@@ -30,6 +31,10 @@ export const pointsVertexShader = (target: GLSLTarget) => {
   // Attributes
   const position = input("vec3", "position");
   const offset = input("float", "offset");
+  const color = input("vec3", "color");
+
+  // Varyings
+  const vColor = output("vec3", "vColor");
 
   // Read Values
   const uv = sym(
@@ -52,11 +57,14 @@ export const pointsVertexShader = (target: GLSLTarget) => {
     // Attributes
     position,
     offset,
+    color,
+    vColor,
     // Main
     defMain(() => [
       uv,
       readState,
       assign(target.gl_PointSize, point_size),
+      assign(vColor, color),
       assign(
         target.gl_Position,
         mul(projectionMatrix, mul(modelViewMatrix, vec4(pos, 1.0)))
@@ -66,8 +74,10 @@ export const pointsVertexShader = (target: GLSLTarget) => {
 };
 
 export const pointsFragmentShader = (target: GLSLTarget) => {
+  const vColor = input("vec3", "vColor", { prec: "highp" });
   return program([
-    defMain(() => [assign(target.gl_FragColor, vec4(1.0, 1.0, 1.0, 1.0))]),
+    vColor,
+    defMain(() => [assign(target.gl_FragColor, vec4(vColor, 1.0))]),
   ]);
 };
 

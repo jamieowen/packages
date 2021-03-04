@@ -9,12 +9,11 @@ import { particlePointsProgram } from "../webgl/gpgpu-particles/points-shader";
 import { compileProgramAst } from "../webgl/ast-compile-helpers";
 import { GPGPUState } from "@jamieowen/three";
 
-const particleStatePointsMaterial = () => {
+const particleStatePointsMaterial = (addColor: boolean) => {
   const { fragmentSource, vertexSource } = compileProgramAst(
     particlePointsProgram()
   );
   const material = new RawShaderMaterial({
-    vertexColors: false, // later
     vertexShader: vertexSource,
     fragmentShader: fragmentSource,
   });
@@ -30,7 +29,7 @@ const particleStatePointsMaterial = () => {
  * Points Geometry.
  *
  */
-const particleStatePointsGeometry = (count: number) => {
+const particleStatePointsGeometry = (count: number, color: BufferAttribute) => {
   const geometry = new BufferGeometry();
   const position = new BufferAttribute(new Float32Array(count * 3).fill(0), 3);
 
@@ -40,6 +39,10 @@ const particleStatePointsGeometry = (count: number) => {
   );
   geometry.setAttribute("position", position);
   geometry.setAttribute("offset", offset);
+
+  if (color) {
+    geometry.setAttribute("color", color);
+  }
 
   return geometry;
 };
@@ -52,8 +55,11 @@ const particleStatePointsGeometry = (count: number) => {
  */
 export class ParticleStatePoints extends Points {
   state: GPGPUState;
-  constructor(count: number, state: GPGPUState) {
-    super(particleStatePointsGeometry(count), particleStatePointsMaterial());
+  constructor(count: number, state: GPGPUState, color: BufferAttribute) {
+    super(
+      particleStatePointsGeometry(count, color),
+      particleStatePointsMaterial(null)
+    );
     this.state = state;
   }
   onBeforeRender = () => {
@@ -64,6 +70,10 @@ export class ParticleStatePoints extends Points {
   };
 }
 
-export const createParticleStatePoints = (count: number, state: GPGPUState) => {
-  return new ParticleStatePoints(count, state);
+export const createParticleStatePoints = (
+  count: number,
+  state: GPGPUState,
+  color: BufferAttribute
+) => {
+  return new ParticleStatePoints(count, state, color);
 };

@@ -34,9 +34,13 @@ const aliasPaths = [
         ...map.mount,
         [`../packages/${pkg}/src`]: `/dist/@jamieowen/${pkg}`,
       },
+      relative_mount: {
+        ...map.relative_mount,
+        [`../packages/${pkg}/src`]: `/packages/${pkg}/src`,
+      },
     };
   },
-  { alias: {}, mount: {} }
+  { alias: {}, mount: {}, relative_mount: {} }
 );
 
 /** @type {import("snowpack").SnowpackUserConfig } */
@@ -47,11 +51,13 @@ const snowpackConfig = {
     // ...aliasPaths.mount,
 
     // This seems to allow for relative imports direct to pkg folder.
-    "../packages/three/src": "/packages/three/src",
+    ...aliasPaths.relative_mount,
+
+    // "../packages/three/src": "/packages/three/src",
   },
   plugins: ["@snowpack/plugin-typescript"],
   alias: {
-    // ...aliasPaths.alias,
+    ...aliasPaths.alias,
   },
   buildOptions: {
     sourcemap: true,

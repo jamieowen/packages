@@ -46,10 +46,11 @@ export const linesVertexShader = (target: GLSLTarget) => {
   const resolution = uniform("vec2", "resolution");
   const state_1 = uniform("sampler2D", "state_1");
   const state_2 = uniform("sampler2D", "state_2");
-  const outColor = output("vec4", "outColor");
 
   // Attributes
   const position = input("vec3", "position");
+  const color = input("vec3", "color");
+  const vColor = output("vec3", "vColor");
 
   // Offsets span from 0 to count * 2.
   // From this, the line segment start and end is determined by offset % 2
@@ -86,20 +87,20 @@ export const linesVertexShader = (target: GLSLTarget) => {
     modelViewMatrix,
     state_1,
     state_2,
-    outColor,
     resolution,
     // Attributes
     position,
     offset,
+    color,
+    vColor,
     // Main
     defMain(() => [
       uv,
       readState1,
       readState2,
       stateDiff,
-      // assign(outColor, vec4(1.0, modOffset, 1.0, 1.0)),
-      assign(outColor, vec4(1.0, 1.0, 1.0, 1.0)),
-      assign(target.gl_PointSize, float(16.0)),
+      assign(vColor, color),
+      // assign(vColor, vec3(0.7)),
       assign(
         target.gl_Position,
         mul(projectionMatrix, mul(modelViewMatrix, vec4(pos1, 1.0)))
@@ -109,10 +110,10 @@ export const linesVertexShader = (target: GLSLTarget) => {
 };
 
 export const linesFragmentShader = (target: GLSLTarget) => {
-  let outcolor;
+  let vColor;
   return program([
-    (outcolor = input("vec4", "outColor", { prec: "highp" })),
-    defMain(() => [assign(target.gl_FragColor, vec4($xyz(outcolor), 1.0))]),
+    (vColor = input("vec3", "vColor", { prec: "highp" })),
+    defMain(() => [assign(target.gl_FragColor, vec4(vColor, 1.0))]),
   ]);
 };
 
