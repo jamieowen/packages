@@ -23,12 +23,18 @@ const aliasPaths = [
   "motion",
   "three",
   "webgl",
+  "gui",
+  "core",
 ].reduce(
   (map, pkg) => {
     return {
       alias: {
         ...map.alias,
         [`@jamieowen/${pkg}`]: `../packages/${pkg}/src`,
+      },
+      alias2: {
+        ...map.alias,
+        [`@jamieowen/${pkg}`]: `../../packages/${pkg}/src`,
       },
       mount: {
         ...map.mount,
@@ -50,14 +56,14 @@ const snowpackConfig = {
     src: "/dist",
     // ...aliasPaths.mount,
 
-    // This seems to allow for relative imports direct to pkg folder.
+    // This seems to allow for relative imports direct to pkg folder. e.g : ../../packages/three..
     ...aliasPaths.relative_mount,
 
     // "../packages/three/src": "/packages/three/src",
   },
   plugins: ["@snowpack/plugin-typescript"],
   alias: {
-    ...aliasPaths.alias,
+    // ...aliasPaths.alias2,
   },
   buildOptions: {
     sourcemap: true,

@@ -25,7 +25,7 @@ import {
 import { encodeFillDataTexture3 } from "./webgl/buffer-helpers";
 import { snoiseVec3 } from "@thi.ng/shader-ast-stdlib";
 import { renderViewportTexture } from "../../packages/three/src/render/render-viewports";
-import { createGui } from "./gui";
+import { createGui } from "@jamieowen/gui";
 import * as astParticleLib from "./webgl/gpgpu-particles";
 
 import { createParticleStatePoints } from "./three/particle-state-points";

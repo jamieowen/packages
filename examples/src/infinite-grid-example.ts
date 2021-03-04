@@ -25,7 +25,7 @@ import {
   BoxBufferGeometry,
   Matrix4,
 } from "three";
-import { createGui } from "./gui";
+import { createGui } from "@jamieowen/gui";
 import { sync, reactive, trace } from "@thi.ng/rstream";
 import { Smush32 } from "@thi.ng/random";
 import { mulN2, sub3 } from "@thi.ng/vectors";
@@ -81,7 +81,7 @@ sketch(
     camera.updateProjectionMatrix();
 
     controls.object.position.set(0, 4.5, 5);
-    controls.object.position.multiplyScalar(3.5);
+    controls.object.position.multiplyScalar(3);
     controls.target.set(0, -1, 0);
     controls.update();
 

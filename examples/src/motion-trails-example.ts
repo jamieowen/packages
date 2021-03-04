@@ -9,7 +9,8 @@ import {
   trailConeGeometry,
   trailBoxGeometry,
 } from "@jamieowen/three";
-import { createGui } from "./gui";
+// import { createGui } from "@jamieowen/gui";
+import { createGui } from "../../packages/gui/src";
 import {
   mapPosition,
   EaseTypes,

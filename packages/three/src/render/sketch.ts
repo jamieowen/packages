@@ -87,6 +87,8 @@ export function createSketch(
     domElement.style.height = config.height.toString();
   };
 
+  domElement.style.touchAction = "none";
+
   setup({
     domElement,
     renderer,

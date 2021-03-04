@@ -1,5 +1,6 @@
 import { GUI, GUIController } from "dat.gui";
 import { Stream } from "@thi.ng/rstream";
+import { keyboardStream } from "@jamieowen/browser";
 
 const guiListen = (gui: GUI, callback: () => void) => {
   gui.__controllers.forEach((c) => c.onChange(callback));
@@ -11,6 +12,19 @@ export function createGui<T>(controls: T) {
   const gui = new GUI({
     width: 350,
     closed: true,
+  });
+
+  keyboardStream({
+    toggle: ["k"],
+  }).subscribe({
+    next: (ev) => {
+      console.log(ev);
+      if (ev.isKeyToggled && ev.keysToggled.indexOf("k") > -1) {
+        gui.hide();
+      } else {
+        gui.show();
+      }
+    },
   });
 
   gui.domElement.parentElement.style.zIndex = "100";
