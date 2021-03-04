@@ -33,3 +33,5 @@ export type SubGridCell = GridCell & {
   step: number;
   depth: number;
 };
+
+export default {};

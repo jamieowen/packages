@@ -55,8 +55,8 @@ const createBounds = (
 
 const gui = createGui({
   // ySpeed: [0]
-  curlScale: [0.001, 0, 0.1, 0.0001],
-  curlInput: [0.01, 0.01, 10, 0.001],
+  curlScale: [0.0051, 0, 0.1, 0.0001],
+  curlInput: [0.742, 0.01, 10, 0.001],
 });
 
 const createStateUpdate = (renderer: WebGLRenderer, size: number) => {
@@ -115,12 +115,14 @@ const createStateUpdate = (renderer: WebGLRenderer, size: number) => {
   });
 };
 
-sketch(({ configure, render, renderer, scene, camera }) => {
+sketch(({ configure, render, renderer, scene, camera, controls }) => {
   // Dome
+
   createDomeSimpleLight(
     scene,
     createDomeSimpleOpts({ showHelpers: false, color: "crimson" })
   );
+
   // Containers
   const group = new Group();
   scene.add(group as any);
@@ -128,7 +130,7 @@ sketch(({ configure, render, renderer, scene, camera }) => {
   // const bounds05 = createBounds(scene);
   // const bounds11 = createBounds(scene, 2, "red");
 
-  const size = 64;
+  const size = 200;
   const count = size * size;
 
   // Create the standard constants texture. ( read by the constants AST chunk )
@@ -145,6 +147,8 @@ sketch(({ configure, render, renderer, scene, camera }) => {
     // arr[offset + 3] = 0.0; //Math.random(); // Not sure why RGBA doesn't work?
   });
 
+  let curlInputSine = 0; // offset each frame
+
   // Update
   const state = createStateUpdate(renderer, size);
   console.log(state.material.fragmentShader);
@@ -154,12 +158,15 @@ sketch(({ configure, render, renderer, scene, camera }) => {
   state.material.uniforms.constants = { value: constants };
   state.material.uniforms.time = { value: 0 };
   state.material.uniforms.curlScale = { value: gui.deref().values.curlScale };
-  state.material.uniforms.curlInput = { value: gui.deref().values.curlInput };
+  state.material.uniforms.curlInput = {
+    value: gui.deref().values.curlInput + curlInputSine,
+  };
 
   gui.subscribe({
     next: ({ values }) => {
       state.material.uniforms.curlScale.value = values.curlScale;
-      state.material.uniforms.curlInput.value = values.curlInput;
+      state.material.uniforms.curlInput.value =
+        values.curlInput + curlInputSine;
     },
   });
 
@@ -170,12 +177,15 @@ sketch(({ configure, render, renderer, scene, camera }) => {
   const colors = new BufferAttribute(new Float32Array(size * size * 3), 3);
   const colors2 = new BufferAttribute(new Float32Array(size * size * 3 * 2), 3);
 
+  const deg1 = 1 / 12;
+  const deg2 = deg1 * 6;
   for (let i = 0; i < colors.count; i++) {
-    color.setHSL(
-      Math.random() * 0.2 + (0.3 % 1),
-      0.6,
-      0.2 + Math.random() * 0.7
-    );
+    color.setHSL((Math.random() * 0.1 + 1) % 1, 0.9, 0.4 + Math.random() * 0.2);
+    // color.offsetHSL(0.5, 0, 0);
+
+    if (Math.random() > 0.9) {
+      color.setHSL(1, Math.random() * 0.3 + 0.7, Math.random() * 0.3 + 0.7);
+    }
     colors.setXYZ(i, color.r, color.g, color.b);
     colors2.setXYZ(i * 2, color.r, color.g, color.b);
     colors2.setXYZ(i * 2 + 1, color.r, color.g, color.b);
@@ -184,11 +194,11 @@ sketch(({ configure, render, renderer, scene, camera }) => {
 
   // Check renderer for required uniform updates.
   const renderPoints = createParticleStatePoints(count, state, colors);
-  scene.add(renderPoints);
+  group.add(renderPoints);
   // renderPoints.position.x = 2.0;
   console.log("Render Points :", renderPoints);
   const renderLines = createParticleStateLineSegments(count, state, colors2);
-  scene.add(renderLines);
+  group.add(renderLines);
   console.log("Render Lines:", renderLines);
 
   // Write Start Data.
@@ -196,10 +206,20 @@ sketch(({ configure, render, renderer, scene, camera }) => {
   state.write(startData);
   // state.update();
 
+  controls.object.position.set(0, -1, 0);
+  controls.object.position.multiplyScalar(1);
+
+  controls.update();
+
   render((clock) => {
     // Update Sim
     state.material.uniforms.time.value = clock.time;
 
+    curlInputSine = Math.cos(clock.time) * Math.sin(clock.time * 25) * 0.05;
+    state.material.uniforms.curlInput.value =
+      gui.deref().values.curlInput + curlInputSine;
+
+    group.rotation.y += 0.01;
     // if (clock.time < 1) {
     state.update();
     // }
