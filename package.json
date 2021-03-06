@@ -14,7 +14,8 @@
     "link:sys": "lerna run link:sys"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "examples"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
