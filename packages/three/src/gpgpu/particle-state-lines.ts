@@ -1,15 +1,12 @@
 import {
   BufferAttribute,
   BufferGeometry,
-  Line,
   LineSegments,
-  Points,
   RawShaderMaterial,
   Vector2,
 } from "three";
-import { particleLinesProgram } from "../webgl/gpgpu-particles";
-import { compileProgramAst } from "../webgl/ast-compile-helpers";
-import { GPGPUState } from "@jamieowen/three";
+import { compileProgramAst, particleLinesProgram } from "@jamieowen/webgl";
+import { GPGPUState } from "../gpgpu";
 
 const particleStateLinesMaterial = () => {
   const { fragmentSource, vertexSource } = compileProgramAst(

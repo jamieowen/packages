@@ -5,9 +5,8 @@ import {
   RawShaderMaterial,
   Vector2,
 } from "three";
-import { particlePointsProgram } from "../webgl/gpgpu-particles/points-shader";
-import { compileProgramAst } from "../webgl/ast-compile-helpers";
-import { GPGPUState } from "@jamieowen/three";
+import { compileProgramAst, particlePointsProgram } from "@jamieowen/webgl";
+import { GPGPUState } from "../gpgpu";
 
 const particleStatePointsMaterial = (addColor: boolean) => {
   const { fragmentSource, vertexSource } = compileProgramAst(

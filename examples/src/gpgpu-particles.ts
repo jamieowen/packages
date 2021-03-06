@@ -22,14 +22,15 @@ import {
   vec4,
   vec3,
 } from "@thi.ng/shader-ast";
-import { encodeFillDataTexture3 } from "./webgl/buffer-helpers";
+import {
+  encodeFillDataTexture3,
+  createParticleStatePoints,
+  createParticleStateLineSegments,
+  renderViewportTexture,
+} from "@jamieowen/three";
 import { snoiseVec3 } from "@thi.ng/shader-ast-stdlib";
-import { renderViewportTexture } from "../../packages/three/src/render/render-viewports";
 import { createGui } from "@jamieowen/gui";
-import * as astParticleLib from "./webgl/gpgpu-particles";
-
-import { createParticleStatePoints } from "./three/particle-state-points";
-import { createParticleStateLineSegments } from "./three/particle-state-lines";
+import * as astParticleLib from "@jamieowen/webgl";
 
 /**
  *

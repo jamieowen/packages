@@ -69,14 +69,15 @@ export const accumulateForces = (
   const transformP = sym(position);
   const transformV = sym(vec3(0.0));
   // const transformV = sym(velocity); // TODO
-  return [
+  return ([
     transformP,
     transformV,
     ...forces.map((f) =>
       assign(transformV, add(transformV, f(position, velocity, mass, age)))
     ),
     assign(transformP, add(position, transformV)),
-  ] as [transformedP: Sym<"vec3">, transformedV: Sym<"vec3">];
+    // temp ts fix??
+  ] as unknown) as [transformedP: Sym<"vec3">, transformedV: Sym<"vec3">];
 };
 
 // From Previous

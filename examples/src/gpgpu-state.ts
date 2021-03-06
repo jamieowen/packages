@@ -2,7 +2,6 @@ import {
   Mesh,
   MeshBasicMaterial,
   WebGLRenderer,
-  MeshLambertMaterial,
   DoubleSide,
   Group,
 } from "three";
@@ -13,6 +12,7 @@ import {
   createDomeSimpleOpts,
   createGeometryFactory,
   GeometryAlignment,
+  encodeFillDataTexture4,
 } from "@jamieowen/three";
 import {
   program,
@@ -32,7 +32,6 @@ import {
   lte,
   float,
 } from "@thi.ng/shader-ast";
-import { encodeFillDataTexture4 } from "./webgl/buffer-helpers";
 
 const createStateUpdate = (renderer: WebGLRenderer, size: number) => {
   return createStateTextureAst(renderer, {

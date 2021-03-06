@@ -28,7 +28,7 @@ import {
   step,
 } from "@thi.ng/shader-ast";
 import { GLSLTarget } from "@thi.ng/shader-ast-glsl";
-import { ProgramAst } from "../ast-compile-helpers";
+import { ProgramAst } from "../shaders/ast-compile-helpers";
 
 /**
  *

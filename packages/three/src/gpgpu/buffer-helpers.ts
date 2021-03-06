@@ -2,7 +2,6 @@ import {
   DataTexture,
   FloatType,
   LuminanceAlphaFormat,
-  LuminanceFormat,
   PixelFormat,
   RGBAFormat,
   RGBFormat,

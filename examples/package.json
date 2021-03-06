@@ -21,6 +21,7 @@
     "@jamieowen/motion": "^0.0.5",
     "@jamieowen/three": "^0.0.5",
     "@jamieowen/gui": "^0.0.0",
+    "@jamieowen/webgl": "^0.0.0",
     "@thi.ng/random": "^2.2.0",
     "@thi.ng/shader-ast": "^0.7.12",
     "@thi.ng/shader-ast-stdlib": "^0.5.12",
