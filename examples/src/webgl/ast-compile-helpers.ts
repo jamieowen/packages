@@ -16,14 +16,9 @@ export const compileProgramAst = (programAst: ProgramAst) => {
     type: "fs",
   });
 
-  console.log("AST COMPILE VERTEX: ", programAst.vertexShader(compileVS));
-
   const vertexSource = compileVS(programAst.vertexShader(compileVS));
   const fragmentSource = compileFS(programAst.fragmentShader(compileFS));
 
-  console.log("AST SRC", vertexSource);
-
-  console.log("AST FS", fragmentSource);
   return {
     vertexSource,
     fragmentSource,
