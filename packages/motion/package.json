@@ -1,6 +1,6 @@
 {
   "name": "@jamieowen/motion",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "./dist/index.main.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -14,7 +14,7 @@
     "link:sys": "yarn link"
   },
   "dependencies": {
-    "@jamieowen/browser": "^0.0.5",
+    "@jamieowen/browser": "^0.0.6",
     "@thi.ng/rstream": "^5.1.0",
     "@thi.ng/rstream-gestures": "^3.0.5",
     "@thi.ng/transducers": "^7.5.3",

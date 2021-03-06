@@ -1,6 +1,6 @@
 {
   "name": "@jamieowen/three",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "./dist/index.main.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -14,10 +14,10 @@
     "link:sys": "yarn link"
   },
   "dependencies": {
-    "@jamieowen/browser": "^0.0.5",
-    "@jamieowen/core": "^0.0.1",
-    "@jamieowen/motion": "^0.0.5",
-    "@jamieowen/webgl": "^0.0.3",
+    "@jamieowen/browser": "^0.0.6",
+    "@jamieowen/core": "^0.0.2",
+    "@jamieowen/motion": "^0.0.6",
+    "@jamieowen/webgl": "^0.0.4",
     "@thi.ng/api": "^7.0.0",
     "@thi.ng/memoize": "^2.1.8",
     "@thi.ng/rstream": "^5.1.0",
