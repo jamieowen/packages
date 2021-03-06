@@ -1,5 +1,5 @@
 {
-  "name": "@jamieowen/examples-infinite-grid",
+  "name": "@jamieowen/examples",
   "private": "true",
   "version": "0.0.4",
   "license": "MIT",
@@ -21,10 +21,10 @@
     "@jamieowen/motion": "^0.0.5",
     "@jamieowen/three": "^0.0.5",
     "@jamieowen/gui": "^0.0.0",
-    "@jamieowen/webgl": "^0.0.0",
+    "@jamieowen/webgl": "^0.0.3",
     "@thi.ng/random": "^2.2.0",
     "@thi.ng/shader-ast": "^0.7.12",
-    "@thi.ng/shader-ast-stdlib": "^0.5.12",
+    "@thi.ng/shader-ast-stdlib": "^0.5.18",
     "@thi.ng/transducers": "^7.5.8",
     "dat.gui": "^0.7.7",
     "three": "^0.125.2"

@@ -936,27 +936,10 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@thi.ng/api@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@thi.ng/api/-/api-7.0.0.tgz#751ab547be8105b500e558e2a50f2904231372a4"
-  integrity sha512-d5uKBurYINVTgYNIP49Zz1JORWgvVgRC5DSzw9l5G3rQ1LZC3SQ0iCQ0S3MAHQQvvu8VbIvyM9Mlw5vDCkFmzQ==
-
-"@thi.ng/api@^7.1.3":
+"@thi.ng/api@^7.0.0", "@thi.ng/api@^7.1.3":
   version "7.1.3"
   resolved "https://registry.yarnpkg.com/@thi.ng/api/-/api-7.1.3.tgz#6e32cca31252437345fc1e13d5da2afa018f9dcc"
   integrity sha512-a0Q0Y/DORKmRUPJx6s6n272MAhtWtQyAF51Rg8WXWFVXtknnke5iu3VkV+tdr6V3rcbymr9x8ZMntnTjYxIKgw==
-
-"@thi.ng/arrays@^0.10.3":
-  version "0.10.3"
-  resolved "https://registry.yarnpkg.com/@thi.ng/arrays/-/arrays-0.10.3.tgz#b9c80d8a611f5351b778b707ff83a140e1afd0a1"
-  integrity sha512-oGaJ1WVY10LG4JBjS/jFPFyrPaCG/hEB/mbKVAKSKcVnGj86Vv97f9z5uhRxk+X9/6FJaulh/G6KsvZw08F6IQ==
-  dependencies:
-    "@thi.ng/api" "^7.0.0"
-    "@thi.ng/checks" "^2.9.0"
-    "@thi.ng/compare" "^1.3.23"
-    "@thi.ng/equiv" "^1.0.36"
-    "@thi.ng/errors" "^1.2.27"
-    "@thi.ng/random" "^2.3.1"
 
 "@thi.ng/arrays@^0.10.7":
   version "0.10.7"
@@ -970,22 +953,7 @@
     "@thi.ng/errors" "^1.2.31"
     "@thi.ng/random" "^2.3.5"
 
-"@thi.ng/associative@^5.1.1":
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/@thi.ng/associative/-/associative-5.1.1.tgz#ef40278d1afc8d9c7f16c213646bd98fbd519481"
-  integrity sha512-qN3pStjLkTfkk8glsqr0g3+Ys1KyRnSxbyMy4Opde5gmRcx7P419onwXxam+GXnFg0EvmOD36tTa3YKQlH3iWg==
-  dependencies:
-    "@thi.ng/api" "^7.0.0"
-    "@thi.ng/binary" "^2.1.0"
-    "@thi.ng/checks" "^2.9.0"
-    "@thi.ng/compare" "^1.3.23"
-    "@thi.ng/dcons" "^2.3.11"
-    "@thi.ng/equiv" "^1.0.36"
-    "@thi.ng/errors" "^1.2.27"
-    "@thi.ng/transducers" "^7.6.1"
-    tslib "2.0.1"
-
-"@thi.ng/associative@^5.1.5":
+"@thi.ng/associative@^5.1.1", "@thi.ng/associative@^5.1.5":
   version "5.1.5"
   resolved "https://registry.yarnpkg.com/@thi.ng/associative/-/associative-5.1.5.tgz#f714346069f1fdf6b3a47af09a743def391b3836"
   integrity sha512-y/6HqIMWsgVVjM8WAfqpN4DkSvwN+OTzkl9vmAmhidcY7gBcqqCloTH265+YoKBaeAUtpd5baskwNbjDVIB+1g==
@@ -1000,18 +968,7 @@
     "@thi.ng/transducers" "^7.6.5"
     tslib "^2.1.0"
 
-"@thi.ng/atom@^4.1.28":
-  version "4.1.28"
-  resolved "https://registry.yarnpkg.com/@thi.ng/atom/-/atom-4.1.28.tgz#5a2fc786cde9e3660a0cbf8a97bcd23d975f3cc7"
-  integrity sha512-hKBQVI+puU2ZEHqiofEQZgA3WF+RC6fo/rH/pw81Nj9T2qbV/f0/fyxGYJcaVekRbi3hUcQl01M2r9K1/NDICw==
-  dependencies:
-    "@thi.ng/api" "^7.0.0"
-    "@thi.ng/equiv" "^1.0.36"
-    "@thi.ng/errors" "^1.2.27"
-    "@thi.ng/paths" "^4.2.0"
-    tslib "2.0.1"
-
-"@thi.ng/atom@^4.1.32":
+"@thi.ng/atom@^4.1.28", "@thi.ng/atom@^4.1.32":
   version "4.1.32"
   resolved "https://registry.yarnpkg.com/@thi.ng/atom/-/atom-4.1.32.tgz#3cb7b6320fee61db79fd7325328f9e35c297a779"
   integrity sha512-tRY2t+o/SzJ2I/8QfuLEbV0ebt0YB+haJ1Ix/n89Wdd6cHCDbz6jrSKHLCeYBQuZvyWC4v8uMsTvAiYVdEoAsw==
@@ -1022,13 +979,6 @@
     "@thi.ng/paths" "^4.2.4"
     tslib "^2.1.0"
 
-"@thi.ng/binary@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@thi.ng/binary/-/binary-2.1.0.tgz#0f1efab57b5d5612887e653ee2ba82fccf72bb9f"
-  integrity sha512-d2ajHrOcWTxJGhlSx38YMnrFt6UPOFum85wy0weA4xaz49b3mbcYm6xeaHBQ+qAJA0sqQPotORiUL2rIaxwuHg==
-  dependencies:
-    "@thi.ng/api" "^7.0.0"
-
 "@thi.ng/binary@^2.2.3":
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/@thi.ng/binary/-/binary-2.2.3.tgz#da680abdea8266e87fbced898bbf82c2a6a08e37"
@@ -1036,14 +986,7 @@
   dependencies:
     "@thi.ng/api" "^7.1.3"
 
-"@thi.ng/checks@^2.9.0":
-  version "2.9.0"
-  resolved "https://registry.yarnpkg.com/@thi.ng/checks/-/checks-2.9.0.tgz#a4b1895eabc40868f24bdac544c25f61af918285"
-  integrity sha512-vXPzTyWnK5eLZJv2iFAPftfjcwssQCYvjJajb0pFWP9CD4NYp/r7aXXJbljLkrcwEjJdgZSvA1D4n5jQrxSRaQ==
-  dependencies:
-    tslib "2.0.1"
-
-"@thi.ng/checks@^2.9.4":
+"@thi.ng/checks@^2.9.0", "@thi.ng/checks@^2.9.4":
   version "2.9.4"
   resolved "https://registry.yarnpkg.com/@thi.ng/checks/-/checks-2.9.4.tgz#6e298794610b46c23e655c074d5601fd60100f6e"
   integrity sha512-iIGJadr30gpujUUSeb4nNvVjEGS1RN6IS/Z5D7lJjzcQL+kQXwveYGkQ5OjtouQ0T/Yo41DxsPVz8wNwAbdctw==
@@ -1051,30 +994,23 @@
     tslib "^2.1.0"
 
 "@thi.ng/color@^3.0.1":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@thi.ng/color/-/color-3.1.0.tgz#c44196aa5b241a5149701a3c3defa2442433c7a6"
-  integrity sha512-NqsEYjvCnNJYtCJHA5M8CkV4+Z0s3rwdRnPZDcvnuVQ0qXZKQ6g45mb0BdPrBOitNcZ7+EKTdMTFkq0kKMkDtA==
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/@thi.ng/color/-/color-3.1.4.tgz#f1e89804a4154dc5a63df94a6bbd14a2b7cad42c"
+  integrity sha512-wuv6pUzZKCGoSQMbm5HvXdSJ5blT3WZULk6VIEBd0oEDle4TF2WmNV1vkQjURNX+pryyexydYA4m/fS4Kk01iQ==
   dependencies:
-    "@thi.ng/api" "^7.0.0"
-    "@thi.ng/arrays" "^0.10.3"
-    "@thi.ng/binary" "^2.1.0"
-    "@thi.ng/checks" "^2.9.0"
-    "@thi.ng/compare" "^1.3.23"
-    "@thi.ng/compose" "^1.4.24"
-    "@thi.ng/defmulti" "^1.3.5"
-    "@thi.ng/errors" "^1.2.27"
-    "@thi.ng/math" "^3.2.0"
-    "@thi.ng/random" "^2.3.1"
-    "@thi.ng/strings" "^1.15.0"
-    "@thi.ng/transducers" "^7.6.1"
-    "@thi.ng/vectors" "^5.0.1"
-
-"@thi.ng/compare@^1.3.23":
-  version "1.3.23"
-  resolved "https://registry.yarnpkg.com/@thi.ng/compare/-/compare-1.3.23.tgz#73a015ba5c0460a233e5b234c5f90512ddd94ee9"
-  integrity sha512-VMo/Jxlz5R/lYL1xK3/hkkFTfIZNmqkvp5XzK9ZFj/XsSVoBgUv1TJwOq6s5T3Yc2bYG03dsFj3x7HBZR/14QA==
-  dependencies:
-    "@thi.ng/api" "^7.0.0"
+    "@thi.ng/api" "^7.1.3"
+    "@thi.ng/arrays" "^0.10.7"
+    "@thi.ng/binary" "^2.2.3"
+    "@thi.ng/checks" "^2.9.4"
+    "@thi.ng/compare" "^1.3.27"
+    "@thi.ng/compose" "^1.4.28"
+    "@thi.ng/defmulti" "^1.3.9"
+    "@thi.ng/errors" "^1.2.31"
+    "@thi.ng/math" "^3.2.4"
+    "@thi.ng/random" "^2.3.5"
+    "@thi.ng/strings" "^1.15.4"
+    "@thi.ng/transducers" "^7.6.5"
+    "@thi.ng/vectors" "^5.1.3"
 
 "@thi.ng/compare@^1.3.27":
   version "1.3.27"
@@ -1083,14 +1019,6 @@
   dependencies:
     "@thi.ng/api" "^7.1.3"
 
-"@thi.ng/compose@^1.4.24":
-  version "1.4.24"
-  resolved "https://registry.yarnpkg.com/@thi.ng/compose/-/compose-1.4.24.tgz#66aa15670be4cacae999d2721cfdcf60a358d670"
-  integrity sha512-YO/SQNi0X4xBxLN+zv+I+t/ebQ1SV3y4HFfB0PHxiCki7160qzQ266MmoPXFv5RtejC7+Ut6CkKS5pN14AexAQ==
-  dependencies:
-    "@thi.ng/api" "^7.0.0"
-    "@thi.ng/errors" "^1.2.27"
-
 "@thi.ng/compose@^1.4.28":
   version "1.4.28"
   resolved "https://registry.yarnpkg.com/@thi.ng/compose/-/compose-1.4.28.tgz#5eca5e63ca32695e336cf7a3226e46aceee4cde6"
@@ -1098,19 +1026,6 @@
   dependencies:
     "@thi.ng/api" "^7.1.3"
     "@thi.ng/errors" "^1.2.31"
-
-"@thi.ng/dcons@^2.3.11":
-  version "2.3.11"
-  resolved "https://registry.yarnpkg.com/@thi.ng/dcons/-/dcons-2.3.11.tgz#83794afe7bf55da60b30c6608fe1765efd80251a"
-  integrity sha512-XfZeFDhhg+0Ns3KNTkOsM5yFXWyCSZgzLlKn1RYZ6+jJijSWqCkuDo/gw25SGdSMlQjCJvWettt5+N+tlTN2sg==
-  dependencies:
-    "@thi.ng/api" "^7.0.0"
-    "@thi.ng/checks" "^2.9.0"
-    "@thi.ng/compare" "^1.3.23"
-    "@thi.ng/equiv" "^1.0.36"
-    "@thi.ng/errors" "^1.2.27"
-    "@thi.ng/random" "^2.3.1"
-    "@thi.ng/transducers" "^7.6.1"
 
 "@thi.ng/dcons@^2.3.15":
   version "2.3.15"
@@ -1125,32 +1040,13 @@
     "@thi.ng/random" "^2.3.5"
     "@thi.ng/transducers" "^7.6.5"
 
-"@thi.ng/defmulti@^1.3.5":
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/@thi.ng/defmulti/-/defmulti-1.3.5.tgz#aafc906f74215042b49d02215360c248560534e5"
-  integrity sha512-EOmN6f3qBNSOPCTBaGZiL/gtoO99Zq4FeO1yQM+qh4jtg+tGf0kygZnMv9t/i+d7iiGZZvkOvwC7b4XVdE2mxw==
-  dependencies:
-    "@thi.ng/api" "^7.0.0"
-    "@thi.ng/errors" "^1.2.27"
-
-"@thi.ng/defmulti@^1.3.9":
+"@thi.ng/defmulti@^1.3.5", "@thi.ng/defmulti@^1.3.9":
   version "1.3.9"
   resolved "https://registry.yarnpkg.com/@thi.ng/defmulti/-/defmulti-1.3.9.tgz#313faffde8776f0f77b805b7e7f8f9ab58f37bc9"
   integrity sha512-TDtbHENp0hmLXr+BqTFQqZ04oW1I8bHUOD/Io2Rce+7nUqb1b7eZ12zYotEwkQDGg6gHR82SIFzuevIe1dHwhw==
   dependencies:
     "@thi.ng/api" "^7.1.3"
     "@thi.ng/errors" "^1.2.31"
-
-"@thi.ng/dgraph@^1.3.10", "@thi.ng/dgraph@^1.3.9":
-  version "1.3.10"
-  resolved "https://registry.yarnpkg.com/@thi.ng/dgraph/-/dgraph-1.3.10.tgz#691a4a25d6dad5199f3f95a52ea5e859152beacd"
-  integrity sha512-u9curCn13R8mN5Btjp+79Q6dl8MpzvCfMVFZHzLwXRimne4mb5R2pQD56brS+DC1FnDffPWK5KUbgffgtil7Qg==
-  dependencies:
-    "@thi.ng/api" "^7.0.0"
-    "@thi.ng/associative" "^5.1.1"
-    "@thi.ng/equiv" "^1.0.36"
-    "@thi.ng/errors" "^1.2.27"
-    "@thi.ng/transducers" "^7.6.1"
 
 "@thi.ng/dgraph@^1.3.14":
   version "1.3.14"
@@ -1163,65 +1059,45 @@
     "@thi.ng/errors" "^1.2.31"
     "@thi.ng/transducers" "^7.6.5"
 
-"@thi.ng/equiv@^1.0.36":
-  version "1.0.36"
-  resolved "https://registry.yarnpkg.com/@thi.ng/equiv/-/equiv-1.0.36.tgz#a16e6d01bfb826cfda984c63e2d0ba131cc07f00"
-  integrity sha512-6LpD57SuOPKFj4eTQzufwqrvm1Ipmcaw5Aliz1BLzoeblvT6n7yQsx4iw500anSW39+87dXPFQjNvX6xVXK/Jw==
+"@thi.ng/dgraph@^1.3.9":
+  version "1.3.10"
+  resolved "https://registry.yarnpkg.com/@thi.ng/dgraph/-/dgraph-1.3.10.tgz#691a4a25d6dad5199f3f95a52ea5e859152beacd"
+  integrity sha512-u9curCn13R8mN5Btjp+79Q6dl8MpzvCfMVFZHzLwXRimne4mb5R2pQD56brS+DC1FnDffPWK5KUbgffgtil7Qg==
+  dependencies:
+    "@thi.ng/api" "^7.0.0"
+    "@thi.ng/associative" "^5.1.1"
+    "@thi.ng/equiv" "^1.0.36"
+    "@thi.ng/errors" "^1.2.27"
+    "@thi.ng/transducers" "^7.6.1"
 
-"@thi.ng/equiv@^1.0.40":
+"@thi.ng/equiv@^1.0.36", "@thi.ng/equiv@^1.0.40":
   version "1.0.40"
   resolved "https://registry.yarnpkg.com/@thi.ng/equiv/-/equiv-1.0.40.tgz#76ef90bdccb243628356e483963b0927284e2a1f"
   integrity sha512-L3jmDIF7RpJekmBpUQw4tCAUuX4EFYKSm8jrMx0ZkwEkH4pq9w84oylpJDs9TBPJr91Cn/GHwfapmJdc7Wu+GQ==
 
-"@thi.ng/errors@^1.2.27":
-  version "1.2.27"
-  resolved "https://registry.yarnpkg.com/@thi.ng/errors/-/errors-1.2.27.tgz#ce5fb20008cc63361837f91bb868439b08b98499"
-  integrity sha512-ay1oKA7VGU5a9B1JaUQ1UaYY44THEDJ17ym7yumD6NDbWNWLX7HwRLNX2VxupARW2JVJZXBxphsCY1WPoQmZ7A==
-
-"@thi.ng/errors@^1.2.31":
+"@thi.ng/errors@^1.2.27", "@thi.ng/errors@^1.2.31":
   version "1.2.31"
   resolved "https://registry.yarnpkg.com/@thi.ng/errors/-/errors-1.2.31.tgz#ebed4c17d4232fc3abd3fa8e11347572dd7fae03"
   integrity sha512-aj6Te82pZgXsjBzLMThZsnogx6NNw9jDDDdLCqc0VjL8wqlaYNF6bEncOyFwrUbS8V/sFaVECx1GpQQS14joOA==
-
-"@thi.ng/hex@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@thi.ng/hex/-/hex-0.2.0.tgz#45dd244420e864981cb50f53dcefa49af792859a"
-  integrity sha512-MTo1lxFs4nh2xc3Lny4HYEwTrCGHdFFUZQbjfuTa1obFI8yvLC50rUpswU1GMa7FIcWoTCBpujva0eXP7RnUJQ==
 
 "@thi.ng/hex@^0.2.4":
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/@thi.ng/hex/-/hex-0.2.4.tgz#c4a27955144bf9111ccda23b28a30ff6bf6f783d"
   integrity sha512-N9ZSGDyvyECJPY38CL0Z2ZsikS14Jml6ZOPbLdLwdna0y80OOTGyqs9kCh6o/mEgDoGWHM8d16vKqJ615pOLWw==
 
-"@thi.ng/math@^3.1.0", "@thi.ng/math@^3.2.0":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@thi.ng/math/-/math-3.2.0.tgz#ad99e595af0e4bee6ec8f9cf7636e56d306a7878"
-  integrity sha512-Qd1eOHTHmmH9TOD8j99aSZdX9yCTHqoSDQIAHm8L/EglTjrzCvzzGc+AUT2KSrd6Y7mdl0zvkzvnsS2r1M8z3w==
-  dependencies:
-    "@thi.ng/api" "^7.0.0"
-
-"@thi.ng/math@^3.2.4":
+"@thi.ng/math@^3.1.0", "@thi.ng/math@^3.2.4":
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/@thi.ng/math/-/math-3.2.4.tgz#7bcff3fd8758c939dc8624316cd3bdae73228200"
   integrity sha512-xpgckhIOQX/sbyS+ROHQ47sUwuOIxBIzQXWAAp17+SR2ViPzKzLWPiYoK3VoWLCniaZrEFnis5ejvjzmFKsg3Q==
   dependencies:
     "@thi.ng/api" "^7.1.3"
 
-"@thi.ng/memoize@^2.1.8", "@thi.ng/memoize@^2.1.9":
-  version "2.1.9"
-  resolved "https://registry.yarnpkg.com/@thi.ng/memoize/-/memoize-2.1.9.tgz#a51ec97365b8b8bf4d042030f5b7b0e6173d6766"
-  integrity sha512-0znmXNlayIkAQZB5re1TjQohhz6SXdKTi6DE2KIn1qrd8eld4AOIWp+yl+/bfIjA66DSgU8rMXH2UlX/c0Q5tw==
+"@thi.ng/memoize@^2.1.13", "@thi.ng/memoize@^2.1.8":
+  version "2.1.13"
+  resolved "https://registry.yarnpkg.com/@thi.ng/memoize/-/memoize-2.1.13.tgz#4cf198ea1aeb27032ad7a0552d63703f263422e3"
+  integrity sha512-OZ3OD1Ftl6e9sqXQAdmRCkRyeHiKioG/p5GWz39irqD41JmqjtEfjjzUuY/M2uJpQrxurCA3/xhF9jaA/YZMAA==
   dependencies:
-    "@thi.ng/api" "^7.0.0"
-
-"@thi.ng/paths@^4.2.0":
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/@thi.ng/paths/-/paths-4.2.0.tgz#9c5deb5173879baf3a559abae7274831ef40edb1"
-  integrity sha512-uoL+ejw2SKKC6MpFzRCjY8TrfPK4BJ5mbXt3vkAqbFj43/qGnGkcrFjd6UZbrwzI3eQ1VKqWH7nKFYqHQQKj3A==
-  dependencies:
-    "@thi.ng/api" "^7.0.0"
-    "@thi.ng/checks" "^2.9.0"
-    "@thi.ng/errors" "^1.2.27"
+    "@thi.ng/api" "^7.1.3"
 
 "@thi.ng/paths@^4.2.4":
   version "4.2.4"
@@ -1232,16 +1108,7 @@
     "@thi.ng/checks" "^2.9.4"
     "@thi.ng/errors" "^1.2.31"
 
-"@thi.ng/random@^2.1.3", "@thi.ng/random@^2.3.1":
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/@thi.ng/random/-/random-2.3.1.tgz#5c2d7e74e078d5ee49a4475ba51938445c45d144"
-  integrity sha512-msUl2lUA0nZyzLoxsknUb6lWXqv1x21csl8Bbc+bcEVvaCokHhCbJK0tRrsytMHI30A8Ga6+TkaNaiLeRCo1lA==
-  dependencies:
-    "@thi.ng/api" "^7.0.0"
-    "@thi.ng/checks" "^2.9.0"
-    "@thi.ng/hex" "^0.2.0"
-
-"@thi.ng/random@^2.3.5":
+"@thi.ng/random@^2.1.3", "@thi.ng/random@^2.3.5":
   version "2.3.5"
   resolved "https://registry.yarnpkg.com/@thi.ng/random/-/random-2.3.5.tgz#056b8501a2b90fb80b0b4f0e52cc68ad3391e31b"
   integrity sha512-sxI32hSkBBbZoAG7UQbi6Kl0G9QD3bAtGvdFCCU7kBjzb9RSJtSosYp4JdUpzhH748ANokmwL3YwsRQDHTmlgA==
@@ -1251,30 +1118,17 @@
     "@thi.ng/hex" "^0.2.4"
 
 "@thi.ng/rstream-gestures@^3.0.5":
-  version "3.0.8"
-  resolved "https://registry.yarnpkg.com/@thi.ng/rstream-gestures/-/rstream-gestures-3.0.8.tgz#39f02f239b2ae0a44817894bd6c8711157c20832"
-  integrity sha512-SLObdTz67mIyf5Ey0pFThdubuwnfmDyh0/HkRwlNkjCmHnxUkh00mdjD0iF1JsQiFX2G2CPgtELanShySRn1Hg==
+  version "3.0.12"
+  resolved "https://registry.yarnpkg.com/@thi.ng/rstream-gestures/-/rstream-gestures-3.0.12.tgz#1f410de66ad9df2ba3a8260da5e358d1bf861cfb"
+  integrity sha512-2ia7zq8czqDcLgHIiy2e4vs8N2Jofl1+R3S+E5D4Ft6LiMAeREhit6bHcRsJzRwHcdQiafYyOgOvjMgLzeWM8Q==
   dependencies:
-    "@thi.ng/api" "^7.0.0"
-    "@thi.ng/checks" "^2.9.0"
-    "@thi.ng/math" "^3.2.0"
-    "@thi.ng/rstream" "^5.1.3"
-    "@thi.ng/transducers" "^7.6.1"
+    "@thi.ng/api" "^7.1.3"
+    "@thi.ng/checks" "^2.9.4"
+    "@thi.ng/math" "^3.2.4"
+    "@thi.ng/rstream" "^5.1.7"
+    "@thi.ng/transducers" "^7.6.5"
 
-"@thi.ng/rstream@^5.0.11", "@thi.ng/rstream@^5.1.0", "@thi.ng/rstream@^5.1.3":
-  version "5.1.3"
-  resolved "https://registry.yarnpkg.com/@thi.ng/rstream/-/rstream-5.1.3.tgz#17ef9452033ecefc748a696280e27e5379ed8d1c"
-  integrity sha512-+8sbOzw3pc/dfa7faoRwX3VHjXoD/Z1fcHyGrheujffX4BUpmOqCeCF0u8YgxQxh45OCEupJ/KgQqrDG8On6xA==
-  dependencies:
-    "@thi.ng/api" "^7.0.0"
-    "@thi.ng/arrays" "^0.10.3"
-    "@thi.ng/associative" "^5.1.1"
-    "@thi.ng/atom" "^4.1.28"
-    "@thi.ng/checks" "^2.9.0"
-    "@thi.ng/errors" "^1.2.27"
-    "@thi.ng/transducers" "^7.6.1"
-
-"@thi.ng/rstream@^5.1.7":
+"@thi.ng/rstream@^5.0.11", "@thi.ng/rstream@^5.1.0", "@thi.ng/rstream@^5.1.3", "@thi.ng/rstream@^5.1.7":
   version "5.1.7"
   resolved "https://registry.yarnpkg.com/@thi.ng/rstream/-/rstream-5.1.7.tgz#5f9d2c8eac4ccd223d6fa73679e21fa95a01270b"
   integrity sha512-xXJdINv9NERohbOywro2PTItX1N1q8Nw9Jkj7aSp++c2RlwSlimkQwlmlzJqmYU3YZNiw7dszDHCeT8tcD3DhA==
@@ -1288,14 +1142,14 @@
     "@thi.ng/transducers" "^7.6.5"
 
 "@thi.ng/shader-ast-glsl@^0.2.20":
-  version "0.2.22"
-  resolved "https://registry.yarnpkg.com/@thi.ng/shader-ast-glsl/-/shader-ast-glsl-0.2.22.tgz#1d88b24a71589772f71cb1b8dd6a4f69b0edfdf8"
-  integrity sha512-bFMqrKBjgLdUU/LYmug6lXzMPLq5mr25mOUcu3cumZDWPkKIzrXTrzkg+R/Ejzr6M5QDVUc3aSwPgtpAPADokg==
+  version "0.2.26"
+  resolved "https://registry.yarnpkg.com/@thi.ng/shader-ast-glsl/-/shader-ast-glsl-0.2.26.tgz#ec06096d5c765cd25a4680c0d3afb5f71ff6b353"
+  integrity sha512-Wli2x6NMcE+/JH08jrhGuNf8yf+mGkkPJpURVkRpkbQkosTsXdo6y3C8HJEgX1dd1AU2Em5ci8ve7YMTfBAJsw==
   dependencies:
-    "@thi.ng/api" "^7.0.0"
-    "@thi.ng/checks" "^2.9.0"
-    "@thi.ng/errors" "^1.2.27"
-    "@thi.ng/shader-ast" "^0.8.0"
+    "@thi.ng/api" "^7.1.3"
+    "@thi.ng/checks" "^2.9.4"
+    "@thi.ng/errors" "^1.2.31"
+    "@thi.ng/shader-ast" "^0.8.4"
 
 "@thi.ng/shader-ast-stdlib@^0.5.18":
   version "0.5.18"
@@ -1316,17 +1170,6 @@
     "@thi.ng/dgraph" "^1.3.9"
     "@thi.ng/errors" "^1.2.27"
 
-"@thi.ng/shader-ast@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@thi.ng/shader-ast/-/shader-ast-0.8.0.tgz#1b71725209de2c99df93b446fd84c1b48ae447cf"
-  integrity sha512-SW2vFZKHaceIA1uGTZNSa73hR1tcCnUyU1GxnQi3ug84UAFcWPBkd7LYwssI5drBpeaXGxFZ2obD3z5HTFvINg==
-  dependencies:
-    "@thi.ng/api" "^7.0.0"
-    "@thi.ng/checks" "^2.9.0"
-    "@thi.ng/defmulti" "^1.3.5"
-    "@thi.ng/dgraph" "^1.3.10"
-    "@thi.ng/errors" "^1.2.27"
-
 "@thi.ng/shader-ast@^0.8.4":
   version "0.8.4"
   resolved "https://registry.yarnpkg.com/@thi.ng/shader-ast/-/shader-ast-0.8.4.tgz#f44d8b6a5b0e38876d740160f88655d3038cd3e6"
@@ -1338,31 +1181,17 @@
     "@thi.ng/dgraph" "^1.3.14"
     "@thi.ng/errors" "^1.2.31"
 
-"@thi.ng/strings@^1.15.0":
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/@thi.ng/strings/-/strings-1.15.0.tgz#4ae018166139d4de08aab18b2ec40cda014cff84"
-  integrity sha512-0JcHMfr7nhS5KwYfj5Jmc9fusWDJMez+8eCJHpoWhiQMZAdgWXkLCcWpq/vr5YBah5BoWr9Z0yvknfSHjlrdHQ==
+"@thi.ng/strings@^1.15.4":
+  version "1.15.4"
+  resolved "https://registry.yarnpkg.com/@thi.ng/strings/-/strings-1.15.4.tgz#4198334db69fe39d0342bace3261d9a89bee89bb"
+  integrity sha512-ALU0EwbIfybNCOrbu2P42pVH5foWarerTlcDNT1fVkRi0UWxHvS1mydJ3t5nLlqRKzaBE64a50XZvpMGrKUSgA==
   dependencies:
-    "@thi.ng/api" "^7.0.0"
-    "@thi.ng/errors" "^1.2.27"
-    "@thi.ng/hex" "^0.2.0"
-    "@thi.ng/memoize" "^2.1.9"
+    "@thi.ng/api" "^7.1.3"
+    "@thi.ng/errors" "^1.2.31"
+    "@thi.ng/hex" "^0.2.4"
+    "@thi.ng/memoize" "^2.1.13"
 
-"@thi.ng/transducers@^7.5.3", "@thi.ng/transducers@^7.5.8", "@thi.ng/transducers@^7.6.1":
-  version "7.6.1"
-  resolved "https://registry.yarnpkg.com/@thi.ng/transducers/-/transducers-7.6.1.tgz#3fc197b28f82edef9ee6435f50eeb38b83cedb5f"
-  integrity sha512-Sc+ed0YXxdOU4JHYeNqzS1uDXZXyZ/YcH9cJhEUm7Hx5EHwXPPCMnrzCXq26TWvkw+ff6zvuL6hCLxyycqpdAg==
-  dependencies:
-    "@thi.ng/api" "^7.0.0"
-    "@thi.ng/arrays" "^0.10.3"
-    "@thi.ng/checks" "^2.9.0"
-    "@thi.ng/compare" "^1.3.23"
-    "@thi.ng/compose" "^1.4.24"
-    "@thi.ng/errors" "^1.2.27"
-    "@thi.ng/math" "^3.2.0"
-    "@thi.ng/random" "^2.3.1"
-
-"@thi.ng/transducers@^7.6.5":
+"@thi.ng/transducers@^7.5.3", "@thi.ng/transducers@^7.5.8", "@thi.ng/transducers@^7.6.1", "@thi.ng/transducers@^7.6.5":
   version "7.6.5"
   resolved "https://registry.yarnpkg.com/@thi.ng/transducers/-/transducers-7.6.5.tgz#a823a6606cc4666d144adb95531620a1bc313f02"
   integrity sha512-TDhPUrK3KAbjT2Y1WHaYUf87jIA6QPjXqiWRo2fTf9UOMzRnRXdpxbuMGhqWAvYyVOzgKVDlhs7P6aYBSg1PDg==
@@ -1376,20 +1205,20 @@
     "@thi.ng/math" "^3.2.4"
     "@thi.ng/random" "^2.3.5"
 
-"@thi.ng/vectors@^5.0.0", "@thi.ng/vectors@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@thi.ng/vectors/-/vectors-5.0.1.tgz#f9c934ceedab845e081a29414fab6fdd6b77c38c"
-  integrity sha512-AM8A6vF3zy6ZaYIk/462GHvWofB7ZbyvhCNmGRH5OGIzJnVHSrmjvUAB1xuVo2ixHs35rpRLbgA5O7jZzFBUig==
+"@thi.ng/vectors@^5.0.0", "@thi.ng/vectors@^5.1.3":
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/@thi.ng/vectors/-/vectors-5.1.3.tgz#17f21d630fa11c6fce9bdce1fcfdbfa6893dd6ce"
+  integrity sha512-hDJtZdJPjmHUEH7hv5uStDGlmtDSGLCx2nTj8IF1Sadt3HqAXZvZZNeyxMsOyhOE2Ta2WzU51/rF15GJ1bAHXg==
   dependencies:
-    "@thi.ng/api" "^7.0.0"
-    "@thi.ng/binary" "^2.1.0"
-    "@thi.ng/checks" "^2.9.0"
-    "@thi.ng/equiv" "^1.0.36"
-    "@thi.ng/errors" "^1.2.27"
-    "@thi.ng/math" "^3.2.0"
-    "@thi.ng/memoize" "^2.1.9"
-    "@thi.ng/random" "^2.3.1"
-    "@thi.ng/transducers" "^7.6.1"
+    "@thi.ng/api" "^7.1.3"
+    "@thi.ng/binary" "^2.2.3"
+    "@thi.ng/checks" "^2.9.4"
+    "@thi.ng/equiv" "^1.0.40"
+    "@thi.ng/errors" "^1.2.31"
+    "@thi.ng/math" "^3.2.4"
+    "@thi.ng/memoize" "^2.1.13"
+    "@thi.ng/random" "^2.3.5"
+    "@thi.ng/transducers" "^7.6.5"
 
 "@types/dat.gui@^0.7.6":
   version "0.7.6"
@@ -5383,11 +5212,6 @@ trim-off-newlines@^1.0.0:
   resolved "https://registry.yarnpkg.com/trim-off-newlines/-/trim-off-newlines-1.0.1.tgz#9f9ba9d9efa8764c387698bcbfeb2c848f11adb3"
   integrity sha1-n5up2e+odkw4dpi8v+sshI8RrbM=
 
-tslib@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.0.1.tgz#410eb0d113e5b6356490eec749603725b021b43e"
-  integrity sha512-SgIkNheinmEBgx1IUNirK0TUD4X9yjjBRTqqjggWCU3pUEqIk3/Uwl3yRixYKT6WjQuGiwDv4NomL3wqRCj+CQ==
-
 tslib@^1.9.0:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
@@ -5436,9 +5260,9 @@ typedarray@^0.0.6:
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
 typescript@^4.1.5:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.2.tgz#1450f020618f872db0ea17317d16d8da8ddb8c4c"
-  integrity sha512-tbb+NVrLfnsJy3M59lsDgrzWIflR4d4TIUjz+heUnHZwdF7YsrMTKoRERiIvI2lvBG95dfpLxB21WZhys1bgaQ==
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.3.tgz#39062d8019912d43726298f09493d598048c1ce3"
+  integrity sha512-qOcYwxaByStAWrBf4x0fibwZvMRG+r4cQoTjbPtUlrWjBHbmCAww1i448U0GJ+3cNNEtebDteo/cHOR3xJ4wEw==
 
 uglify-js@^3.1.4:
   version "3.12.8"
