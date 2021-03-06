@@ -122,6 +122,6 @@ export const encodeFillDataTexture4 = (
   height: number,
   fill: (array: Float32Array, offset: number) => void
 ) => {
-  const array = encodeFillFloat32Array3(width * height, fill);
+  const array = encodeFillFloat32Array4(width * height, fill);
   return dataTexture(array, width, height, 4);
 };
