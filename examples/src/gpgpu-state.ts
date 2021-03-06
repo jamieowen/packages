@@ -98,7 +98,7 @@ sketch(({ render, renderer, scene, controls }) => {
   // Display texture for state.
   const gf = createGeometryFactory();
   const geom = gf.create("plane", GeometryAlignment.BOTTOM);
-  const mesh1 = new Mesh(geom, new MeshLambertMaterial({ side: DoubleSide }));
+  const mesh1 = new Mesh(geom, new MeshBasicMaterial({ side: DoubleSide }));
   const mesh2 = new Mesh(geom, new MeshBasicMaterial({ side: DoubleSide }));
   const group = new Group();
   group.add(mesh1, mesh2);
