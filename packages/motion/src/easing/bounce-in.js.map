@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/bounce-in.ts"],
+  "sourcesContent": ["import { bounceOut } from \"./bounce-out\";\n\nexport function bounceIn(t: number) {\n  return 1.0 - bounceOut(1.0 - t);\n}\n"],
+  "mappings": "AAAA;AAEO,yBAAkB,GAAW;AAClC,SAAO,IAAM,UAAU,IAAM;AAAA;",
+  "names": []
+}

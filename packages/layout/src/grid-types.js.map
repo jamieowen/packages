@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/layout/src/grid-types.ts"],
+  "sourcesContent": ["export type GridOpts = {\n  // Dimensions of each grid cell\n  dimensions: [number, number];\n  // Size of viewport\n  viewport: [number, number];\n};\n\nexport type SubdivCond = (item: SubdivItem) => boolean;\nexport type SubGridOpts = GridOpts & {\n  maxDepth: number;\n  subdivide: SubdivCond;\n};\n\nexport type GridIdGen = (x: number, y: number) => number;\n\n// Used when iterating & subdividing\nexport type SubdivItem = [\n  id: number,\n  x: number,\n  y: number,\n  step: number,\n  depth: number\n];\n\nexport type GridCell = {\n  id: number;\n  world: [number, number];\n  cell: [number, number];\n  local: [number, number];\n};\n\nexport type SubGridCell = GridCell & {\n  step: number;\n  depth: number;\n};\n\nexport default {};\n"],
+  "mappings": "AAoCA,eAAe;",
+  "names": []
+}

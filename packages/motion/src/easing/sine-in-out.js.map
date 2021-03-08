@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/sine-in-out.ts"],
+  "sourcesContent": ["export function sineInOut(t: number) {\n  return -0.5 * (Math.cos(Math.PI * t) - 1);\n}\n"],
+  "mappings": "AAAO,0BAAmB,GAAW;AACnC,SAAO,OAAQ,MAAK,IAAI,KAAK,KAAK,KAAK;AAAA;",
+  "names": []
+}

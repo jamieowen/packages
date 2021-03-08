@@ -1,0 +1,1 @@
+{"version":3,"file":"is-boolean-04a49a85.js","sources":["../../../../../node_modules/@thi.ng/checks/is-boolean.js"],"sourcesContent":["export const isBoolean = (x) => typeof x === \"boolean\";\n"],"names":[],"mappings":"AAAY,MAAC,SAAS,GAAG,CAAC,CAAC,KAAK,OAAO,CAAC,KAAK;;;;"}

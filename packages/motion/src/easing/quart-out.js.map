@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/quart-out.ts"],
+  "sourcesContent": ["export function quartOut(t: number) {\n  return Math.pow(t - 1.0, 3.0) * (1.0 - t) + 1.0;\n}\n"],
+  "mappings": "AAAO,yBAAkB,GAAW;AAClC,SAAO,KAAK,IAAI,IAAI,GAAK,KAAQ,KAAM,KAAK;AAAA;",
+  "names": []
+}

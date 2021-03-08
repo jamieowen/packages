@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/three/src/streams/raf-clock-stream.ts"],
+  "sourcesContent": ["import { fromRAF } from \"@thi.ng/rstream\";\nimport { Clock } from \"three\";\nimport { map } from \"@thi.ng/transducers\";\n\nexport function rafClockStream() {\n  const clock = new Clock();\n  return fromRAF().transform(\n    map((i: number) => {\n      return {\n        clock,\n        delta: clock.getDelta(),\n        time: clock.getElapsedTime(),\n        frame: i,\n      };\n    })\n  );\n}\n"],
+  "mappings": "AAAA;AACA;AACA;AAEO,iCAA0B;AAC/B,QAAM,QAAQ,IAAI;AAClB,SAAO,UAAU,UACf,IAAI,CAAC,MAAc;AACjB,WAAO;AAAA,MACL;AAAA,MACA,OAAO,MAAM;AAAA,MACb,MAAM,MAAM;AAAA,MACZ,OAAO;AAAA;AAAA;AAAA;",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/quad-in.ts"],
+  "sourcesContent": ["export function quadIn(t: number) {\n  return t * t;\n}\n"],
+  "mappings": "AAAO,uBAAgB,GAAW;AAChC,SAAO,IAAI;AAAA;",
+  "names": []
+}

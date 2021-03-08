@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/sine-out.ts"],
+  "sourcesContent": ["export function sineOut(t: number) {\n  return Math.sin((t * Math.PI) / 2);\n}\n"],
+  "mappings": "AAAO,wBAAiB,GAAW;AACjC,SAAO,KAAK,IAAK,IAAI,KAAK,KAAM;AAAA;",
+  "names": []
+}

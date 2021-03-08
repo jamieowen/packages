@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/clock.ts"],
+  "sourcesContent": ["import { fromRAF, CommonOpts } from \"@thi.ng/rstream\";\nimport { map } from \"@thi.ng/transducers\";\n\nconst perf = () => {\n  return (typeof performance === \"undefined\" ? Date : performance).now();\n};\n\nexport const clock = (opts?: CommonOpts) => {\n  let then = perf();\n  let start = then;\n  const raf = fromRAF(opts).transform(\n    map((frame) => {\n      const now = perf();\n      const delta = (now - then) / 1000;\n      const time = (now - start) / 1000;\n      then = now;\n      return { frame, delta, time };\n    })\n  );\n  raf.next(0); // emit an initial 0, otherwise it waits a frame.\n  return raf;\n};\n\nexport const DEFAULT_CLOCK = (() => {\n  let instance: ReturnType<typeof clock> = undefined;\n  return () => {\n    if (!instance) {\n      instance = clock();\n    }\n    return instance;\n  };\n})();\n"],
+  "mappings": "AAAA;AACA;AAEA,MAAM,OAAO,MAAM;AACjB,SAAQ,QAAO,gBAAgB,cAAc,OAAO,aAAa;AAAA;AAG5D,aAAM,QAAQ,CAAC,SAAsB;AAC1C,MAAI,OAAO;AACX,MAAI,QAAQ;AACZ,QAAM,MAAM,QAAQ,MAAM,UACxB,IAAI,CAAC,UAAU;AACb,UAAM,MAAM;AACZ,UAAM,QAAS,OAAM,QAAQ;AAC7B,UAAM,OAAQ,OAAM,SAAS;AAC7B,WAAO;AACP,WAAO,CAAE,OAAO,OAAO;AAAA;AAG3B,MAAI,KAAK;AACT,SAAO;AAAA;AAGF,aAAM,gBAAiB,OAAM;AAClC,MAAI,WAAqC;AACzC,SAAO,MAAM;AACX,QAAI,CAAC,UAAU;AACb,iBAAW;AAAA;AAEb,WAAO;AAAA;AAAA;",
+  "names": []
+}

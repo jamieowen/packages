@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/cubic-in-out.ts"],
+  "sourcesContent": ["export function cubicInOut(t: number) {\n  return t < 0.5 ? 4.0 * t * t * t : 0.5 * Math.pow(2.0 * t - 2.0, 3.0) + 1.0;\n}\n"],
+  "mappings": "AAAO,2BAAoB,GAAW;AACpC,SAAO,IAAI,MAAM,IAAM,IAAI,IAAI,IAAI,MAAM,KAAK,IAAI,IAAM,IAAI,GAAK,KAAO;AAAA;",
+  "names": []
+}

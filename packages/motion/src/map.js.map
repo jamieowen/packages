@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/map.ts"],
+  "sourcesContent": ["import { Vec } from \"@thi.ng/vectors\";\nimport { map } from \"@thi.ng/transducers\";\nimport { IMotionEvent, MotionDataType } from \"./api\";\n\nexport const mapPosition = <T extends \"transform\" | \"particle\">(\n  fn: (time: number, position: Vec) => void\n) =>\n  map<IMotionEvent<T>, IMotionEvent<T>>(\n    (ev) => (fn(ev.clock.time, ev.data.position), ev)\n  );\n"],
+  "mappings": "AACA;AAGO,aAAM,cAAc,CACzB,OAEA,IACE,CAAC,OAAQ,IAAG,GAAG,MAAM,MAAM,GAAG,KAAK,WAAW;",
+  "names": []
+}

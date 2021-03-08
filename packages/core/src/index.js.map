@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/core/src/index.ts"],
+  "sourcesContent": ["export * from \"./reactive-opts\";\n"],
+  "mappings": "AAAA;",
+  "names": []
+}

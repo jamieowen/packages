@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/expo-out.ts"],
+  "sourcesContent": ["export function expoOut(t: number) {\n  return t === 1.0 ? t : 1.0 - Math.pow(2.0, -10.0 * t);\n}\n"],
+  "mappings": "AAAO,wBAAiB,GAAW;AACjC,SAAO,MAAM,IAAM,IAAI,IAAM,KAAK,IAAI,GAAK,MAAQ;AAAA;",
+  "names": []
+}

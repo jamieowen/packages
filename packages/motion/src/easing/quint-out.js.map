@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/quint-out.ts"],
+  "sourcesContent": ["export function quintOut(t: number) {\n  return --t * t * t * t * t + 1;\n}\n"],
+  "mappings": "AAAO,yBAAkB,GAAW;AAClC,SAAO,EAAE,IAAI,IAAI,IAAI,IAAI,IAAI;AAAA;",
+  "names": []
+}

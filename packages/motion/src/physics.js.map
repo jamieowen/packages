@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/physics.ts"],
+  "sourcesContent": ["import { subscription } from \"@thi.ng/rstream\";\nimport { iterator, sideEffect, Transducer, step } from \"@thi.ng/transducers\";\nimport { set3, sub3, Vec } from \"@thi.ng/vectors\";\nimport { IMotionEvent, IParticle } from \"./api\";\n\nexport const calcVelocity = () => {\n  let prev: Vec = undefined;\n  return sideEffect<IMotionEvent<\"particle\">>((ev) => {\n    if (!prev) {\n      prev = [];\n      set3(prev, ev.data.position);\n    }\n    sub3(ev.data.velocity, prev, ev.data.position);\n    set3(prev, ev.data.position);\n  });\n};\n\n// particle System - as array iterator.\n// similar to xform that trails is using.\n\n// mapPosition( sine() )\n// mapScale( sine() )\n// map( ()=> sine(10,20) ) X\n// setVelocity()\n// subscribe( followPointer() )\n// subscribe( trails(10) )\n\n// const sine = (phase: number, scale: number, comp: number) => {\n//   return (time: number, target: Vec) => {\n//     target[comp] = Math.sin(time + phase) * scale;\n//   };\n// };\n"],
+  "mappings": "AACA;AACA;AAGO,aAAM,eAAe,MAAM;AAChC,MAAI,OAAY;AAChB,SAAO,WAAqC,CAAC,OAAO;AAClD,QAAI,CAAC,MAAM;AACT,aAAO;AACP,WAAK,MAAM,GAAG,KAAK;AAAA;AAErB,SAAK,GAAG,KAAK,UAAU,MAAM,GAAG,KAAK;AACrC,SAAK,MAAM,GAAG,KAAK;AAAA;AAAA;",
+  "names": []
+}

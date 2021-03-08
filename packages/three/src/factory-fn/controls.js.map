@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/three/src/factory-fn/controls.ts"],
+  "sourcesContent": ["import { OrbitControls } from \"three/examples/jsm/controls/OrbitControls\";\nimport { Camera } from \"three\";\n\nexport const orbitControls = (camera: Camera, container: HTMLElement) => {\n  return new OrbitControls(camera, container);\n};\n"],
+  "mappings": "AAAA;AAGO,aAAM,gBAAgB,CAAC,QAAgB,cAA2B;AACvE,SAAO,IAAI,cAAc,QAAQ;AAAA;",
+  "names": []
+}

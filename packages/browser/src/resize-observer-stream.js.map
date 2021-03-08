@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/browser/src/resize-observer-stream.ts"],
+  "sourcesContent": ["import { Stream } from \"@thi.ng/rstream\";\n\nexport type ResizeEvent = {\n  entry: ResizeObserverEntry;\n  domElement: HTMLElement;\n  width: number;\n  height: number;\n};\n\nexport function resizeObserverStream(\n  domElement: HTMLElement,\n  opts: ResizeObserverOptions = { box: \"border-box\" }\n): Stream<ResizeEvent> {\n  return new Stream<ResizeEvent>((stream) => {\n    const callback = (entries: ResizeObserverEntry[]) => {\n      const entry = entries[0];\n      const width = entry.contentRect.width;\n      const height = entry.contentRect.height;\n      stream.next({ width, height, entry, domElement });\n    };\n    stream.next({ width: 0, height: 0, entry: null, domElement });\n\n    const observer = new ResizeObserver(callback);\n    observer.observe(domElement, opts);\n\n    return () => {\n      observer.disconnect();\n    };\n  });\n}\n"],
+  "mappings": "AAAA;AASO,qCACL,YACA,OAA8B,CAAE,KAAK,eAChB;AACrB,SAAO,IAAI,OAAoB,CAAC,WAAW;AACzC,UAAM,WAAW,CAAC,YAAmC;AACnD,YAAM,QAAQ,QAAQ;AACtB,YAAM,QAAQ,MAAM,YAAY;AAChC,YAAM,SAAS,MAAM,YAAY;AACjC,aAAO,KAAK,CAAE,OAAO,QAAQ,OAAO;AAAA;AAEtC,WAAO,KAAK,CAAE,OAAO,GAAG,QAAQ,GAAG,OAAO,MAAM;AAEhD,UAAM,WAAW,IAAI,eAAe;AACpC,aAAS,QAAQ,YAAY;AAE7B,WAAO,MAAM;AACX,eAAS;AAAA;AAAA;AAAA;",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/three/src/geometry/trail-geometries.ts"],
+  "sourcesContent": ["/**\n *\n * Some WIP geometries for 'trail' style objects that\n * will eventually be extruded along a path either on the CPU/GPU.\n *\n */\nimport { BoxBufferGeometry, ConeBufferGeometry, Matrix4 } from \"three\";\n\nconst FLIP = new Matrix4().makeRotationZ(Math.PI);\n\nexport const trailConeGeometry = () => {\n  const cone = new ConeBufferGeometry(1, 1, 6, 1);\n  cone.applyMatrix4(FLIP);\n  return cone;\n};\n\nexport const trailBoxGeometry = () => {\n  const box = new BoxBufferGeometry(1, 1, 1, 1, 1, 1);\n  box.applyMatrix4(FLIP);\n  return box;\n};\n"],
+  "mappings": "AAMA;AAEA,MAAM,OAAO,IAAI,UAAU,cAAc,KAAK;AAEvC,aAAM,oBAAoB,MAAM;AACrC,QAAM,OAAO,IAAI,mBAAmB,GAAG,GAAG,GAAG;AAC7C,OAAK,aAAa;AAClB,SAAO;AAAA;AAGF,aAAM,mBAAmB,MAAM;AACpC,QAAM,MAAM,IAAI,kBAAkB,GAAG,GAAG,GAAG,GAAG,GAAG;AACjD,MAAI,aAAa;AACjB,SAAO;AAAA;",
+  "names": []
+}

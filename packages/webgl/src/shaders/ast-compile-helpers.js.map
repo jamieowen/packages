@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/webgl/src/shaders/ast-compile-helpers.ts"],
+  "sourcesContent": ["import { program } from \"@thi.ng/shader-ast\";\nimport { GLSLTarget, targetGLSL, GLSLVersion } from \"@thi.ng/shader-ast-glsl\";\n\nexport interface ProgramAst {\n  vertexShader: (target: GLSLTarget) => ReturnType<typeof program>;\n  fragmentShader: (target: GLSLTarget) => ReturnType<typeof program>;\n}\n\nexport const compileProgramAst = (programAst: ProgramAst) => {\n  const compileVS = targetGLSL({\n    version: GLSLVersion.GLES_100,\n    type: \"vs\",\n  });\n  const compileFS = targetGLSL({\n    version: GLSLVersion.GLES_100,\n    type: \"fs\",\n  });\n\n  const vertexSource = compileVS(programAst.vertexShader(compileVS));\n  const fragmentSource = compileFS(programAst.fragmentShader(compileFS));\n\n  return {\n    vertexSource,\n    fragmentSource,\n  };\n};\n"],
+  "mappings": "AACA;AAOO,aAAM,oBAAoB,CAAC,eAA2B;AAC3D,QAAM,YAAY,WAAW;AAAA,IAC3B,SAAS,YAAY;AAAA,IACrB,MAAM;AAAA;AAER,QAAM,YAAY,WAAW;AAAA,IAC3B,SAAS,YAAY;AAAA,IACrB,MAAM;AAAA;AAGR,QAAM,eAAe,UAAU,WAAW,aAAa;AACvD,QAAM,iBAAiB,UAAU,WAAW,eAAe;AAE3D,SAAO;AAAA,IACL;AAAA,IACA;AAAA;AAAA;",
+  "names": []
+}

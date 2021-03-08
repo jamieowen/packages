@@ -1,0 +1,1 @@
+{"version":3,"file":"sub-16feec6f.js","sources":["../../../../../node_modules/@thi.ng/vectors/sub.js"],"sourcesContent":["import { defMathOp } from \"./internal/codegen\";\nexport const [sub, sub2, sub3, sub4] = defMathOp(\"-\");\n"],"names":[],"mappings":";;AACY,MAAC,CAAC,GAAG,EAAE,IAAI,EAAE,IAAI,EAAE,IAAI,CAAC,GAAG,SAAS,CAAC,GAAG;;;;"}

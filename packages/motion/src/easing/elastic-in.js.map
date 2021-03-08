@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/elastic-in.ts"],
+  "sourcesContent": ["export function elasticIn(t: number) {\n  return Math.sin((13.0 * t * Math.PI) / 2) * Math.pow(2.0, 10.0 * (t - 1.0));\n}\n"],
+  "mappings": "AAAO,0BAAmB,GAAW;AACnC,SAAO,KAAK,IAAK,KAAO,IAAI,KAAK,KAAM,KAAK,KAAK,IAAI,GAAK,KAAQ,KAAI;AAAA;",
+  "names": []
+}

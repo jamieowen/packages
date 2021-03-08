@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/color/src/filter.ts"],
+  "sourcesContent": ["import { contrastRatio1, contrastRatio2 } from \"./calc\";\nimport { Color2 } from \"./types\";\n\nexport const filterContrastRatio1 = (\n  colors: Color2[],\n  min: number,\n  max: number\n) =>\n  colors.filter(([color1, color2]) => {\n    const contrast = contrastRatio1(color1, color2);\n    return contrast > min && contrast < max;\n  });\n\nexport const filterContrastRatio2 = (\n  colors: Color2[],\n  min: number,\n  max: number\n) =>\n  colors.filter(([color1, color2]) => {\n    const contrast = contrastRatio2(color1, color2);\n    return contrast > min && contrast < max;\n  });\n"],
+  "mappings": "AAAA;AAGO,aAAM,uBAAuB,CAClC,QACA,KACA,QAEA,OAAO,OAAO,CAAC,CAAC,QAAQ,YAAY;AAClC,QAAM,WAAW,eAAe,QAAQ;AACxC,SAAO,WAAW,OAAO,WAAW;AAAA;AAGjC,aAAM,uBAAuB,CAClC,QACA,KACA,QAEA,OAAO,OAAO,CAAC,CAAC,QAAQ,YAAY;AAClC,QAAM,WAAW,eAAe,QAAQ;AACxC,SAAO,WAAW,OAAO,WAAW;AAAA;",
+  "names": []
+}

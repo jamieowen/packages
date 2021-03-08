@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/linear.ts"],
+  "sourcesContent": ["export function linear(t: number) {\n  return t;\n}\n"],
+  "mappings": "AAAO,uBAAgB,GAAW;AAChC,SAAO;AAAA;",
+  "names": []
+}

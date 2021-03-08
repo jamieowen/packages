@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/three/src/factory-fn/geometries.ts"],
+  "sourcesContent": ["import {\n  BoxBufferGeometry,\n  SphereBufferGeometry,\n  PlaneBufferGeometry,\n  CircleBufferGeometry,\n} from \"three\";\nimport { GeometryFactory } from \"../geometry/GeometryFactory\";\n\nexport function createGeometryFactory() {\n  const factory = new GeometryFactory();\n  factory.register(\"box\", () => new BoxBufferGeometry());\n  factory.register(\"sphere\", () => new SphereBufferGeometry());\n  factory.register(\"plane\", () => new PlaneBufferGeometry());\n  factory.register(\"circle\", () => new CircleBufferGeometry(1, 30));\n  return factory;\n}\n\nexport const DEFAULT_GEOMETRY_FACTORY = createGeometryFactory();\n"],
+  "mappings": "AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAMA;AAEO,wCAAiC;AACtC,QAAM,UAAU,IAAI;AACpB,UAAQ,SAAS,OAAO,MAAM,IAAI;AAClC,UAAQ,SAAS,UAAU,MAAM,IAAI;AACrC,UAAQ,SAAS,SAAS,MAAM,IAAI;AACpC,UAAQ,SAAS,UAAU,MAAM,IAAI,qBAAqB,GAAG;AAC7D,SAAO;AAAA;AAGF,aAAM,2BAA2B;",
+  "names": []
+}

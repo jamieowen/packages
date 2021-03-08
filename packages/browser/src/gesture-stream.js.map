@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/browser/src/gesture-stream.ts"],
+  "sourcesContent": ["export * from \"@thi.ng/rstream-gestures\";\n"],
+  "mappings": "AAAA;",
+  "names": []
+}

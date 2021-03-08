@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/quint-in-out.ts"],
+  "sourcesContent": ["export function quintInOut(t: number) {\n  if ((t *= 2) < 1) return 0.5 * t * t * t * t * t;\n  return 0.5 * ((t -= 2) * t * t * t * t + 2);\n}\n"],
+  "mappings": "AAAO,2BAAoB,GAAW;AACpC,MAAK,MAAK,KAAK;AAAG,WAAO,MAAM,IAAI,IAAI,IAAI,IAAI;AAC/C,SAAO,MAAQ,OAAK,KAAK,IAAI,IAAI,IAAI,IAAI;AAAA;",
+  "names": []
+}

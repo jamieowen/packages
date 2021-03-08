@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/gui/src/index.ts"],
+  "sourcesContent": ["export * from \"./createGui\";\n"],
+  "mappings": "AAAA;",
+  "names": []
+}

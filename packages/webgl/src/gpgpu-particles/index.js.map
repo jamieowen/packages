@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/webgl/src/gpgpu-particles/index.ts"],
+  "sourcesContent": ["export * from \"./emitters\";\nexport * from \"./forces-init\";\nexport * from \"./lines-shader\";\nexport * from \"./points-shader\";\nexport * from \"./read-constants\";\nexport * from \"./read-state\";\n"],
+  "mappings": "AAAA;AACA;AACA;AACA;AACA;AACA;",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/circ-in.ts"],
+  "sourcesContent": ["export function circIn(t: number) {\n  return 1.0 - Math.sqrt(1.0 - t * t);\n}\n"],
+  "mappings": "AAAO,uBAAgB,GAAW;AAChC,SAAO,IAAM,KAAK,KAAK,IAAM,IAAI;AAAA;",
+  "names": []
+}

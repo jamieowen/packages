@@ -1,6 +1,24 @@
 {
   "imports": {
     "@jamieowen/browser": "./@jamieowen/browser.js",
-    "@jamieowen/three": "./@jamieowen/three.js"
+    "@jamieowen/core": "./@jamieowen/core.js",
+    "@jamieowen/gui": "./@jamieowen/gui.js",
+    "@jamieowen/layout": "./@jamieowen/layout.js",
+    "@jamieowen/motion": "./@jamieowen/motion.js",
+    "@jamieowen/three": "./@jamieowen/three.js",
+    "@jamieowen/webgl": "./@jamieowen/webgl.js",
+    "@thi.ng/color": "./@thi.ng/color.js",
+    "@thi.ng/memoize": "./@thi.ng/memoize.js",
+    "@thi.ng/random": "./@thi.ng/random.js",
+    "@thi.ng/rstream": "./@thi.ng/rstream.js",
+    "@thi.ng/rstream-gestures": "./@thi.ng/rstream-gestures.js",
+    "@thi.ng/shader-ast": "./@thi.ng/shader-ast.js",
+    "@thi.ng/shader-ast-glsl": "./@thi.ng/shader-ast-glsl.js",
+    "@thi.ng/shader-ast-stdlib": "./@thi.ng/shader-ast-stdlib.js",
+    "@thi.ng/transducers": "./@thi.ng/transducers.js",
+    "@thi.ng/vectors": "./@thi.ng/vectors.js",
+    "dat.gui": "./dat.gui.js",
+    "three": "./three.js",
+    "three/examples/jsm/controls/OrbitControls": "./three/examples/jsm/controls/OrbitControls.js"
   }
 }

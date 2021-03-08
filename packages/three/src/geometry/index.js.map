@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/three/src/geometry/index.ts"],
+  "sourcesContent": ["export * from \"./GeometryFactory\";\nexport * from \"./trail-geometries\";\n"],
+  "mappings": "AAAA;AACA;",
+  "names": []
+}

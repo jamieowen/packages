@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/color/src/index.ts"],
+  "sourcesContent": ["export * from \"./calc\";\nexport * from \"./filter\";\nexport * from \"./palettes\";\nexport * from \"./types\";\n"],
+  "mappings": "AAAA;AACA;AACA;AACA;",
+  "names": []
+}

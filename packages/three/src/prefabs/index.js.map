@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/three/src/prefabs/index.ts"],
+  "sourcesContent": ["export * from \"./dome-simple\";\nexport * from \"./lighting-rig\";\n"],
+  "mappings": "AAAA;AACA;",
+  "names": []
+}

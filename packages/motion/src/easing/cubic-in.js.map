@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/cubic-in.ts"],
+  "sourcesContent": ["export function cubicIn(t: number) {\n  return t * t * t;\n}\n"],
+  "mappings": "AAAO,wBAAiB,GAAW;AACjC,SAAO,IAAI,IAAI;AAAA;",
+  "names": []
+}

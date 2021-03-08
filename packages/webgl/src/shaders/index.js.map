@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/webgl/src/shaders/index.ts"],
+  "sourcesContent": ["export * from \"./full-screen-read\";\nexport * from \"./ast-compile-helpers\";\n"],
+  "mappings": "AAAA;AACA;",
+  "names": []
+}

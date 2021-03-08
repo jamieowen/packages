@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/quad-in-out.ts"],
+  "sourcesContent": ["export function quadInOut(t: number) {\n  t /= 0.5;\n  if (t < 1) return 0.5 * t * t;\n  t--;\n  return -0.5 * (t * (t - 2) - 1);\n}\n"],
+  "mappings": "AAAO,0BAAmB,GAAW;AACnC,OAAK;AACL,MAAI,IAAI;AAAG,WAAO,MAAM,IAAI;AAC5B;AACA,SAAO,OAAQ,KAAK,KAAI,KAAK;AAAA;",
+  "names": []
+}

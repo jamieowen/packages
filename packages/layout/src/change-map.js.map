@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/layout/src/change-map.ts"],
+  "sourcesContent": ["/**\n * A Map style structure with callbacks when\n * items have been added for the first time and then removed\n * in between changes.\n */\ntype AddHandler<K, V> = (key: K) => V;\ntype RemoveHandler<K, V> = (key: K, value: V) => void;\n\nexport class ChangeMap<K, V> {\n  private previous: Map<K, V> = new Map();\n  private current: Map<K, V> = new Map();\n\n  set(key: K, add: AddHandler<K, V>): V {\n    let value = this.previous.get(key);\n    if (!value) {\n      value = add(key);\n    }\n    this.previous.delete(key);\n    this.current.set(key, value);\n    return value;\n  }\n\n  next(removed: RemoveHandler<K, V>) {\n    for (let [key, handler] of this.previous.entries()) {\n      removed(key, handler);\n    }\n    this.previous.clear();\n    const swap = this.previous;\n    this.previous = this.current;\n    this.current = swap;\n  }\n}\n"],
+  "mappings": "AAQO,uBAAsB;AAAA,EAAtB,cARP;AASU,oBAAsB,IAAI;AAC1B,mBAAqB,IAAI;AAAA;AAAA,EAEjC,IAAI,KAAQ,KAA0B;AACpC,QAAI,QAAQ,KAAK,SAAS,IAAI;AAC9B,QAAI,CAAC,OAAO;AACV,cAAQ,IAAI;AAAA;AAEd,SAAK,SAAS,OAAO;AACrB,SAAK,QAAQ,IAAI,KAAK;AACtB,WAAO;AAAA;AAAA,EAGT,KAAK,SAA8B;AACjC,aAAS,CAAC,KAAK,YAAY,KAAK,SAAS,WAAW;AAClD,cAAQ,KAAK;AAAA;AAEf,SAAK,SAAS;AACd,UAAM,OAAO,KAAK;AAClB,SAAK,WAAW,KAAK;AACrB,SAAK,UAAU;AAAA;AAAA;",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/sine-in.ts"],
+  "sourcesContent": ["export function sineIn(t: number) {\n  var v = Math.cos(t * Math.PI * 0.5);\n  if (Math.abs(v) < 1e-14) return 1;\n  else return 1 - v;\n}\n"],
+  "mappings": "AAAO,uBAAgB,GAAW;AAChC,MAAI,IAAI,KAAK,IAAI,IAAI,KAAK,KAAK;AAC/B,MAAI,KAAK,IAAI,KAAK;AAAO,WAAO;AAAA;AAC3B,WAAO,IAAI;AAAA;",
+  "names": []
+}

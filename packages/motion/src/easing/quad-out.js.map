@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/quad-out.ts"],
+  "sourcesContent": ["export function quadOut(t: number) {\n  return -t * (t - 2.0);\n}\n"],
+  "mappings": "AAAO,wBAAiB,GAAW;AACjC,SAAO,CAAC,IAAK,KAAI;AAAA;",
+  "names": []
+}

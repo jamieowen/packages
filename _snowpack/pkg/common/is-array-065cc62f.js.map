@@ -1,0 +1,1 @@
+{"version":3,"file":"is-array-065cc62f.js","sources":["../../../../../node_modules/@thi.ng/checks/is-array.js"],"sourcesContent":["export const isArray = Array.isArray;\n"],"names":[],"mappings":"AAAY,MAAC,OAAO,GAAG,KAAK,CAAC;;;;"}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/quint-in.ts"],
+  "sourcesContent": ["export function quintIn(t: number) {\n  return t * t * t * t * t;\n}\n"],
+  "mappings": "AAAO,wBAAiB,GAAW;AACjC,SAAO,IAAI,IAAI,IAAI,IAAI;AAAA;",
+  "names": []
+}

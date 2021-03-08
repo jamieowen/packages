@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/three/src/gpgpu/create.ts"],
+  "sourcesContent": ["import { WebGLRenderer } from \"three\";\nimport { gpgpuSetup, GPGPUSetupOpts } from \"@jamieowen/webgl\";\nimport { GPGPUState } from \"./state-texture\";\n\nexport const createStateTextureAst = (\n  renderer: WebGLRenderer,\n  opts: GPGPUSetupOpts\n) => {\n  const setup = gpgpuSetup(opts);\n  return new GPGPUState(renderer, setup);\n};\n"],
+  "mappings": "AACA;AACA;AAEO,aAAM,wBAAwB,CACnC,UACA,SACG;AACH,QAAM,QAAQ,WAAW;AACzB,SAAO,IAAI,WAAW,UAAU;AAAA;",
+  "names": []
+}

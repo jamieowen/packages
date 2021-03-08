@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/api.ts"],
+  "sourcesContent": ["import { Vec } from \"@thi.ng/vectors\";\n\nexport interface ITransform {\n  position: Vec;\n  // add more later\n}\n\nexport interface IParticle extends ITransform {\n  velocity: Vec;\n  previous: Vec;\n  acceleration: Vec;\n}\n\nexport interface IClock {\n  time: number;\n  delta: number;\n  frame: number;\n}\n\nexport type MotionDataType =\n  | \"transform\"\n  | \"particle\"\n  | \"transform-array\"\n  | \"particle-array\";\n\nexport interface IMotionEvent<T extends MotionDataType> {\n  type: T;\n  data: T extends \"transform\"\n    ? ITransform\n    : T extends \"transform-array\"\n    ? ITransform[]\n    : T extends \"particle\"\n    ? IParticle\n    : T extends \"particle-array\"\n    ? IParticle[]\n    : null;\n\n  clock: IClock;\n}\n\nexport default {}; // snowpack does not export without something?\n"],
+  "mappings": "AAwCA,eAAe;",
+  "names": []
+}

@@ -1,0 +1,1 @@
+export default "/_snowpack/pkg/@thi.ng/vectors.js.map";

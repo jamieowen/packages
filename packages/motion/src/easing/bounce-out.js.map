@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/bounce-out.ts"],
+  "sourcesContent": ["export function bounceOut(t: number) {\n  const a = 4.0 / 11.0;\n  const b = 8.0 / 11.0;\n  const c = 9.0 / 10.0;\n\n  const ca = 4356.0 / 361.0;\n  const cb = 35442.0 / 1805.0;\n  const cc = 16061.0 / 1805.0;\n\n  const t2 = t * t;\n\n  return t < a\n    ? 7.5625 * t2\n    : t < b\n    ? 9.075 * t2 - 9.9 * t + 3.4\n    : t < c\n    ? ca * t2 - cb * t + cc\n    : 10.8 * t * t - 20.52 * t + 10.72;\n}\n"],
+  "mappings": "AAAO,0BAAmB,GAAW;AACnC,QAAM,IAAI,IAAM;AAChB,QAAM,IAAI,IAAM;AAChB,QAAM,IAAI,IAAM;AAEhB,QAAM,KAAK,OAAS;AACpB,QAAM,KAAK,QAAU;AACrB,QAAM,KAAK,QAAU;AAErB,QAAM,KAAK,IAAI;AAEf,SAAO,IAAI,IACP,SAAS,KACT,IAAI,IACJ,QAAQ,KAAK,MAAM,IAAI,MACvB,IAAI,IACJ,KAAK,KAAK,KAAK,IAAI,KACnB,OAAO,IAAI,IAAI,QAAQ,IAAI;AAAA;",
+  "names": []
+}

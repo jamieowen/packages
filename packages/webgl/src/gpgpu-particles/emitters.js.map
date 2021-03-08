@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/webgl/src/gpgpu-particles/emitters.ts"],
+  "sourcesContent": ["import { assign, Sym, Term, ifThen, gt, float, add } from \"@thi.ng/shader-ast\";\n\n/**\n *\n * Advance age by decay amount, by assigning\n * decay + age to age symbol.\n *\n * Once age > 1.0, reset age to 0.0 and apply\n * dead terms.\n *\n * @param age\n * @param decay\n * @param dead\n */\nexport const advanceAgeByDecay = (\n  age: Sym<\"float\">,\n  decay: Term<\"float\">,\n  dead: Term<any>[]\n) => {\n  return ifThen(\n    gt(age, float(1.0)),\n    [assign(age, float(0.0)), ...dead],\n    [assign(age, add(age, decay))]\n  );\n};\n\n/**\n *\n * Same as @see advanceAgeByDecay(),\n * but assign an emitter term to\n * the position.\n *\n * @param age\n * @param decay\n * @param emitter\n */\nexport const advanceAgeByDecayEmit = (\n  age: Sym<\"float\">,\n  decay: Term<\"float\">,\n  position: Sym<\"vec3\">,\n  emitter: Term<\"vec3\">\n) => advanceAgeByDecay(age, decay, [assign(position, emitter)]);\n"],
+  "mappings": "AAAA;AAcO,aAAM,oBAAoB,CAC/B,KACA,OACA,SACG;AACH,SAAO,OACL,GAAG,KAAK,MAAM,KACd,CAAC,OAAO,KAAK,MAAM,KAAO,GAAG,OAC7B,CAAC,OAAO,KAAK,IAAI,KAAK;AAAA;AAcnB,aAAM,wBAAwB,CACnC,KACA,OACA,UACA,YACG,kBAAkB,KAAK,OAAO,CAAC,OAAO,UAAU;",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/three/src/index.ts"],
+  "sourcesContent": ["export * from \"./geometry\";\nexport * from \"./interaction\";\nexport * from \"./factory-fn\";\nexport * from \"./render\";\nexport * from \"./streams\";\nexport * from \"./prefabs\";\nexport * from \"./gpgpu\";\n"],
+  "mappings": "AAAA;AACA;AACA;AACA;AACA;AACA;AACA;",
+  "names": []
+}

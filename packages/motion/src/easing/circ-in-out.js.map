@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/circ-in-out.ts"],
+  "sourcesContent": ["export function circInOut(t: number) {\n  if ((t *= 2) < 1) return -0.5 * (Math.sqrt(1 - t * t) - 1);\n  return 0.5 * (Math.sqrt(1 - (t -= 2) * t) + 1);\n}\n"],
+  "mappings": "AAAO,0BAAmB,GAAW;AACnC,MAAK,MAAK,KAAK;AAAG,WAAO,OAAQ,MAAK,KAAK,IAAI,IAAI,KAAK;AACxD,SAAO,MAAO,MAAK,KAAK,IAAK,MAAK,KAAK,KAAK;AAAA;",
+  "names": []
+}

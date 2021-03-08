@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/elastic-in-out.ts"],
+  "sourcesContent": ["export function elasticInOut(t: number) {\n  return t < 0.5\n    ? 0.5 *\n        Math.sin(((+13.0 * Math.PI) / 2) * 2.0 * t) *\n        Math.pow(2.0, 10.0 * (2.0 * t - 1.0))\n    : 0.5 *\n        Math.sin(((-13.0 * Math.PI) / 2) * (2.0 * t - 1.0 + 1.0)) *\n        Math.pow(2.0, -10.0 * (2.0 * t - 1.0)) +\n        1.0;\n}\n"],
+  "mappings": "AAAO,6BAAsB,GAAW;AACtC,SAAO,IAAI,MACP,MACE,KAAK,IAAM,KAAQ,KAAK,KAAM,IAAK,IAAM,KACzC,KAAK,IAAI,GAAK,KAAQ,KAAM,IAAI,MAClC,MACE,KAAK,IAAM,MAAQ,KAAK,KAAM,IAAM,KAAM,IAAI,IAAM,MACpD,KAAK,IAAI,GAAK,MAAS,KAAM,IAAI,MACjC;AAAA;",
+  "names": []
+}

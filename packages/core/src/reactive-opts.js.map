@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/core/src/reactive-opts.ts"],
+  "sourcesContent": ["import { Stream, Subscription } from \"@thi.ng/rstream\";\nimport { map } from \"@thi.ng/transducers\";\n\nexport const mergeOpts = <T>(opts: T) => {\n  let last = opts;\n  return map<Partial<T>, T>((x) => {\n    last = {\n      ...last,\n      ...x,\n    };\n    return last;\n  });\n};\n\nexport type ReactiveOpts<T> = Subscription<Partial<T>,T>;\nexport type ReactiveOptsFactory<T> = (opts:Partial<T>) => ReactiveOpts<T>;\n\nexport const reactiveOptsFactory = <T>(defaultOpts: T):ReactiveOptsFactory<T> => {\n  return (opts: Partial<T>) => {\n    return new Stream<T>(($) => {\n      $.next({\n        ...opts as T,\n      });\n    }).subscribe(mergeOpts(defaultOpts));\n  };\n};\n\n/**\nconst testOpts = reactiveOptsFactory<{ opt1: number; opt2?: number }>({\n  opt1: 10,\n  opt2: 20,\n});\n\n */\n"],
+  "mappings": "AAAA;AACA;AAEO,aAAM,YAAY,CAAI,SAAY;AACvC,MAAI,OAAO;AACX,SAAO,IAAmB,CAAC,MAAM;AAC/B,WAAO;AAAA,SACF;AAAA,SACA;AAAA;AAEL,WAAO;AAAA;AAAA;AAOJ,aAAM,sBAAsB,CAAI,gBAA0C;AAC/E,SAAO,CAAC,SAAqB;AAC3B,WAAO,IAAI,OAAU,CAAC,MAAM;AAC1B,QAAE,KAAK;AAAA,WACF;AAAA;AAAA,OAEJ,UAAU,UAAU;AAAA;AAAA;",
+  "names": []
+}

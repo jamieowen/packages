@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/easing/quart-in.ts"],
+  "sourcesContent": ["export function quartIn(t: number) {\n  return Math.pow(t, 4.0);\n}\n"],
+  "mappings": "AAAO,wBAAiB,GAAW;AACjC,SAAO,KAAK,IAAI,GAAG;AAAA;",
+  "names": []
+}

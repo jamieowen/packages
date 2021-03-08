@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/index.ts"],
+  "sourcesContent": ["export * from \"./base-streams\";\nexport * from \"./api\";\nexport * from \"./clock\";\nexport * from \"./invalidate\";\nexport * from \"./map\";\nexport * from \"./trails\";\nexport * from \"./easing\";\nexport * from \"./ease-types\";\nexport * from \"./array-iterator\";\nexport * from \"./particle\";\nexport * from \"./drag-gesture\";\n"],
+  "mappings": "AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;",
+  "names": []
+}

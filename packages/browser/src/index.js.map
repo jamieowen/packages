@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/browser/src/index.ts"],
+  "sourcesContent": ["export * from \"./gesture-stream\";\nexport * from \"./timer-stream\";\nexport * from \"./keyboard-stream\";\nexport * from \"./resize-observer-stream\";\n"],
+  "mappings": "AAAA;AACA;AACA;AACA;",
+  "names": []
+}

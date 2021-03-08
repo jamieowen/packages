@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/webgl/src/gpgpu/index.ts"],
+  "sourcesContent": ["export * from \"./state-setup\";\n"],
+  "mappings": "AAAA;",
+  "names": []
+}

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/three/src/factory-fn/instancing.ts"],
+  "sourcesContent": ["import {\n  BufferGeometry,\n  Euler,\n  InstancedMesh,\n  Material,\n  Object3D,\n  Vector3,\n} from \"three\";\n\nexport const createInstancedMesh = (\n  geometry: BufferGeometry,\n  material: Material,\n  count: number\n) => {\n  return new InstancedMesh(geometry, material, count);\n};\n\nexport const instancedMeshIterator = (mesh: InstancedMesh) => {\n  const tmp = new Object3D();\n  return (\n    fn: (\n      idx: number,\n      position: Vector3,\n      scale: Vector3,\n      rotation: Euler\n    ) => void\n  ) => {\n    for (let i = 0; i < mesh.count; i++) {\n      tmp.rotation.set(0, 0, 0);\n      tmp.position.set(0, 0, 0);\n      tmp.scale.set(1, 1, 1);\n\n      fn(i, tmp.position, tmp.scale, tmp.rotation);\n      tmp.updateMatrix();\n      mesh.setMatrixAt(i, tmp.matrix);\n    }\n    mesh.instanceMatrix.needsUpdate = true;\n  };\n};\n"],
+  "mappings": "AAAA;AAAA;AAAA;AAAA;AASO,aAAM,sBAAsB,CACjC,UACA,UACA,UACG;AACH,SAAO,IAAI,cAAc,UAAU,UAAU;AAAA;AAGxC,aAAM,wBAAwB,CAAC,SAAwB;AAC5D,QAAM,MAAM,IAAI;AAChB,SAAO,CACL,OAMG;AACH,aAAS,IAAI,GAAG,IAAI,KAAK,OAAO,KAAK;AACnC,UAAI,SAAS,IAAI,GAAG,GAAG;AACvB,UAAI,SAAS,IAAI,GAAG,GAAG;AACvB,UAAI,MAAM,IAAI,GAAG,GAAG;AAEpB,SAAG,GAAG,IAAI,UAAU,IAAI,OAAO,IAAI;AACnC,UAAI;AACJ,WAAK,YAAY,GAAG,IAAI;AAAA;AAE1B,SAAK,eAAe,cAAc;AAAA;AAAA;",
+  "names": []
+}

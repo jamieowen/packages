@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/examples/src/motion-gestures.ts"],
+  "sourcesContent": ["import { sketch, gestureStream3d, dragGesture3d } from \"@jamieowen/three\";\nimport { filter } from \"@thi.ng/transducers\";\nimport { dist3, distManhattan3 } from \"@thi.ng/vectors\";\n\nsketch(({ domElement, camera, resize }) => {\n  dragGesture3d(gestureStream3d(domElement, camera, resize))\n    .subscribe({\n      next: (ev) => {\n        // console.log(\"RENDER\", ev.particle.data.position);\n        domElement.innerText = ev.particle.data.position.toString();\n      },\n    })\n    .transform(\n      filter(({ particle }) => {\n        const ev = particle;\n        // let changed = false;\n        const dis = Math.abs(dist3(ev.data.position, ev.data.previous));\n        const man = distManhattan3(ev.data.position, ev.data.previous);\n        const changed = dis > 0.1;\n        console.log(\"CHNAGED\", changed);\n        return changed;\n      })\n    ); // emit only within threshold\n});\n"],
+  "mappings": "AAAA;AACA;AACA;AAEA,OAAO,CAAC,CAAE,YAAY,QAAQ,YAAa;AACzC,gBAAc,gBAAgB,YAAY,QAAQ,SAC/C,UAAU;AAAA,IACT,MAAM,CAAC,OAAO;AAEZ,iBAAW,YAAY,GAAG,SAAS,KAAK,SAAS;AAAA;AAAA,KAGpD,UACC,OAAO,CAAC,CAAE,cAAe;AACvB,UAAM,KAAK;AAEX,UAAM,MAAM,KAAK,IAAI,MAAM,GAAG,KAAK,UAAU,GAAG,KAAK;AACrD,UAAM,MAAM,eAAe,GAAG,KAAK,UAAU,GAAG,KAAK;AACrD,UAAM,UAAU,MAAM;AACtB,YAAQ,IAAI,WAAW;AACvB,WAAO;AAAA;AAAA;",
+  "names": []
+}

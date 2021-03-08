@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["/Users/jamieowen/Workspace/packages/packages/motion/src/array-iterator.ts"],
+  "sourcesContent": ["import { step, Transducer, sideEffect } from \"@thi.ng/transducers\";\nimport { subscription } from \"@thi.ng/rstream\";\nimport { IMotionEvent } from \"./api\";\n\ninterface ArrayIteratorOpts<I, O> {\n  xform: Transducer<IMotionEvent<\"particle\">, IMotionEvent<\"particle\">>;\n}\n\nexport const particleIterator = <I, O>(opts: ArrayIteratorOpts<I, O>) => {\n  let apply = step(opts.xform);\n  let tmp: IMotionEvent<\"particle\"> = {\n    type: \"particle\",\n    data: null,\n    clock: null,\n  };\n  return subscription<\n    IMotionEvent<\"particle-array\">,\n    IMotionEvent<\"particle-array\">\n  >(\n    {\n      next: () => {},\n      error: (err) => {\n        throw err;\n      },\n    },\n    {\n      // Apply given transducer to each particle in array.\n      xform: sideEffect((ev) => {\n        tmp.clock = ev.clock;\n        for (let i = 0; i < ev.data.length; i++) {\n          tmp.data = ev.data[i];\n          apply(tmp);\n        }\n      }),\n    }\n  );\n};\n"],
+  "mappings": "AAAA;AACA;AAOO,aAAM,mBAAmB,CAAO,SAAkC;AACvE,MAAI,QAAQ,KAAK,KAAK;AACtB,MAAI,MAAgC;AAAA,IAClC,MAAM;AAAA,IACN,MAAM;AAAA,IACN,OAAO;AAAA;AAET,SAAO,aAIL;AAAA,IACE,MAAM,MAAM;AAAA;AAAA,IACZ,OAAO,CAAC,QAAQ;AACd,YAAM;AAAA;AAAA,KAGV;AAAA,IAEE,OAAO,WAAW,CAAC,OAAO;AACxB,UAAI,QAAQ,GAAG;AACf,eAAS,IAAI,GAAG,IAAI,GAAG,KAAK,QAAQ,KAAK;AACvC,YAAI,OAAO,GAAG,KAAK;AACnB,cAAM;AAAA;AAAA;AAAA;AAAA;",
+  "names": []
+}
