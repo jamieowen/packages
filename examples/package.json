@@ -6,7 +6,7 @@
   "scripts": {
     "start": "snowpack dev --reload",
     "build": "snowpack build",
-    "gh-pages": "node ./scripts/gh-pages.js"
+    "gh-pages": "yarn build && cp public/.nojekyll build && gh-pages -t -d build"
   },
   "devDependencies": {
     "@snowpack/plugin-typescript": "^1.2.1",

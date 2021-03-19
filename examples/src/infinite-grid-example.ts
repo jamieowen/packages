@@ -144,8 +144,8 @@ sketch(
     // GUI Subscribe & Update Opts.
     // + Bounds & Center Offset
     const updateViewport = (
-      viewport: number[],
-      dimensions: number[],
+      viewport: [number, number],
+      dimensions: [number, number],
       subdiv: number = 0.6,
       seed: number = 1
     ) => {
@@ -168,8 +168,11 @@ sketch(
 
     gui.subscribe({
       next: ({ values }) => {
-        let vp = [values.viewportX, values.viewportY];
-        let dims = [values.width * 0.1, values.height * 0.1];
+        let vp = [values.viewportX, values.viewportY] as [number, number];
+        let dims = [values.width * 0.1, values.height * 0.1] as [
+          number,
+          number
+        ];
 
         updateViewport(vp, dims, values.subdivCond, values.seed);
       },
@@ -179,9 +182,9 @@ sketch(
     const obj3d = new Object3D();
     const color = new Color();
     const t1 = [];
-    const t2 = [];
-    const t3 = [];
-    const t4 = [];
+    // const t2 = [];
+    // const t3 = [];
+    // const t4 = [];
 
     sync({
       src: {
@@ -198,13 +201,13 @@ sketch(
         const yscale = 0;
 
         const s1 = 1; //0.9;
-        const s2 = 1; //0.7;
+        // const s2 = 1; //0.7;
         // scale
         const d1 = mulN2(t1, dims, s1);
-        const d2 = mulN2(t2, dims, s2);
+        // const d2 = mulN2(t2, dims, s2);
         // offset
-        const d3 = mulN2(null, sub3(t3, dims, d1), 0.5);
-        const d4 = mulN2(null, sub3(t4, dims, d2), 0.5);
+        // const d3 = mulN2(null, sub3(t3, dims, d1), 0.5);
+        // const d4 = mulN2(null, sub3(t4, dims, d2), 0.5);
 
         // Grid 1
         if (guiopts.values.grid) {
