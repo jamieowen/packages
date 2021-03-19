@@ -11,11 +11,16 @@
     "build:es6:watch": "tsc -w",
     "build:check": "tsc --noEmit",
     "clean": "rimraf dist",
-    "link:sys": "yarn link"
+    "link:sys": "yarn link",
+    "check-updates": "ncu",
+    "apply-updates": "ncu -u && yarn"
   },
   "dependencies": {
     "@thi.ng/rstream": "^6.0.1",
-    "@thi.ng/transducers": "^7.5.3"
+    "@thi.ng/transducers": "^7.6.7"
   },
-  "gitHead": "7385edd182190d3ee9de89519ebba9fc7500994c"
+  "gitHead": "7385edd182190d3ee9de89519ebba9fc7500994c",
+  "devDependencies": {
+    "npm-check-updates": "^11.3.0"
+  }
 }

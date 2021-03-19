@@ -11,12 +11,17 @@
     "build:es6:watch": "tsc -w",
     "build:check": "tsc --noEmit",
     "clean": "rimraf dist",
-    "link:sys": "yarn link"
+    "link:sys": "yarn link",
+    "check-updates": "ncu",
+    "apply-updates": "ncu -u && yarn"
   },
   "dependencies": {
-    "@thi.ng/api": "^7.0.0",
-    "@thi.ng/shader-ast": "^0.8.4",
-    "@thi.ng/shader-ast-glsl": "^0.2.20",
-    "@thi.ng/shader-ast-stdlib": "^0.5.18"
+    "@thi.ng/api": "^7.1.4",
+    "@thi.ng/shader-ast": "^0.8.6",
+    "@thi.ng/shader-ast-glsl": "^0.2.28",
+    "@thi.ng/shader-ast-stdlib": "^0.5.20"
+  },
+  "devDependencies": {
+    "npm-check-updates": "^11.3.0"
   }
 }

@@ -11,7 +11,6 @@ import {
 } from "three";
 import { createMeshFactory, createLightHelpers } from "../factory-fn";
 import { reactiveOptsFactory, ReactiveOpts } from "@jamieowen/core";
-import { forceStream } from "@jamieowen/motion";
 
 const mf = createMeshFactory();
 
@@ -108,6 +107,7 @@ export const createDomeSimpleLight = (
   const helpers = createLightHelpers(parent);
   parent.add(helpers);
 
+  console.log("Opts : ", opts.deref());
   opts.subscribe({
     next: ({ color, intensity, emissive, showHelpers }) => {
       // Apply color

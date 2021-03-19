@@ -1,4 +1,4 @@
-import { Subscription } from "@thi.ng/rstream";
+import { ISubscription } from "@thi.ng/rstream";
 import {
   GestureEvent,
   gestureStream,
@@ -32,7 +32,7 @@ export interface GestureStream3DOpts extends GestureStreamOpts {
   normal: [number, number, number];
 }
 
-export type GestureStream3D = Subscription<GestureEvent, GestureEvent3D>;
+export type GestureStream3D = ISubscription<GestureEvent, GestureEvent3D>;
 
 export const gestureStream3d = (
   domElement: HTMLElement,
@@ -77,6 +77,11 @@ export const gestureStream3d = (
         pos: position.toArray(),
         setPlaneNormal,
       };
-    })
+    }),
+    {
+      error: (err) => {
+        throw err;
+      },
+    }
   );
 };

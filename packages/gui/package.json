@@ -11,15 +11,17 @@
     "build:es6:watch": "tsc -w",
     "build:check": "tsc --noEmit",
     "clean": "rimraf dist",
-    "link:sys": "yarn link"
+    "link:sys": "yarn link",
+    "check-updates": "ncu",
+    "apply-updates": "ncu -u && yarn"
   },
   "dependencies": {
     "@jamieowen/browser": "^0.0.6",
     "@thi.ng/rstream": "^6.0.1",
-    "dat.gui": "^0.7.7",
-    "rollup": "^2.39.0"
+    "dat.gui": "^0.7.7"
   },
   "devDependencies": {
-    "@types/dat.gui": "^0.7.6"
+    "@types/dat.gui": "^0.7.6",
+    "npm-check-updates": "^11.3.0"
   }
 }

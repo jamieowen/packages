@@ -18,7 +18,6 @@ export function createGui<T>(controls: T) {
     toggle: ["k"],
   }).subscribe({
     next: (ev) => {
-      console.log(ev);
       if (ev.isKeyToggled && ev.keysToggled.indexOf("k") > -1) {
         gui.hide();
       } else {

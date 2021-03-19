@@ -11,22 +11,28 @@
     "build:es6:watch": "tsc -w",
     "build:check": "tsc --noEmit",
     "clean": "rimraf dist",
-    "link:sys": "yarn link"
+    "link:sys": "yarn link",
+    "check-updates": "ncu",
+    "apply-updates": "ncu -u && yarn"
   },
   "dependencies": {
     "@jamieowen/browser": "^0.0.6",
     "@jamieowen/core": "^0.0.2",
     "@jamieowen/motion": "^0.0.6",
     "@jamieowen/webgl": "^0.0.4",
-    "@thi.ng/api": "^7.0.0",
-    "@thi.ng/memoize": "^2.1.8",
+    "@thi.ng/api": "^7.1.4",
+    "@thi.ng/memoize": "^2.1.14",
     "@thi.ng/rstream": "^6.0.1",
-    "@thi.ng/rstream-gestures": "^3.0.5",
-    "@thi.ng/transducers": "^7.5.8",
-    "@thi.ng/vectors": "^5.0.0"
+    "@thi.ng/rstream-gestures": "^3.0.14",
+    "@thi.ng/transducers": "^7.6.7",
+    "@thi.ng/vectors": "^5.1.5"
   },
   "peerDependencies": {
-    "three": "0.123.0"
+    "three": "0.126.1"
   },
-  "gitHead": "7385edd182190d3ee9de89519ebba9fc7500994c"
+  "gitHead": "7385edd182190d3ee9de89519ebba9fc7500994c",
+  "devDependencies": {
+    "@types/three": "^0.126.1",
+    "npm-check-updates": "^11.3.0"
+  }
 }

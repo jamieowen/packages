@@ -11,9 +11,10 @@ import {
 import {
   sketch,
   createStateTextureAst,
-  createDomeSimpleLight,
   createDomeSimpleOpts,
 } from "@jamieowen/three";
+import { createDomeSimpleLight } from "../../packages/three/src";
+
 import {
   program,
   defMain,
