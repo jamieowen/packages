@@ -14,8 +14,8 @@
     "link:sys": "yarn link"
   },
   "dependencies": {
-    "@jamieowen/browser": "^0.0.3",
-    "@thi.ng/rstream": "^5.1.7",
+    "@jamieowen/browser": "^0.0.6",
+    "@thi.ng/rstream": "^6.0.1",
     "dat.gui": "^0.7.7",
     "rollup": "^2.39.0"
   },

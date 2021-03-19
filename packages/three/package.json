@@ -20,7 +20,7 @@
     "@jamieowen/webgl": "^0.0.4",
     "@thi.ng/api": "^7.0.0",
     "@thi.ng/memoize": "^2.1.8",
-    "@thi.ng/rstream": "^5.1.0",
+    "@thi.ng/rstream": "^6.0.1",
     "@thi.ng/rstream-gestures": "^3.0.5",
     "@thi.ng/transducers": "^7.5.8",
     "@thi.ng/vectors": "^5.0.0"

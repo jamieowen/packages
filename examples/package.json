@@ -27,6 +27,6 @@
     "@thi.ng/shader-ast-stdlib": "^0.5.18",
     "@thi.ng/transducers": "^7.5.8",
     "dat.gui": "^0.7.7",
-    "three": "^0.125.2"
+    "three": "^0.126.1"
   }
 }

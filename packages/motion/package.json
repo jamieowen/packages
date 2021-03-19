@@ -15,10 +15,11 @@
   },
   "dependencies": {
     "@jamieowen/browser": "^0.0.6",
-    "@thi.ng/rstream": "^5.1.0",
+    "@thi.ng/rstream": "^6.0.1",
     "@thi.ng/rstream-gestures": "^3.0.5",
     "@thi.ng/transducers": "^7.5.3",
-    "@thi.ng/vectors": "^5.0.0"
+    "@thi.ng/vectors": "^5.0.0",
+    "rollup": "^2.39.0"
   },
   "gitHead": "7385edd182190d3ee9de89519ebba9fc7500994c"
 }
