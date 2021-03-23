@@ -1,6 +1,6 @@
 {
   "name": "@jamieowen/three",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "./dist/index.main.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -16,9 +16,9 @@
     "apply-updates": "ncu -u && yarn"
   },
   "dependencies": {
-    "@jamieowen/browser": "^0.0.7",
+    "@jamieowen/browser": "^0.0.8",
     "@jamieowen/core": "^0.0.3",
-    "@jamieowen/motion": "^0.0.7",
+    "@jamieowen/motion": "^0.0.8",
     "@jamieowen/webgl": "^0.0.5",
     "@thi.ng/api": "^7.1.4",
     "@thi.ng/memoize": "^2.1.14",
