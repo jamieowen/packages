@@ -38,4 +38,16 @@ export interface IMotionEvent<T extends MotionDataType> {
   clock: IClock;
 }
 
+export interface ITransformMotionEvent {
+  type: "transform";
+  data: ITransform;
+}
+
+export interface ITransformArrayMotionEvent {
+  type: "transform-array";
+  data: ITransform[];
+}
+
+export type IMotionEvent2 = ITransformMotionEvent | ITransformArrayMotionEvent;
+
 export default {}; // snowpack does not export without something?
