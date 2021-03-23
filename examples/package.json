@@ -1,7 +1,7 @@
 {
   "name": "@jamieowen/examples",
   "private": "true",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
   "scripts": {
     "start": "snowpack dev --reload",
@@ -17,12 +17,12 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "@jamieowen/browser": "^0.0.6",
-    "@jamieowen/gui": "^0.0.1",
-    "@jamieowen/layout": "^0.0.6",
-    "@jamieowen/motion": "^0.0.6",
-    "@jamieowen/three": "^0.0.6",
-    "@jamieowen/webgl": "^0.0.4",
+    "@jamieowen/browser": "^0.0.7",
+    "@jamieowen/gui": "^0.0.2",
+    "@jamieowen/layout": "^0.0.7",
+    "@jamieowen/motion": "^0.0.7",
+    "@jamieowen/three": "^0.0.7",
+    "@jamieowen/webgl": "^0.0.5",
     "@thi.ng/random": "^2.2.0",
     "@thi.ng/shader-ast": "^0.8.4",
     "@thi.ng/shader-ast-stdlib": "^0.5.18",
